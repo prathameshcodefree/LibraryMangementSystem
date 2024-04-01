@@ -2,6 +2,6 @@
 - Suhail
 - Tamboli
 - prathamesh
-- Deepak
+- Deepak P
 - Durgesh
 - Sheela

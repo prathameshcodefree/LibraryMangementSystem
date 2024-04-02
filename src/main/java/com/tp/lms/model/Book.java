@@ -13,6 +13,12 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
+<<<<<<< HEAD
+=======
+enum BookStatus {
+	
+}
+>>>>>>> 7b7c1cb7258f167aac6696363b6e3b6f4039c45d
 
 @Entity
 @Table(name = "book")

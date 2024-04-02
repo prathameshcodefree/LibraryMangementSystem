@@ -1,5 +1,7 @@
 package com.tp.lms.model;
 
+import com.tp.lms.model.enums.BookStatus;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -12,9 +14,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 
-enum BookStatus {
-	
-}
+
 
 @Entity
 @Table(name = "book",uniqueConstraints = {@UniqueConstraint(columnNames = {"student_id","book_id"})})

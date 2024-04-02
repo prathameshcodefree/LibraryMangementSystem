@@ -12,12 +12,14 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> f75e4debf1d972227d85603a09b7ca3b31602c1a
 
 @Entity
-@Table(name = "book",uniqueConstraints = {@UniqueConstraint(columnNames = {"student_id","book_id"})})
+@Table(name = "book")
 public class Book  extends AuditColumn {
 
 	@Id

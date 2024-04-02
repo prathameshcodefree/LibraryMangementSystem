@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import com.tp.lms.model.Requirement;
 
+
 @Repository
 public interface RequirementRepository extends JpaRepository<Requirement , Integer>{
 

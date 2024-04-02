@@ -13,7 +13,7 @@ import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 
 enum BookStatus {
-	AVAILABLE, NOT_AVAILABLE, DISCONTINUED
+	
 }
 
 @Entity

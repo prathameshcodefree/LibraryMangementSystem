@@ -6,19 +6,16 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
-<<<<<<< HEAD
-=======
-enum BookStatus {
-	
-}
->>>>>>> 7b7c1cb7258f167aac6696363b6e3b6f4039c45d
+
 
 @Entity
 @Table(name = "book")
@@ -29,8 +26,8 @@ public class Book  extends AuditColumn {
 	@Column(name = "book_id")
 	private Integer bookId;
 
-	@ManyToOne
-	@JoinColumn(name = "book_master_id", referencedColumnName = "book_master_id")	
+	@OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "book_master_id", nullable = false)
 	private int bookMasterId;
 
 	@Column(name = "isbn_code", length = 20)

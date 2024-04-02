@@ -18,7 +18,7 @@ enum BookStatus {
 
 @Entity
 @Table(name = "book",uniqueConstraints = {@UniqueConstraint(columnNames = {"student_id","book_id"})})
-public class Book {
+public class Book  extends AuditColumn {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

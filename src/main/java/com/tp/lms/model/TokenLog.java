@@ -2,32 +2,26 @@ package com.tp.lms.model;
 
 import java.util.Date;
 
+import com.tp.lms.model.enums.LinkType;
+import com.tp.lms.model.enums.Purpose;
+
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
-enum LinkType{
-	ADMIN,
-	STAFF,
-	STUDENT
-}
 
 
-enum Purpose{
-	LOGIN,
-	RESET
-}
-
-
-
-
-
+@Entity
 public class TokenLog {
 	
 	@Id
 	@Column(name="token_log_id")
-	private int tokenLogId;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer tokenLogId;
 	
 	@Column(name="link_id")
 	private int linkId;
@@ -40,14 +34,14 @@ public class TokenLog {
 	@Column(name="purpose")
 	private Purpose purpose;
 	
-	@Column(name="user_name")
+	@Column(name="user_name", length = 128)
 	private String userName;
 	
 	
-	@Column(name="token")
+	@Column(name="token", length = 128)
 	private String token;
 	
-	@Column(name="ip")
+	@Column(name="ip" , length = 128)
 	private String ip;
 	
 	@Column(name="attempt")

@@ -1,5 +1,7 @@
 package com.tp.lms.model;
 
+import com.tp.lms.model.enums.StaffType;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -9,14 +11,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-enum StaffType {
-	Librarian, Inventory, Manager
-}
-
 
 @Entity
 @Table(name = "staff")
-public class Staff {
+public class Staff extends AuditColumn {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

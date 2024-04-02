@@ -2,16 +2,14 @@ package com.tp.lms.model;
 
 import java.util.Date;
 
-import jakarta.persistence.*;
+import com.tp.lms.model.enums.Status;
 
-enum Status {
-	ISSUED, RETURNED
-}
+import jakarta.persistence.*;
 
 
 @Entity
 @Table(name = "bookissue",uniqueConstraints = {@UniqueConstraint(columnNames = {"student_id","book_id"})})
-public class BookIssue {
+public class BookIssue extends AuditColumn {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

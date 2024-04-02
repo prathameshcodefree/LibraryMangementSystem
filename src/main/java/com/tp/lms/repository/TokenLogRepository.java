@@ -5,6 +5,11 @@ import org.springframework.stereotype.Repository;
 
 import com.tp.lms.model.TokenLog;
 
+/**
+ * 
+ * 
+ @author DURGESH */
+
 @Repository
 public interface TokenLogRepository extends JpaRepository<TokenLog , Integer> {
 

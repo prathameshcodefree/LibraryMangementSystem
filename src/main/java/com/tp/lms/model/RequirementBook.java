@@ -8,10 +8,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
+
 
 @Entity
-@Table(name ="requirementbook",uniqueConstraints = {@UniqueConstraint(columnNames = {"book_id"})})
+@Table(name ="requirementbook")
 public class RequirementBook {
 
 	@Id

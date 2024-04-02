@@ -1,5 +1,6 @@
 package com.tp.lms.model;
 
+import com.tp.lms.model.enums.Presenty;
 import java.util.Date;
 
 import jakarta.persistence.Column;
@@ -30,9 +31,7 @@ public class StaffAttendance {
     private Date checkOut;
 
 
-public enum Presenty {
-    FULLDAY, HALFDAY, ABSENT
-}
+
     
     @Enumerated(EnumType.STRING)
     @Column(name= "presenty")

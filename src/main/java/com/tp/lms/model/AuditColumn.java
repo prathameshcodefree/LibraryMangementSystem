@@ -11,11 +11,11 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
+
 
 
 @Entity
-@Table(name = "auditcolumn", uniqueConstraints = { @UniqueConstraint(columnNames = { "updated_by", "created_by" }) })
+@Table(name = "auditcolumn")
 public class AuditColumn {
 
 	@Enumerated(EnumType.STRING)

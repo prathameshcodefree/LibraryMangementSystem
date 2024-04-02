@@ -7,10 +7,13 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 /**
  * 
@@ -25,6 +28,13 @@ public class StaffAttendance extends AuditColumn {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name= "staff_attendance_id")
     private Integer id;
+    
+    @Column(name = "staff_id", nullable = false)
+    private Integer staffId;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "staff_id", nullable = false)
+    private Staff staff;
 
     @Column(name= "check_in")
     private Date checkIn;

@@ -10,6 +10,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 /**
  * 
@@ -17,12 +18,13 @@ import jakarta.persistence.Id;
  @author RAHUL */
 
 @Entity
-public class StaffAttendance {
+@Table(name = "staff_attendance ")
+public class StaffAttendance extends AuditColumn {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name= "staff_attendance_id")
-    private int id;
+    private Integer id;
 
     @Column(name= "check_in")
     private Date checkIn;
@@ -71,7 +73,6 @@ public class StaffAttendance {
     public void setPresenty(Presenty presenty) {
         this.presenty = presenty;
     }
-
     
 }
 

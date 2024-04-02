@@ -12,14 +12,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-/**
- *
- * @author Suhail Tamboli
- */
 @Entity
 @Table(name = "admin")
 public class Admin {
-    
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

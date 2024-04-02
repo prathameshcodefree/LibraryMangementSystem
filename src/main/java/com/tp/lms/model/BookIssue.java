@@ -8,7 +8,7 @@ import jakarta.persistence.*;
 
 
 @Entity
-@Table(name = "bookissue",uniqueConstraints = {@UniqueConstraint(columnNames = {"student_id","book_id"})})
+@Table(name = "bookissue")
 public class BookIssue extends AuditColumn {
 	
 	@Id

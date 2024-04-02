@@ -2,6 +2,8 @@ package com.tp.lms.model;
 
 import java.util.Date;
 
+import com.tp.lms.model.enums.RequirementStatus;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -12,15 +14,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
-
-enum RequirementStatus{
-	PENDING,
-	REJECTED,
-	FULFILLED
-}
-
-
-
+/**
+ * 
+ * 
+ @author DURGESH */
 
 @Entity
 public class Requirement {

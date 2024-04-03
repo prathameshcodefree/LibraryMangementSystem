@@ -4,22 +4,9 @@ import java.util.Date;
 import com.tp.lms.model.enums.UserType;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 
-<<<<<<< HEAD
-=======
-
-<<<<<<< HEAD
-=======
-
-@Table(name = "auditcolumn")
->>>>>>> 5ed82dddbfa0ee2173b323dc68bbbd113d92c094
->>>>>>> de49d812334ea83479284ccda14687c34a0263a4
 public class AuditColumn {
 
 	@Enumerated(EnumType.STRING)
@@ -27,7 +14,7 @@ public class AuditColumn {
 	private UserType updatedByType;
 
 	@Column(name = "updated_by")
-	private String updatedBy;
+	private Integer updatedBy;
 
 	
 	@Column(name = "updated_at")
@@ -39,7 +26,7 @@ public class AuditColumn {
 
 	
 	@Column(name = "created_by")
-	private String createdBy;
+	private Integer createdBy;
 
 	
 	@Column(name = "created_at")
@@ -53,11 +40,11 @@ public class AuditColumn {
 		this.updatedByType = updatedByType;
 	}
 
-	public String getUpdatedBy() {
+	public Integer getUpdatedBy() {
 		return updatedBy;
 	}
 
-	public void setUpdatedBy(String updatedBy) {
+	public void setUpdatedBy(Integer updatedBy) {
 		this.updatedBy = updatedBy;
 	}
 
@@ -77,11 +64,11 @@ public class AuditColumn {
 		this.createdByType = createdByType;
 	}
 
-	public String getCreatedBy() {
+	public Integer getCreatedBy() {
 		return createdBy;
 	}
 
-	public void setCreatedBy(String createdBy) {
+	public void setCreatedBy(Integer createdBy) {
 		this.createdBy = createdBy;
 	}
 

@@ -20,7 +20,7 @@ public class Staff extends AuditColumn {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "staff_id")
-	private Integer staffId;
+	private Integer id;
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "staff_type",length = 128)
@@ -61,12 +61,12 @@ public class Staff extends AuditColumn {
 	@Column(name = "pan_number", length = 10)
 	private int panNumber;
 
-	public Integer getStaffId() {
-		return staffId;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setStaffId(Integer staffId) {
-		this.staffId = staffId;
+	public void setStaffId(Integer id) {
+		this.id = id;
 	}
 
 	public StaffType getStaffType() {

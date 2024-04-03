@@ -24,7 +24,7 @@ public class TokenLog {
 	@Id
 	@Column(name="token_log_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer tokenLogId;
+	private Integer id;
 	
 	@Column(name="link_id")
 	private int linkId;
@@ -56,8 +56,8 @@ public class TokenLog {
 	@Column(name="created_at")
 	private Date createdAt;
 
-	public int getTokenLogId() {
-		return tokenLogId;
+	public int getId() {
+		return id;
 	}
 
 	public int getLinkId() {
@@ -96,8 +96,8 @@ public class TokenLog {
 		return createdAt;
 	}
 
-	public void setTokenLogId(int tokenLogId) {
-		this.tokenLogId = tokenLogId;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public void setLinkId(int linkId) {

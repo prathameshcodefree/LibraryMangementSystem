@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tp.lms.model.Staff;
+import com.tp.lms.model.StaffAttendance;
 import com.tp.lms.repository.StaffRepository;
 
 @Service
@@ -14,11 +15,11 @@ public class StaffService {
 	@Autowired
 	private StaffRepository repository;
 
-	public List<Staff> GetAllStaff() {
+	public List<StaffAttendance> GetAllStaff() {
 		return repository.findAll();
 	}
 
-	public Staff GetStaff(int id) {
+	public StaffAttendance GetStaff(int id) {
 		return repository.findById(id).get();
 	}
 

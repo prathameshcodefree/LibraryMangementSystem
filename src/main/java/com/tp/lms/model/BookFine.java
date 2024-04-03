@@ -15,7 +15,7 @@ public class BookFine extends AuditColumn {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "book_fine_id")
-	private Integer bookFineId;
+	private Integer id;
 
 	@Column(name = "book_issue_id")
 	private Integer bookIssueId;
@@ -35,12 +35,12 @@ public class BookFine extends AuditColumn {
 	@Column(name = "fine_amount")
 	private float fineAmount;
 
-	public Integer getBookFineId() {
-		return bookFineId;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setBookFineId(Integer bookFineId) {
-		this.bookFineId = bookFineId;
+	public void setBookFineId(Integer id) {
+		this.id = id;
 	}
 
 	public Integer getBookIssueId() {

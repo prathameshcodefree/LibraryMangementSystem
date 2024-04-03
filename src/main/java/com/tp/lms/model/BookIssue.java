@@ -8,20 +8,19 @@ import jakarta.persistence.*;
 
 
 @Entity
-@Table(name = "bookissue")
+@Table(name = "book_issue")
 public class BookIssue extends AuditColumn {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "book_id")
-	private Integer bookIssueId;
+	@Column(name = "book_issue_id")
+	private Integer id;
 
 	
 	@Column(name = "student_id")	
 	private int studentId;
 
-	@OneToOne
-	@JoinColumn(name = "book_id", referencedColumnName = "book_id")	
+	@Column(name = "book_id")	
 	private int bookId;
 
 	@Column(name = "issue_date")
@@ -40,12 +39,12 @@ public class BookIssue extends AuditColumn {
 	@Column(name = "is_delayed")
 	private boolean isDelayed;
 
-	public int getBookIssueId() {
-		return bookIssueId;
+	public int getId() {
+		return id;
 	}
 
-	public void setBookIssueId(int bookIssueId) {
-		this.bookIssueId = bookIssueId;
+	public void setBookIssueId(int id) {
+		this.id = id;
 	}
 
 	public int getStudentId() {

@@ -14,7 +14,7 @@ import jakarta.persistence.Table;
 public class Feedback extends AuditColumn {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer feedback_id;
+	private Integer id;
 	
 	
 	private Integer student_id;

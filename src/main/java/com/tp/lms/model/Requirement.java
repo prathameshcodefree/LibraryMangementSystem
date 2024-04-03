@@ -21,11 +21,12 @@ import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Requirement {
+	
+	
 	@Id
 	@Column(name="requirement_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer requirementId;
-	
 	
 	
 	@Column(name = "book_master_id")
@@ -101,5 +102,5 @@ public class Requirement {
 	public void setRequirementReason(char requirementReason) {
 		this.requirementReason = requirementReason;
 	}
-	
+
 }

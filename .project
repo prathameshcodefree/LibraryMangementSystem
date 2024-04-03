@@ -15,14 +15,11 @@
 			<arguments>
 			</arguments>
 		</buildCommand>
-<<<<<<< HEAD
-=======
 		<buildCommand>
 			<name>org.eclipse.m2e.core.maven2Builder</name>
 			<arguments>
 			</arguments>
 		</buildCommand>
->>>>>>> 59cdae688fdfb186ef15d3ccb98fc20d2928deb5
 	</buildSpec>
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>

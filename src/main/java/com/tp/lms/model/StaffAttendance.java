@@ -13,7 +13,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.ManyToOne; 	
 
 /**
  * 
@@ -41,9 +41,6 @@ public class StaffAttendance extends AuditColumn {
 
     @Column(name= "check_out")
     private Date checkOut;
-
-
-
     
     @Enumerated(EnumType.STRING)
     @Column(name= "presenty")

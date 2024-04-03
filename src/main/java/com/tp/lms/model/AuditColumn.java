@@ -14,7 +14,6 @@ import jakarta.persistence.Table;
 
 
 
-@Entity
 @Table(name = "auditcolumn")
 public class AuditColumn {
 

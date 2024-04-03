@@ -2,9 +2,12 @@ package com.tp.lms.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -16,9 +19,12 @@ public class BookMaster {
     @Column(name = "book_master_id")
 	private Integer bookMasterId;
 	
-	@Column(name = "book_category_id")
+	@OneToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="book_category_id",nullable=false)
 	private int bookCategoryId;
 	
+	@OneToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="book_sub_category_id",nullable=false)
 	@Column(name = "book_subcategory_id")
 	private int bookSubCategoryId;
 	

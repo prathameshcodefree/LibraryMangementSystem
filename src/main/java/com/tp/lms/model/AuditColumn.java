@@ -11,15 +11,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
-<<<<<<< HEAD
-=======
 
-<<<<<<< HEAD
-=======
-
-@Table(name = "auditcolumn")
->>>>>>> 5ed82dddbfa0ee2173b323dc68bbbd113d92c094
->>>>>>> de49d812334ea83479284ccda14687c34a0263a4
 public class AuditColumn {
 
 	@Enumerated(EnumType.STRING)

@@ -13,35 +13,35 @@ import com.tp.lms.repository.RequirementRepository;
 @Service
 public class RequirementService {
 	@Autowired
-	private RequirementRepository reqrepo;
+	private RequirementRepository requirementRepository;
 
 	public List<Requirement> getRequirement() {
 
-		return reqrepo.findAll();
+		return requirementRepository.findAll();
 
 	}
 
 	public Requirement getRequirementById(int requirementid) {
-		return reqrepo.findById(requirementid).get();
+		return requirementRepository.findById(requirementid).get();
 
 	}
 
 	public Requirement addRequirement(Requirement requirement) {
 
-		return reqrepo.save(requirement);
+		return requirementRepository.save(requirement);
 
 	}
 
 	public Requirement updaterequirement(int requirementid, Requirement requirement) {
 
-		requirement.setRequirementId(requirementid);
-		return reqrepo.save(requirement);
+		requirement.setId(requirementid);
+		return requirementRepository.save(requirement);
 
 	}
 	
 	public void deleteStudentById(int requirementid) {
 
-		reqrepo.deleteById(requirementid);
+		requirementRepository.deleteById(requirementid);
 	
 	}
 

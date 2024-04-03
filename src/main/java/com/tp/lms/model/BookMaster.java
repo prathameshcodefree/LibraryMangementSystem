@@ -21,12 +21,6 @@ public class BookMaster {
 	private Integer id;
 	
 	
-	@Column(name = "book_category_id")
-	private Integer bookCategoryId;
-
-	@Column(name = "book_subcategory_id")
-	private Integer bookSubCategoryId;
-	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="book_category_id",nullable=false)
 	private BookCategory bookCategory;
@@ -71,14 +65,6 @@ public class BookMaster {
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public Integer getBookCategoryId() {
-		return bookCategoryId;
-	}
-
-	public void setBookCategoryId(Integer bookCategoryId) {
-		this.bookCategoryId = bookCategoryId;
 	}
 
 	public BookCategory getBookCategory() {

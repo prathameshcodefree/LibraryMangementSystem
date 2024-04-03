@@ -13,26 +13,26 @@ import com.tp.lms.repository.StaffRepository;
 public class StaffService {
 
 	@Autowired
-	private StaffRepository repository;
+	private StaffRepository staffRepository;
 
-	public List<StaffAttendance> GetAllStaff() {
-		return repository.findAll();
+	public List<Staff> GetAllStaff() {
+		return staffRepository.findAll();
 	}
 
-	public StaffAttendance GetStaff(int id) {
-		return repository.findById(id).get();
+	public Staff GetStaff(int id) {
+		return staffRepository.findById(id).get();
 	}
 
 	public Staff AddStaff(Staff staff) {
-		return repository.save(staff);
+		return staffRepository.save(staff);
 	}
 
 	public Staff UpdateStaff(Staff staff, int id) {
 		staff.setStaffId(id);
-		return repository.save(staff);
+		return staffRepository.save(staff);
 	}
 
 	public void DeleteStaff(int id) {
-		repository.deleteById(id);
+		staffRepository.deleteById(id);
 	}
 }

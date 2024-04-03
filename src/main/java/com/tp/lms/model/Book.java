@@ -22,10 +22,6 @@ public class Book  extends AuditColumn {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "book_id")
 	private Integer id;
-
-	
-	@Column(name = "book_master_id")
-	private Integer bookMasterId;
 	
 
 	@ManyToOne
@@ -50,13 +46,6 @@ public class Book  extends AuditColumn {
 		this.id = id;
 	}
 
-	public Integer getBookMasterId() {
-		return bookMasterId;
-	}
-
-	public void setBookMasterId(Integer bookMasterId) {
-		this.bookMasterId = bookMasterId;
-	}
 
 	public Integer getIsbnCode() {
 		return isbnCode;

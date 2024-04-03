@@ -46,7 +46,7 @@ public class BookFineController {
 			
 		}
 		
-		@PutMapping("{/bookFineId}")
+		@PutMapping("/{bookFineId}")
 	      public BookFine updateBookFine(int bookFineId, @RequestBody BookFine bookfine) {
 			
 			return Bookfineservice.updateBookFine(bookFineId,bookfine);
@@ -54,7 +54,7 @@ public class BookFineController {
 		}
 
 		
-		@DeleteMapping("{/bookFineId}")
+		@DeleteMapping("/{bookFineId}")
 		public void deleteBookFine(@PathVariable int bookFineId) {
 
 			Bookfineservice.deleteBookFine(bookFineId);

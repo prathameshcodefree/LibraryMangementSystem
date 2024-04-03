@@ -47,7 +47,7 @@ public class BookIssueController {
 			
 		}
 		
-		@PutMapping("{/bookIssueId}")
+		@PutMapping("/{bookIssueId}")
 	      public BookIssue updateBookIssue(int bookIssueId, @RequestBody BookIssue bookissue) {
 			
 			return bookissueservice.updateBookIssue(bookIssueId,bookissue);
@@ -55,7 +55,7 @@ public class BookIssueController {
 		}
 
 		
-		@DeleteMapping("{/bookIssueId}")
+		@DeleteMapping("/{bookIssueId}")
 		public void deleteBookIssue(@PathVariable int bookIssueId) {
 
 			bookissueservice.deleteBookIssue(bookIssueId);

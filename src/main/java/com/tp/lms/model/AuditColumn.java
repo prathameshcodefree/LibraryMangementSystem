@@ -1,13 +1,17 @@
 package com.tp.lms.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import com.tp.lms.model.enums.UserType;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.MappedSuperclass;
 
-public class AuditColumn {
+
+@MappedSuperclass
+public abstract class AuditColumn  implements Serializable {
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "updated_by_type")

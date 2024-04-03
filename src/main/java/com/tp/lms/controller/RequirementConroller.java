@@ -51,7 +51,7 @@ public class RequirementConroller {
 	}
 	
 	@DeleteMapping("/{requirementid}")
-	public void deleteMethod (@PathVariable  Requirement requirementid ) {
+	public void deleteMethod (@PathVariable  int requirementid ) {
 		
 		reqservice.deleteStudentById(requirementid);
 		

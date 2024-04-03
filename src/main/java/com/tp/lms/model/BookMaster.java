@@ -8,8 +8,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
+
 import jakarta.persistence.Table;
 
 @Entity
@@ -45,14 +44,35 @@ public class BookMaster {
 	@Column(name = "publish_by", length = 128)
 	private String publishBy;
 	
-	@OneToMany(fetch=FetchType.LAZY)
 	@JoinColumn(name = "rack_id")
 	private Integer rackId;
 	
 	@Column(name = "audit_columns", length = 128)
     private String auditColumns;
 
-	public Integer getBookMasterId() {
+
+
+	@ManyToOne
+    @JoinColumn(name = "requirement_id")
+    private Requirement requirement;
+	public Requirement getRequirement() {
+		return requirement;
+	}
+
+	public void setRequirement(Requirement requirement) {
+		this.requirement = requirement;
+	}
+
+	public String getAuditColumns() {
+		return auditColumns;
+	}
+
+	public void setAuditColumns(String auditColumns) {
+		this.auditColumns = auditColumns;
+	}
+
+	public int getBookMasterId() {
+
 		return bookMasterId;
 	}
 
@@ -124,13 +144,7 @@ public class BookMaster {
 		this.rackId = rackId;
 	}
 
-	public String getAuditColumns() {
-		return auditColumns;
-	}
-
-	public void setAuditColumns(String auditColumns) {
-		this.auditColumns = auditColumns;
-	}
+	
 
 	
 

@@ -32,7 +32,7 @@ public class StudentService {
 
 	}
 
-	public Student updateStudent(int studentId, @RequestBody Student student) {
+	public Student updateStudent(int studentId, Student student) {
 		
 		
 		student.setStudentId(studentId);

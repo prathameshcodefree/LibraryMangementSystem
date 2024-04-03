@@ -1,25 +1,24 @@
 package com.tp.lms.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import com.tp.lms.model.enums.UserType;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MappedSuperclass;
 
 
-public class AuditColumn {
+@MappedSuperclass
+public abstract class AuditColumn  implements Serializable {
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "updated_by_type")
 	private UserType updatedByType;
 
 	@Column(name = "updated_by")
-	private String updatedBy;
+	private Integer updatedBy;
 
 	
 	@Column(name = "updated_at")
@@ -31,7 +30,7 @@ public class AuditColumn {
 
 	
 	@Column(name = "created_by")
-	private String createdBy;
+	private Integer createdBy;
 
 	
 	@Column(name = "created_at")
@@ -45,11 +44,11 @@ public class AuditColumn {
 		this.updatedByType = updatedByType;
 	}
 
-	public String getUpdatedBy() {
+	public Integer getUpdatedBy() {
 		return updatedBy;
 	}
 
-	public void setUpdatedBy(String updatedBy) {
+	public void setUpdatedBy(Integer updatedBy) {
 		this.updatedBy = updatedBy;
 	}
 
@@ -69,11 +68,11 @@ public class AuditColumn {
 		this.createdByType = createdByType;
 	}
 
-	public String getCreatedBy() {
+	public Integer getCreatedBy() {
 		return createdBy;
 	}
 
-	public void setCreatedBy(String createdBy) {
+	public void setCreatedBy(Integer createdBy) {
 		this.createdBy = createdBy;
 	}
 

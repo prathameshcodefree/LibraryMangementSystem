@@ -18,18 +18,15 @@ public class BookMaster {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "book_master_id")
-	private Integer bookMasterId;
+	private Integer id;
 	
-	
-	@Column(name = "book_category_id")
-	private Integer bookCategoryId;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="book_category_id",nullable=false)
 	private BookCategory bookCategory;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="book_sub_category_id",nullable=false)
+	@JoinColumn(name="book_subcategory_id",nullable=false)
 	private BookSubCategory bookSubCategory;
 	
 	@Column(name = "title", length = 128)
@@ -47,9 +44,6 @@ public class BookMaster {
 	@JoinColumn(name = "rack_id")
 	private Integer rackId;
 	
-	@Column(name = "audit_columns", length = 128)
-    private String auditColumns;
-
 
 
 	@ManyToOne
@@ -63,29 +57,14 @@ public class BookMaster {
 		this.requirement = requirement;
 	}
 
-	public String getAuditColumns() {
-		return auditColumns;
+
+	public int getId() {
+
+		return id;
 	}
 
-	public void setAuditColumns(String auditColumns) {
-		this.auditColumns = auditColumns;
-	}
-
-	public int getBookMasterId() {
-
-		return bookMasterId;
-	}
-
-	public void setBookMasterId(Integer bookMasterId) {
-		this.bookMasterId = bookMasterId;
-	}
-
-	public Integer getBookCategoryId() {
-		return bookCategoryId;
-	}
-
-	public void setBookCategoryId(Integer bookCategoryId) {
-		this.bookCategoryId = bookCategoryId;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public BookCategory getBookCategory() {

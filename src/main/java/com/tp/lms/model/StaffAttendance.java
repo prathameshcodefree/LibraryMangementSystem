@@ -32,8 +32,6 @@ public class StaffAttendance extends AuditColumn {
     @Column(name = "staff_id", nullable = false)
     private Integer staffId;
     
-    @Column(name = "staff")
-    private Staff staff;
 
     @Column(name= "check_in")
     private Date checkIn;

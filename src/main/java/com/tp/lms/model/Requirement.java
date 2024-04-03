@@ -13,6 +13,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 /**
  * 
@@ -20,13 +21,14 @@ import jakarta.persistence.ManyToOne;
  @author DURGESH */
 
 @Entity
+@Table(name = "requirement")
 public class Requirement {
 	
 	
 	@Id
 	@Column(name="requirement_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer requirementId;
+	private Integer id;
 	
 	
 	@Column(name = "book_master_id")
@@ -48,7 +50,7 @@ public class Requirement {
 	private char requirementReason;
 
 	public int getRequirementId() {
-		return requirementId;
+		return id;
 	}
 
 	public int getBookMasterId() {
@@ -75,8 +77,8 @@ public class Requirement {
 		return requirementReason;
 	}
 
-	public void setRequirementId(int requirementId) {
-		this.requirementId = requirementId;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public void setBookMasterId(int bookMasterId) {

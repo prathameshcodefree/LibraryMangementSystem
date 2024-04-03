@@ -6,15 +6,12 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-
 
 
 @Entity
@@ -24,11 +21,12 @@ public class Book  extends AuditColumn {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "book_id")
-	private Integer bookId;
-
+	private Integer id;
 	
-	@Column(name = "book_master_id")
-	private Integer bookMasterId;
+
+	@ManyToOne
+	@JoinColumn(name = "book_master_id")
+	private BookMaster bookMaster;
 
 	@Column(name = "isbn_code", length = 20)
 	private Integer isbnCode;
@@ -40,21 +38,14 @@ public class Book  extends AuditColumn {
 	@Column(name = "remark", length = 30)
 	private String bookRemark;
 
-	public Integer getBookId() {
-		return bookId;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setBookId(Integer bookId) {
-		this.bookId = bookId;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
-	public Integer getBookMasterId() {
-		return bookMasterId;
-	}
-
-	public void setBookMasterId(Integer bookMasterId) {
-		this.bookMasterId = bookMasterId;
-	}
 
 	public Integer getIsbnCode() {
 		return isbnCode;

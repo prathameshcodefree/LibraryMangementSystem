@@ -14,17 +14,17 @@ public class Rack {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "rack_id")
-	private Integer rackId;
+	private Integer id;
 
 	@Column(name = "rack_code", length = 8)
 	private String rackCode;
 
-	public Integer getRackId() {
-		return rackId;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setRackId(Integer rackId) {
-		this.rackId = rackId;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getRackCode() {

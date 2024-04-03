@@ -14,7 +14,7 @@ public class BookSubCategory {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "book_sub_category_id")
-	private int bookSubCategoryId;
+	private Integer bookSubCategoryId;
 	
 	@Column(name = "book_sub_category_name", length = 128)
 	private String bookSubCategoryName;

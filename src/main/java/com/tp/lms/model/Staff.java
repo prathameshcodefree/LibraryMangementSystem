@@ -1,5 +1,6 @@
 package com.tp.lms.model;
 
+import com.tp.lms.model.enums.StaffStatus;
 import com.tp.lms.model.enums.StaffType;
 
 import jakarta.persistence.Column;
@@ -49,8 +50,10 @@ public class Staff extends AuditColumn {
 	@Column(name = "password", length = 64, nullable = false)
 	private String password;
 
+
+	@Enumerated(EnumType.STRING)
 	@Column(name = "staff_status", length = 128)
-	private String staffStatus;
+	private StaffStatus staffStatus;
 
 	@Column(name = "aadhar_number", length = 16)
 	private int aadhaarNumber;
@@ -138,11 +141,11 @@ public class Staff extends AuditColumn {
 		this.password = password;
 	}
 
-	public String getStaffStatus() {
+	public StaffStatus getStaffStatus() {
 		return staffStatus;
 	}
 
-	public void setStaffStatus(String staffStatus) {
+	public void setStaffStatus(StaffStatus staffStatus) {
 		this.staffStatus = staffStatus;
 	}
 

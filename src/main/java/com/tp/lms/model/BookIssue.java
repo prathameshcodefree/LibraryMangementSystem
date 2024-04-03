@@ -16,21 +16,21 @@ public class BookIssue extends AuditColumn {
 	@Column(name = "book_id")
 	private Integer bookIssueId;
 
-	@ManyToOne
-	@JoinColumn(name = "student_id", referencedColumnName = "student_id")	
+	
+	@Column(name = "student_id")	
 	private int studentId;
 
 	@OneToOne
 	@JoinColumn(name = "book_id", referencedColumnName = "book_id")	
 	private int bookId;
 
-	@Column(name = "issue_date",length = 30)
+	@Column(name = "issue_date")
 	private Date issueDate;
 
-	@Column(name = "return_date",length = 30)
+	@Column(name = "return_date")
 	private Date returnDate;
 
-	@Column(name = "expected_return_date",length = 30)
+	@Column(name = "expected_return_date")
 	private Date expectedReturnDate;
 
 	@Enumerated(EnumType.STRING)

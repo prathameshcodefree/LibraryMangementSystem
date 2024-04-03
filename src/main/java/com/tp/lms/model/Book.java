@@ -6,11 +6,13 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 
@@ -24,12 +26,12 @@ public class Book  extends AuditColumn {
 	@Column(name = "book_id")
 	private Integer bookId;
 
-	@ManyToOne
-	@JoinColumn(name = "book_master_id", referencedColumnName = "book_master_id")	
-	private int bookMasterId;
+	
+	@Column(name = "book_master_id")
+	private Integer bookMasterId;
 
 	@Column(name = "isbn_code", length = 20)
-	private int isbnCode;
+	private Integer isbnCode;
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "book_status")
@@ -38,27 +40,27 @@ public class Book  extends AuditColumn {
 	@Column(name = "remark", length = 30)
 	private String bookRemark;
 
-	public int getBookId() {
+	public Integer getBookId() {
 		return bookId;
 	}
 
-	public void setBookId(int bookId) {
+	public void setBookId(Integer bookId) {
 		this.bookId = bookId;
 	}
 
-	public int getBookMasterId() {
+	public Integer getBookMasterId() {
 		return bookMasterId;
 	}
 
-	public void setBookMasterId(int bookMasterId) {
+	public void setBookMasterId(Integer bookMasterId) {
 		this.bookMasterId = bookMasterId;
 	}
 
-	public int getIsbnCode() {
+	public Integer getIsbnCode() {
 		return isbnCode;
 	}
 
-	public void setIsbnCode(int isbnCode) {
+	public void setIsbnCode(Integer isbnCode) {
 		this.isbnCode = isbnCode;
 	}
 

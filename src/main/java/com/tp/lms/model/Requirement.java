@@ -21,15 +21,15 @@ import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Requirement {
+	
+	
 	@Id
 	@Column(name="requirement_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer requirementId;
 	
 	
-	
-	@ManyToOne
-	@JoinColumn(name = "book_master_id",referencedColumnName = "requirement_id" ,nullable = false)
+	@Column(name = "book_master_id")
 	private int bookMasterId;
 	
 	@Column(name="quantity")
@@ -102,5 +102,5 @@ public class Requirement {
 	public void setRequirementReason(char requirementReason) {
 		this.requirementReason = requirementReason;
 	}
-	
+
 }

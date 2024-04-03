@@ -14,10 +14,10 @@ import jakarta.persistence.Table;
 public class Feedback extends AuditColumn {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int feedback_id;
+	private Integer feedback_id;
 	
-	@ManyToOne
-	private int student_id;
+	
+	private Integer student_id;
 	
 	private String feedback;
 	

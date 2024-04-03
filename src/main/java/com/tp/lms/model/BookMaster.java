@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -39,6 +41,17 @@ public class BookMaster {
 	
 	@Column(name = "audit_columns", length = 128)
     private String auditColumns;
+
+	@ManyToOne
+    @JoinColumn(name = "requirement_id")
+    private Requirement requirement;
+	public Requirement getRequirement() {
+		return requirement;
+	}
+
+	public void setRequirement(Requirement requirement) {
+		this.requirement = requirement;
+	}
 
 	public String getAuditColumns() {
 		return auditColumns;

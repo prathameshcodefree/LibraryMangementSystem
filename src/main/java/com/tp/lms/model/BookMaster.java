@@ -10,9 +10,12 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 <<<<<<< HEAD
 =======
+<<<<<<< HEAD
+=======
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 >>>>>>> 8fec34955021f88a1f541e895fea70a265cdce3f
+>>>>>>> 5ed82dddbfa0ee2173b323dc68bbbd113d92c094
 import jakarta.persistence.Table;
 
 @Entity
@@ -51,6 +54,17 @@ public class BookMaster {
 	
 	@Column(name = "audit_columns", length = 128)
     private String auditColumns;
+
+	@ManyToOne
+    @JoinColumn(name = "requirement_id")
+    private Requirement requirement;
+	public Requirement getRequirement() {
+		return requirement;
+	}
+
+	public void setRequirement(Requirement requirement) {
+		this.requirement = requirement;
+	}
 
 	public String getAuditColumns() {
 		return auditColumns;

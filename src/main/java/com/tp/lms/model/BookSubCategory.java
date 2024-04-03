@@ -22,11 +22,11 @@ public class BookSubCategory {
 	@Column(name = "audit_columns", length = 128)
 	private String auditColumns;
 
-	public int getBookSubCategoryId() {
+	public Integer getBookSubCategoryId() {
 		return bookSubCategoryId;
 	}
 
-	public void setBookSubCategoryId(int bookSubCategoryId) {
+	public void setBookSubCategoryId(Integer bookSubCategoryId) {
 		this.bookSubCategoryId = bookSubCategoryId;
 	}
 

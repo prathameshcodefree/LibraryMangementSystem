@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -13,14 +15,14 @@ public class BookMaster {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "book_master_id")
+	@Column(name = "book_master_id")
 	private Integer bookMasterId;
 	
 	@Column(name = "book_category_id")
-	private int bookCategoryId;
+	private Integer bookCategoryId;
 	
 	@Column(name = "book_subcategory_id")
-	private int bookSubCategoryId;
+	private Integer bookSubCategoryId;
 	
 	@Column(name = "title", length = 128)
 	private String title;
@@ -35,7 +37,7 @@ public class BookMaster {
 	private String publishBy;
 	
 	@Column(name = "rack_id")
-	private int rackId;
+	private Integer rackId;
 	
 	@Column(name = "audit_columns", length = 128)
     private String auditColumns;
@@ -48,15 +50,15 @@ public class BookMaster {
 		this.auditColumns = auditColumns;
 	}
 
-	public int getBookMasterId() {
+	public Integer getBookMasterId() {
 		return bookMasterId;
 	}
 
-	public void setBookMasterId(int bookMasterId) {
+	public void setBookMasterId(Integer bookMasterId) {
 		this.bookMasterId = bookMasterId;
 	}
 
-	public int getBookCategoryId() {
+	public Integer getBookCategoryId() {
 		return bookCategoryId;
 	}
 
@@ -64,11 +66,11 @@ public class BookMaster {
 		this.bookCategoryId = bookCategoryId;
 	}
 
-	public int getBookSubCategoryId() {
+	public Integer getBookSubCategoryId() {
 		return bookSubCategoryId;
 	}
 
-	public void setBookSubCategoryId(int bookSubCategoryId) {
+	public void setBookSubCategoryId(Integer bookSubCategoryId) {
 		this.bookSubCategoryId = bookSubCategoryId;
 	}
 
@@ -104,7 +106,7 @@ public class BookMaster {
 		this.publishBy = publishBy;
 	}
 
-	public int getRackId() {
+	public Integer getRackId() {
 		return rackId;
 	}
 

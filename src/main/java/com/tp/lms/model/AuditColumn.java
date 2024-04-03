@@ -1,42 +1,40 @@
 package com.tp.lms.model;
 
 import java.util.Date;
-
 import com.tp.lms.model.enums.UserType;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
 
 
-
-@Entity
-@Table(name = "auditcolumn")
 public class AuditColumn {
 
 	@Enumerated(EnumType.STRING)
-	@Column(name = "updated_by_type", length = 128)
+	@Column(name = "updated_by_type")
 	private UserType updatedByType;
 
-	@ManyToOne
-	@JoinColumn(name = "updated_by", referencedColumnName = "updated_by")
+	@Column(name = "updated_by")
 	private String updatedBy;
 
-	@Column(name = "updated_at", length = 128)
+	
+	@Column(name = "updated_at")
 	private Date updatedAt;
-
-	@Column(name = "created_by_type", length = 128)
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name = "created_by_type")
 	private UserType createdByType;
 
-	@ManyToOne
-	@JoinColumn(name = "created_by", referencedColumnName = "created_by")
+	
+	@Column(name = "created_by")
 	private String createdBy;
 
-	@Column(name = "created_at", length = 128)
+	
+	@Column(name = "created_at")
 	private Date createdAt;
 
 	public UserType getUpdatedByType() {

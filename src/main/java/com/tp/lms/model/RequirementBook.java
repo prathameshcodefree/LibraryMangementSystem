@@ -20,13 +20,13 @@ public class RequirementBook {
 	private Integer requirementBookId;
 
 	
-	@OneToOne
-	@JoinColumn(name = "requirement_id", referencedColumnName = "requirement_id")	
+
+	@Column(name = "requirement_id")	
 	private Integer requirementId;
 
 	
-	@OneToOne
-	@JoinColumn(name = "book_id", referencedColumnName = "book_id")
+
+	@Column(name = "book_id")
 	private Integer bookId;
 
 	public Integer getRequirementBookId() {

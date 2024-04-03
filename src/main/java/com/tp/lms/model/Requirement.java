@@ -28,8 +28,7 @@ public class Requirement {
 	
 	
 	
-	@ManyToOne
-	@JoinColumn(name = "book_master_id",referencedColumnName = "requirement_id" ,nullable = false)
+	@Column(name = "book_master_id")
 	private int bookMasterId;
 	
 	@Column(name="quantity")

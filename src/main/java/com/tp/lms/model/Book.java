@@ -26,12 +26,12 @@ public class Book  extends AuditColumn {
 	@Column(name = "book_id")
 	private Integer bookId;
 
-	@OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "book_master_id", nullable = false)
-	private int bookMasterId;
+	
+	@Column(name = "book_master_id")
+	private Integer bookMasterId;
 
 	@Column(name = "isbn_code", length = 20)
-	private int isbnCode;
+	private Integer isbnCode;
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "book_status")
@@ -40,27 +40,27 @@ public class Book  extends AuditColumn {
 	@Column(name = "remark", length = 30)
 	private String bookRemark;
 
-	public int getBookId() {
+	public Integer getBookId() {
 		return bookId;
 	}
 
-	public void setBookId(int bookId) {
+	public void setBookId(Integer bookId) {
 		this.bookId = bookId;
 	}
 
-	public int getBookMasterId() {
+	public Integer getBookMasterId() {
 		return bookMasterId;
 	}
 
-	public void setBookMasterId(int bookMasterId) {
+	public void setBookMasterId(Integer bookMasterId) {
 		this.bookMasterId = bookMasterId;
 	}
 
-	public int getIsbnCode() {
+	public Integer getIsbnCode() {
 		return isbnCode;
 	}
 
-	public void setIsbnCode(int isbnCode) {
+	public void setIsbnCode(Integer isbnCode) {
 		this.isbnCode = isbnCode;
 	}
 

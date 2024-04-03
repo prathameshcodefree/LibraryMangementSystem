@@ -32,8 +32,7 @@ public class StaffAttendance extends AuditColumn {
     @Column(name = "staff_id", nullable = false)
     private Integer staffId;
     
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "staff_id", nullable = false)
+    @Column(name = "staff")
     private Staff staff;
 
     @Column(name= "check_in")

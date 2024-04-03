@@ -8,8 +8,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+<<<<<<< HEAD
+=======
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+>>>>>>> 8fec34955021f88a1f541e895fea70a265cdce3f
 import jakarta.persistence.Table;
 
 @Entity

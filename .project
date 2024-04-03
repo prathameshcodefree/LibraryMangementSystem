@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>LibraryMangementSystem</name>
+	<name>lms</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -11,15 +11,24 @@
 			</arguments>
 		</buildCommand>
 		<buildCommand>
+
 			<name>org.springframework.ide.eclipse.boot.validation.springbootbuilder</name>
 			<arguments>
 			</arguments>
 		</buildCommand>
 		<buildCommand>
+5ed82dddbfa0ee2173b323dc68bbbd113d92c094
 			<name>org.eclipse.m2e.core.maven2Builder</name>
 			<arguments>
 			</arguments>
 		</buildCommand>
+
+		<buildCommand>
+			<name>org.springframework.ide.eclipse.boot.validation.springbootbuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+ 5ed82dddbfa0ee2173b323dc68bbbd113d92c094
 	</buildSpec>
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>

@@ -2,11 +2,20 @@ package com.tp.lms.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+>>>>>>> 8fec34955021f88a1f541e895fea70a265cdce3f
+>>>>>>> 5ed82dddbfa0ee2173b323dc68bbbd113d92c094
 import jakarta.persistence.Table;
 
 @Entity
@@ -18,9 +27,12 @@ public class BookMaster {
     @Column(name = "book_master_id")
 	private Integer bookMasterId;
 	
-	@Column(name = "book_category_id")
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="book_category_id",nullable=false)
 	private int bookCategoryId;
 	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="book_sub_category_id",nullable=false)
 	@Column(name = "book_subcategory_id")
 	private int bookSubCategoryId;
 	
@@ -36,6 +48,7 @@ public class BookMaster {
 	@Column(name = "publish_by", length = 128)
 	private String publishBy;
 	
+	@OneToMany(fetch=FetchType.LAZY)
 	@Column(name = "rack_id")
 	private int rackId;
 	

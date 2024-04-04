@@ -17,13 +17,16 @@ public class RackService {
 RackRepository rackRepository;
 
     public List<Rack> getAllRacks() {
-        return rackRepository.findAll();
+ 
+    	return rackRepository.findAll();
     }
     
     
     
     public Rack getRackById(Integer id) {
-        return rackRepository.findById(id).orElse(null);
+ 
+    	return rackRepository.findById(id).orElse(null);
+    
     }
  
     
@@ -31,16 +34,19 @@ RackRepository rackRepository;
     	return rackRepository.save(rack);
     }
     
+    
     public Rack updateRack(Integer rackId, @RequestBody Rack rack ) {
     	
-    	rack.setRackId(rackId);;
+    	rack.setId(rackId);
     	return rackRepository.save(rack);
     }
+    
     
     public void deleteRack(Integer rackId) {
     	
     	rackRepository.deleteById(rackId);
-    }
-    
+
+    } 
+   
     
 }

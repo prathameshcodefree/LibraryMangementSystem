@@ -1,9 +1,10 @@
 package com.tp.lms.controller;
 
 import java.util.List;
-
+import java.util.NoSuchElementException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,8 +30,13 @@ public class StaffController {
 	}
 
 	@GetMapping("/{id}")
-	public Staff GetStaff(@PathVariable int id) {
-		return staffService.GetStaff(id);
+	public ResponseEntity<Staff> GetStaff(@PathVariable Integer id) {
+		try {
+			Staff staff = staffService.GetStaff(id);
+			return new ResponseEntity<Staff>(staff, HttpStatus.OK);
+		} catch (NoSuchElementException e) {
+			return new ResponseEntity<Staff>(HttpStatus.NOT_FOUND);
+		}
 	}
 
 	@PostMapping
@@ -39,8 +45,13 @@ public class StaffController {
 	}
 
 	@PutMapping("/{id}")
-	public Staff UpdateStaff(@RequestBody Staff staff, @PathVariable int id) {
-		return staffService.UpdateStaff(staff, id);
+	public ResponseEntity<Staff> Update(@PathVariable Integer id, @RequestBody Staff staff1) {
+		try {
+			staffService.UpdateStaff(staff1, id);
+			return new ResponseEntity<Staff>(staff1, HttpStatus.OK);
+		} catch (NoSuchElementException e) {
+			return new ResponseEntity<Staff>(HttpStatus.NOT_FOUND);
+		}
 	}
 
 	@DeleteMapping("/{id}")

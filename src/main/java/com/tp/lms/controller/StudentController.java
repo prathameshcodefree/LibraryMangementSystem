@@ -35,23 +35,23 @@ public class StudentController {
 
 	}
 
-	@GetMapping("/{studentId}")
-	public ResponseEntity<?> getStudentById(@PathVariable Integer studentId) {
-		
-		if(studentService.validate(student)) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Student cannot be empty");
-		}
-
-		Optional<Student> studentO = studentService.getStudentById(studentId);
-		
-
-		if (studentO.isPresent()) {
-			return ResponseEntity.ok(studentO.get());
-		} else {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Student not found with ID: " + studentId);
-		}
-
-	}
+//	@GetMapping("/{studentId}")
+//	public ResponseEntity<?> getStudentById(@PathVariable Integer studentId) {
+//		
+//		if(studentService.validate(student)) {
+//			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Student cannot be empty");
+//		}
+//
+//		Optional<Student> studentO = studentService.getStudentById(studentId);
+//		
+//
+//		if (studentO.isPresent()) {
+//			return ResponseEntity.ok(studentO.get());
+//		} else {
+//			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Student not found with ID: " + studentId);
+//		}
+//
+//	}
 
 	@PostMapping
 	public ResponseEntity<?> addStudent(Student student) {

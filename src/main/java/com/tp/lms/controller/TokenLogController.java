@@ -2,12 +2,10 @@ package com.tp.lms.controller;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+
 import org.springframework.beans.factory.annotation.Autowired;
-<<<<<<< HEAD
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-=======
->>>>>>> 42df3fb6a5f13266769e73e9f7cfd99de4f77c78
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,47 +16,48 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tp.lms.model.Staff;
-import com.tp.lms.service.StaffService;
+import com.tp.lms.model.TokenLog;
+import com.tp.lms.service.TokenLogService;
 
 @RestController
-@RequestMapping("/Staff")
-public class StaffController {
+@RequestMapping("/TokenLog")
+public class TokenLogController {
 
 	@Autowired
-	private StaffService staffService;
+	private TokenLogService tokenLogService;
 
 	@GetMapping
-	public List<Staff> getAllList() {
-		return staffService.GetAllStaff();
+	public List<TokenLog> GetAllTokenLog() {
+		return tokenLogService.GetAllToken();
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Staff> GetStaff(@PathVariable Integer id) {
+	public ResponseEntity<TokenLog> GetStaff(@PathVariable Integer id) {
 		try {
-			Staff staff = staffService.GetStaff(id);
-			return new ResponseEntity<Staff>(staff, HttpStatus.OK);
+			TokenLog tokenLog = tokenLogService.GetTokenLog(id);
+			return new ResponseEntity<TokenLog>(tokenLog, HttpStatus.OK);
 		} catch (NoSuchElementException e) {
-			return new ResponseEntity<Staff>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<TokenLog>(HttpStatus.NOT_FOUND);
 		}
 	}
 
 	@PostMapping
-	public Staff AddStaff(@RequestBody Staff staff) {
-		return staffService.AddStaff(staff);
+	public TokenLog AddToken(@RequestBody TokenLog tokenLog) {
+		return tokenLogService.AddTokenLog(tokenLog);
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<Staff> Update(@PathVariable Integer id, @RequestBody Staff staff1) {
+	public ResponseEntity<TokenLog> Update(@PathVariable Integer id, @RequestBody TokenLog tokenLog) {
 		try {
-			staffService.UpdateStaff(staff1, id);
-			return new ResponseEntity<Staff>(staff1, HttpStatus.OK);
+			tokenLogService.UpdateLogToken(tokenLog, id);
+			return new ResponseEntity<TokenLog>(tokenLog, HttpStatus.OK);
 		} catch (NoSuchElementException e) {
-			return new ResponseEntity<Staff>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<TokenLog>(HttpStatus.NOT_FOUND);
 		}
 	}
 
 	@DeleteMapping("/{id}")
-	public void DeleteMapping(@PathVariable int id) {
-		staffService.DeleteStaff(id);
+	public void DeleteToken(@PathVariable int id) {
+		tokenLogService.DeleteTokenLog(id);
 	}
 }

@@ -20,19 +20,28 @@ public class Rack {
 	private String rackCode;
 
 	public Integer getId() {
+		
 		return id;
 	}
 
 	public void setId(Integer id) {
+		
 		this.id = id;
+	
 	}
 
-	public String getRackCode() {
+	public String getRackCode() 
+	{
+		
 		return rackCode;
+	
 	}
 
-	public void setRackCode(String rackCode) {
+	public void setRackCode(String rackCode) 
+	{
+		
 		this.rackCode = rackCode;
+	
 	}
 	
 	

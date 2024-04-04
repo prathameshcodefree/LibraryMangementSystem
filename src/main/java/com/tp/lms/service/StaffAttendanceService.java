@@ -25,42 +25,48 @@ public class StaffAttendanceService {
     public List<StaffAttendance> allAttendance(){
 		
 		return staffAttendanceRepository.findAll();
+    
     }
-    
+     
     // get Attendance by Id 
-    
-    
    
+    
+   public Optional<StaffAttendance> getAttendanceById(Integer id)
+   {
  
-   public Optional<StaffAttendance> getAttendanceById(Integer id) {
-       return staffAttendanceRepository.findById(id);
-   }
+	   return staffAttendanceRepository.findById(id);
+    }
+   
     
     // create Attendance 
-    
-	 public StaffAttendance createAttendance(StaffAttendance attendance ) {
-		 
-		 return staffAttendanceRepository.save(attendance);			
+   
+	 public StaffAttendance createAttendance(StaffAttendance attendance )
+	 {
 	 
+		 return staffAttendanceRepository.save(attendance);			
+		
 	 }
+	
 	 
 	 //update Attendance
-	 
-	 public StaffAttendance updateAttendance( Integer  id, StaffAttendance attendance  ) {
-	
+	  public StaffAttendance updateAttendance( Integer  id, StaffAttendance attendance  )
+	  {
+		  
 		StaffAttendance sRef  = staffAttendanceRepository.getReferenceById(id);
-		 if (sRef == null) return null ;
+		
+		if (sRef == null) return null ;
 		 
-		 return staffAttendanceRepository.save(attendance);
+		return staffAttendanceRepository.save(attendance);
 		 
 	 }
 	 
 	 // deleting Attendance by Id 
 	 
-	 public void delete(Integer id ) {
-		 
+	 public void delete(Integer id ) 
+	 
+	 {
 		 staffAttendanceRepository.deleteById(id);
-		 
+	
 	 }
 	 
 	 

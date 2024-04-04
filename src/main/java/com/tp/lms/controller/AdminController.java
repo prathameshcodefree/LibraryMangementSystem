@@ -6,6 +6,7 @@
 package com.tp.lms.controller;
 
 import com.tp.lms.model.Admin;
+
 import com.tp.lms.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -28,11 +29,17 @@ public class AdminController {
     
     @PostMapping
     public ResponseEntity<Object> createAdmin(@RequestBody Admin admin) {
-        if (admin.getEmail() == null || admin.getEmail().isEmpty()) {
-            return ResponseEntity.badRequest().body("Email is required");
+       
+    	if (admin.getEmail() == null || admin.getEmail().isEmpty()) {
+            
+        	return ResponseEntity.badRequest().body("Email is required");
+            
         }
+    	
         admin = adminService.create(admin);
         return ResponseEntity.ok(admin);
+        
+        
     }
    
     

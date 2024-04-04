@@ -23,7 +23,7 @@ public class BookFineService {
 
 	}
 
-	public BookFine getBookFine(int bookFineId) {
+	public BookFine getBookFine(Integer bookFineId) {
 		return bookfinerepository.findById(bookFineId).get();
 
 	}
@@ -34,14 +34,14 @@ public class BookFineService {
 
 	}
 
-	public BookFine updateBookFine(int bookFineId, @RequestBody BookFine bookfine) {
+	public BookFine updateBookFine(Integer bookFineId, @RequestBody BookFine bookfine) {
 
 		bookfine.setStudentId(bookFineId);
 		return bookfinerepository.save(bookfine);
 
 	}
 
-	public void deleteBookFine(int bookFineId) {
+	public void deleteBookFine(Integer bookFineId) {
 
 		bookfinerepository.deleteById(bookFineId);
 

@@ -9,12 +9,9 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -23,7 +20,7 @@ public class Student extends AuditColumn {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "student_id")
-	private int id;
+	private Integer id;
 
 	@Column(name = "first_name", length = 50)
 	private String firstName;
@@ -37,6 +34,7 @@ public class Student extends AuditColumn {
 	@Column(name = "email_address", length = 64, nullable = false)
 	private String email;
 
+	
 	private Integer contactNumber;
 
 	@Enumerated(EnumType.STRING)
@@ -45,12 +43,16 @@ public class Student extends AuditColumn {
 	
 	@Column(name = "date")
 	private Date date;
+	
 	@Column(name = "college_name", length = 50)
 	private String collegeName;
+	
 	@Column(name = "roll_no")
-	private int rollNo;
+	private Integer rollNo;
+	
 	@Column(name = "password", length = 50)
 	private String password;
+	
 	@Enumerated(EnumType.STRING)
 	@Column(name = "student_status")
 	private StudentStatus studentstatus;
@@ -127,11 +129,11 @@ public class Student extends AuditColumn {
 		this.collegeName = collegeName;
 	}
 
-	public int getRollNo() {
+	public Integer getRollNo() {
 		return rollNo;
 	}
 
-	public void setRollNo(int rollNo) {
+	public void setRollNo(Integer rollNo) {
 		this.rollNo = rollNo;
 	}
 

@@ -23,42 +23,42 @@ public class BookIssueController {
 		
 		
 		@Autowired
-		BookIssueService bookissueservice;
+		BookIssueService bookIssueService;
 		
 		@GetMapping(" ")
 		public List<BookIssue> getBookIssue() {
 			
-			 return bookissueservice.getBookIssue();
+			 return bookIssueService.getBookIssue();
 			
 		}
 		
 		
 		@GetMapping("/{bookIssueId}")
-		public BookIssue getBookIssue(@PathVariable int bookIssueId) {
+		public BookIssue getBookIssue(@PathVariable Integer id) {
 			
-			 return bookissueservice.getBookIssue(bookIssueId);
+			 return bookIssueService.getBookIssue(id);
 			
 		}
 		
 		@PostMapping
 		public BookIssue addBookIssue(BookIssue bookissue) {
 			
-			 return bookissueservice.addBookIssue(bookissue);
+			 return bookIssueService.addBookIssue(bookissue);
 			
 		}
 		
 		@PutMapping("/{bookIssueId}")
-	      public BookIssue updateBookIssue(int bookIssueId, @RequestBody BookIssue bookissue) {
+	      public BookIssue updateBookIssue( @PathVariable Integer id, @RequestBody BookIssue bookissue) {
 			
-			return bookissueservice.updateBookIssue(bookIssueId,bookissue);
+			return bookIssueService.updateBookIssue(id,bookissue);
 
 		}
 
 		
 		@DeleteMapping("/{bookIssueId}")
-		public void deleteBookIssue(@PathVariable int bookIssueId) {
+		public void deleteBookIssue(@PathVariable Integer id) {
 
-			bookissueservice.deleteBookIssue(bookIssueId);
+			bookIssueService.deleteBookIssue(id);
 		}
 			
 

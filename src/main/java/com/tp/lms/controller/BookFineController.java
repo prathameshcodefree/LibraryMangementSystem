@@ -18,49 +18,42 @@ import com.tp.lms.service.BookFineService;
 @RestController
 @RequestMapping("/bookfine")
 public class BookFineController {
-	
-		
-		
-		@Autowired
-		BookFineService Bookfineservice;
-		
-		@GetMapping(" ")
-		public List<BookFine> getBookFine() {
-			
-			 return Bookfineservice.getBookFine();
-			
-		}
-		
-		
-		@GetMapping("/{bookFineId}")
-		public BookFine getBookFine(@PathVariable int bookFineId) {
-			
-			 return Bookfineservice.getBookFine(bookFineId);
-			
-		}
-		
-		@PostMapping
-		public BookFine addBookFine(BookFine bookfine) {
-			
-			 return Bookfineservice.addBookFine(bookfine);
-			
-		}
-		
-		@PutMapping("/{bookFineId}")
-	      public BookFine updateBookFine(int bookFineId, @RequestBody BookFine bookfine) {
-			
-			return Bookfineservice.updateBookFine(bookFineId,bookfine);
 
-		}
+	@Autowired
+	BookFineService bookFineService;
 
-		
-		@DeleteMapping("/{bookFineId}")
-		public void deleteBookFine(@PathVariable int bookFineId) {
+	@GetMapping(" ")
+	public List<BookFine> getBookFine() {
 
-			Bookfineservice.deleteBookFine(bookFineId);
-		}
-			
+		return bookFineService.getBookFine();
 
+	}
+
+	@GetMapping("/{bookFineId}")
+	public BookFine getBookFine(@PathVariable int id) {
+
+		return bookFineService.getBookFine(id);
+
+	}
+
+	@PostMapping
+	public BookFine addBookFine(BookFine bookfine) {
+
+		return bookFineService.addBookFine(bookfine);
+
+	}
+
+	@PutMapping("/{bookFineId}")
+	public BookFine updateBookFine(@PathVariable Integer id, @RequestBody BookFine bookfine) {
+
+		return bookFineService.updateBookFine(id, bookfine);
+
+	}
+
+	@DeleteMapping("/{bookFineId}")
+	public void deleteBookFine(@PathVariable int id) {
+
+		bookFineService.deleteBookFine(id);
+	}
 
 }
-

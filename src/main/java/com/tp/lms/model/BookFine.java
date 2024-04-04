@@ -9,7 +9,7 @@ import jakarta.persistence.Table;
 
 
 @Entity
-@Table(name = "bookfine")
+@Table(name = "book_fine")
 public class BookFine extends AuditColumn {
 
 	@Id

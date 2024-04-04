@@ -22,8 +22,8 @@ public class BookIssueService {
 
 	}
 
-	public BookIssue getBookIssue(int bookIssueId) {
-		return bookissuerepository.findById(bookIssueId).get();
+	public BookIssue getBookIssue(int id) {
+		return bookissuerepository.findById(id).get();
 
 	}
 
@@ -33,16 +33,16 @@ public class BookIssueService {
 
 	}
 
-	public BookIssue updateBookIssue(int bookIssueId, @RequestBody BookIssue bookissue) {
+	public BookIssue updateBookIssue(int id, @RequestBody BookIssue bookissue) {
 
-		bookissue.setStudentId(bookIssueId);
+		bookissue.setStudentId(id);
 		return bookissuerepository.save(bookissue);
 
 	}
 
-	public void deleteBookIssue(int bookIssueId) {
+	public void deleteBookIssue(int id) {
 
-		bookissuerepository.deleteById(bookIssueId);
+		bookissuerepository.deleteById(id);
 
 	}
 

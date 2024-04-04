@@ -22,6 +22,38 @@ public class Feedback extends AuditColumn {
 	private String feedback;
 	
 	private AuditColumn auditcolumn;
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Integer getStudent_id() {
+		return student_id;
+	}
+
+	public void setStudent_id(Integer student_id) {
+		this.student_id = student_id;
+	}
+
+	public String getFeedback() {
+		return feedback;
+	}
+
+	public void setFeedback(String feedback) {
+		this.feedback = feedback;
+	}
+
+	public AuditColumn getAuditcolumn() {
+		return auditcolumn;
+	}
+
+	public void setAuditcolumn(AuditColumn auditcolumn) {
+		this.auditcolumn = auditcolumn;
+	}
 	
 	
 	

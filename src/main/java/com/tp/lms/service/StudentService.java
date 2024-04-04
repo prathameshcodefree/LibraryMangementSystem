@@ -75,16 +75,32 @@ public class StudentService {
 
 	
 	
+//	public ResponseEntity<?> addStudent(Student student) {		if (student == null) {
+//			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Student data cannot be null");
+//		}
+//		if (student.getFirstName() == null || student.getFirstName().isEmpty() || student.getEmail().isEmpty()) {
+//		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid student data");
+//		}
+//		studentRepository.save(student);
+//		return ResponseEntity.status(HttpStatus.CREATED).body("Student added successfully");
+//	}
+	
+	
 	public ResponseEntity<?> addStudent(Student student) {
-		if (student == null) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Student data cannot be null");
-		}
-		if (student.getFirstName() == null || student.getFirstName().isEmpty() || student.getEmail().isEmpty()) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid student data");
-		}
-		studentRepository.save(student);
-		return ResponseEntity.status(HttpStatus.CREATED).body("Student added successfully");
-	}
+        
+        if (student.getFirstName()== null) {
+            return new ResponseEntity<>("First name is required", HttpStatus.BAD_REQUEST);
+        }
+        if (student.getLastName() == null || student.getLastName().isEmpty()) {
+            return new ResponseEntity<>("Last name is required", HttpStatus.BAD_REQUEST);
+        }
+        if (student.getEmail() == null || student.getEmail().isEmpty()) {
+            return new ResponseEntity<>("Email is required", HttpStatus.BAD_REQUEST);
+        }
+       
+        Student savedStudent = studentRepository.save(student);
+        return new ResponseEntity<>(savedStudent, HttpStatus.CREATED);
+    }
 
 	
 	

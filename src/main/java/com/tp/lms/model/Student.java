@@ -22,7 +22,7 @@ public class Student extends AuditColumn {
 	@Column(name = "student_id")
 	private Integer id;
 
-	@Column(name = "first_name", length = 50)
+	@Column(name = "first_name")
 	private String firstName;
 
 	@Column(name = "middle_name", length = 50)

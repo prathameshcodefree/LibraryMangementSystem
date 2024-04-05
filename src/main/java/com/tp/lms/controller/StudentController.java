@@ -62,9 +62,10 @@ public class StudentController {
 	public ResponseEntity<?> addStudent(@RequestBody Student student) {
 		List<String> error = studentService.validate(student);
 		if (error.size() != 0) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
-		}
 
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+		
+		}
 		studentService.addStudent(student);
 		 return ResponseEntity.ok().body("Student added successfully.");
 

@@ -48,6 +48,7 @@ public class RackController {
 	    	return rackService.updateRack(rackId, rack);
 	    }
 	    
+	    
 	    @DeleteMapping("/{id}")
 	    public void deleteRack(Integer rackId) {
 	    	

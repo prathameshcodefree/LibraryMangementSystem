@@ -3,6 +3,8 @@ package com.tp.lms.model;
 import com.tp.lms.model.enums.Presenty;
 import java.util.Date;
 
+import org.hibernate.annotations.ManyToAny;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -10,6 +12,8 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table; 	
 
 /**
@@ -20,16 +24,13 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "staff_attendance ")
 public class StaffAttendance extends AuditColumn {
-
+	
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name= "staff_attendance_id")
     private Integer id;
+   
     
-    @Column(name = "staff_id", nullable = false)
-    private Integer staffId;
-    
-
     @Column(name= "check_in")
     private Date checkIn;
 
@@ -40,6 +41,11 @@ public class StaffAttendance extends AuditColumn {
     @Column(name= "presenty")
     private Presenty presenty;
 
+    //@ManyToOne
+    //@JoinColumn(name = "staff_id")
+    private Staff staff;
+    
+    
     // Getters and Setters
     
     
@@ -64,17 +70,19 @@ public class StaffAttendance extends AuditColumn {
     }
 
     public void setCheckOut(Date checkOut) {
-        this.checkOut = checkOut;
-    }
+        
+    	this.checkOut = checkOut;
+      }
 
     public Presenty getPresenty() {
         return presenty;
     }
 
     public void setPresenty(Presenty presenty) {
+    	
         this.presenty = presenty;
-    }
-    
+           
+        }
 }
 
 

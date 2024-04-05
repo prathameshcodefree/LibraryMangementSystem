@@ -1,5 +1,7 @@
 package com.tp.lms.model;
 
+import java.util.List;
+
 import com.tp.lms.model.enums.StaffStatus;
 import com.tp.lms.model.enums.StaffType;
 
@@ -10,6 +12,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 
@@ -50,7 +53,9 @@ public class Staff extends AuditColumn {
 	@Column(name = "password", length = 64, nullable = false)
 	private String password;
 
-
+	
+	
+	
 	@Enumerated(EnumType.STRING)
 	@Column(name = "staff_status", length = 128)
 	private StaffStatus staffStatus;
@@ -60,8 +65,14 @@ public class Staff extends AuditColumn {
 
 	@Column(name = "pan_number", length = 10)
 	private int panNumber;
-
-	public Integer getId() {
+	
+	
+	@OneToMany
+	private List<StaffAttendance> staffattendance;
+	
+	
+	
+	public Integer getId() { 
 		return id;
 	}
 
@@ -164,6 +175,6 @@ public class Staff extends AuditColumn {
 	public void setPanNumber(int panNumber) {
 		this.panNumber = panNumber;
 	}
-
+	
 	
 }

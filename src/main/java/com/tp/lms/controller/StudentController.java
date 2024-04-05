@@ -42,14 +42,14 @@ public class StudentController {
 	}
 
 	@GetMapping("/{studentId}")
-	public ResponseEntity<?> getStudentById(@PathVariable Integer studentId) {
+	public ResponseEntity<?> getStudentById(@PathVariable Integer id) {
 		
 		
-		Optional<Student> res= studentService.getStudentById(studentId);
+		Optional<Student> res= studentService.getStudentById(id);
 		if(res.isEmpty()) {
 			return new  ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<>(studentService.getStudentById(studentId),HttpStatus.OK);
+		return new ResponseEntity<>(studentService.getStudentById(id),HttpStatus.OK);
 		
 
 	}
@@ -64,25 +64,24 @@ public class StudentController {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
 		}
 
-		Student addedStudent = studentService.addStudent(student);
-		return ResponseEntity.status(HttpStatus.CREATED).body(addedStudent);
+		studentService.addStudent(student);
+		 return ResponseEntity.ok().body("Student added successfully.");
+
 
 	}
 
 
 	@PutMapping("/{id}")
 	public ResponseEntity<?> updateStudent(@PathVariable Integer id, @RequestBody Student student) {
+        List<String> error = studentService.validate(student);
+        if (!error.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+        }
 
+        studentService.updateStudent(id, student);
+        return ResponseEntity.ok().body("Student with ID " + id + " Updated successfully.");
 
-		List<String> error = studentService.validate(student);
-		if (error.size() != 0) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
-		}
-
-		Student updatedStudent = studentService.updateStudent(id, student);
-		return ResponseEntity.status(HttpStatus.CREATED).body(updatedStudent);
-
-	}
+    }
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deleteStudent(@PathVariable Integer id) {

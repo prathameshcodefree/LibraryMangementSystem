@@ -29,26 +29,26 @@ public class BookFineController {
 
 	}
 
-	@GetMapping("/{bookFineId}")
-	public BookFine getBookFine(@PathVariable int id) {
-
-		return bookFineService.getBookFine(id);
-
-	}
-
-	@PostMapping
-	public BookFine addBookFine(BookFine bookfine) {
-
-		return bookFineService.addBookFine(bookfine);
-
-	}
-
-	@PutMapping("/{bookFineId}")
-	public BookFine updateBookFine(@PathVariable Integer id, @RequestBody BookFine bookfine) {
-
-		return bookFineService.updateBookFine(id, bookfine);
-
-	}
+//	@GetMapping("/{bookFineId}")
+//	public BookFine getBookFine(@PathVariable int id) {
+//
+//		return bookFineService.getBookFine(id);
+//
+//	}
+//
+//	@PostMapping
+//	public BookFine addBookFine(BookFine bookfine) {
+//
+//		return bookFineService.addBookFine(bookfine);
+//
+//	}
+//
+//	@PutMapping("/{bookFineId}")
+//	public BookFine updateBookFine(@PathVariable Integer id, @RequestBody BookFine bookfine) {
+//
+//		return bookFineService.updateBookFine(id, bookfine);
+//
+//	}
 
 	@DeleteMapping("/{bookFineId}")
 	public void deleteBookFine(@PathVariable int id) {

@@ -78,11 +78,12 @@ public class StudentService {
 		return error;
 	}
 
-	public Optional<Student> getStudentById(Integer studentId) {
+	public Optional<Student> getStudentById(Integer id) {
 
-		return studentRepository.findById(studentId);
+		return studentRepository.findById(id);
 
 	}
+
 	public Student addStudent(Student student) {
 
 		return studentRepository.save(student);
@@ -92,20 +93,31 @@ public class StudentService {
 	public Student updateStudent(Integer id, Student student) {
 
 		Student existingStudent = studentRepository.findById(id).orElse(null);
+		existingStudent.setFirstName(student.getFirstName());
+		existingStudent.setMiddleName(student.getMiddleName());
+		existingStudent.setLastName(student.getLastName());
+		existingStudent.setEmail(student.getEmail());
+		existingStudent.setContactNumber(student.getContactNumber());
+		existingStudent.setGender(student.getGender());
+		existingStudent.setDate(student.getDate());
+		existingStudent.setCollegeName(student.getCollegeName());
+		existingStudent.setRollNo(student.getRollNo());
+		existingStudent.setPassword(student.getPassword());
+		existingStudent.setStudentstatus(student.getStudentstatus());
 		return studentRepository.save(existingStudent);
 
 	}
 
-	public boolean  deleteStudent(Integer id) {
+	public boolean deleteStudent(Integer id) {
 
-		 boolean exists = studentRepository.existsById(id);
-		    if (exists) {
-		        studentRepository.deleteById(id);
-		        return true; 
-		    } else {
-		        
-		        return false;
-		    }
+		boolean exists = studentRepository.existsById(id);
+		if (exists) {
+			studentRepository.deleteById(id);
+			return true;
+		} else {
+
+			return false;
+		}
 
 	}
 }

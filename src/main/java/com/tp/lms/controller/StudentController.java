@@ -41,23 +41,24 @@ public class StudentController {
 
 	}
 
-	@GetMapping("/{studentId}")
+	@GetMapping("/{id}")
 	public ResponseEntity<?> getStudentById(@PathVariable Integer id) {
-		
-		
-		Optional<Student> res= studentService.getStudentById(id);
-		if(res.isEmpty()) {
-			return new  ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-		return new ResponseEntity<>(studentService.getStudentById(id),HttpStatus.OK);
-		
-
+	    Optional<Student> res = studentService.getStudentById(id);
+	    if (res.isEmpty()) {
+	       
+	        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	    } else {
+	        
+	        Student student = res.get();
+	        
+	        return ResponseEntity.ok().body(student);
+	    }
 	}
 
 	
 		
 
-	@PostMapping("/add")
+	@PostMapping("")
 	public ResponseEntity<?> addStudent(@RequestBody Student student) {
 		List<String> error = studentService.validate(student);
 		if (error.size() != 0) {

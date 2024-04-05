@@ -6,8 +6,6 @@ import java.util.Optional;
 import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.tp.lms.model.Student;
@@ -85,7 +83,6 @@ public class StudentService {
 		return studentRepository.findById(studentId);
 
 	}
-
 	public Student addStudent(Student student) {
 
 		return studentRepository.save(student);

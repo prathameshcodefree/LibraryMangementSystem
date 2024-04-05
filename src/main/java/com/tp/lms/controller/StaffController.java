@@ -3,11 +3,10 @@ package com.tp.lms.controller;
 import java.util.List;
 import java.util.NoSuchElementException;
 import org.springframework.beans.factory.annotation.Autowired;
-<<<<<<< HEAD
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-=======
->>>>>>> 42df3fb6a5f13266769e73e9f7cfd99de4f77c78
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

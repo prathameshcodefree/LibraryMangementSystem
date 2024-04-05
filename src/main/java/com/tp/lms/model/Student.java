@@ -35,7 +35,7 @@ public class Student extends AuditColumn {
 	private String email;
 
 	
-	private Integer contactNumber;
+	private String contactNumber;
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "gender_status")
@@ -97,11 +97,11 @@ public class Student extends AuditColumn {
 		this.email = email;
 	}
 
-	public int getContactNumber() {
+	public String getContactNumber() {
 		return contactNumber;
 	}
 
-	public void setContactNumber(int contactNumber) {
+	public void setContactNumber(String contactNumber) {
 		this.contactNumber = contactNumber;
 	}
 

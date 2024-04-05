@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,8 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+
 import org.springframework.web.bind.annotation.RestController;
+
 
 import com.tp.lms.model.Student;
 import com.tp.lms.service.StudentService;
@@ -25,24 +27,28 @@ public class StudentController {
 
 	@Autowired
 	StudentService studentService;
-	
+
 	Student student;
 
 	@GetMapping("")
-	public List<Student> getStudent() {
+	public ResponseEntity<List<Student>> getStudent () {
 
-		return studentService.getStudent();
+		List<Student> studentCount= studentService.getStudent();
+		if(studentCount.size()==0) {
+			return new  ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<>(studentService.getStudent(),HttpStatus.OK);
 
 	}
 
-//	@GetMapping("/{studentId}")
-//	public ResponseEntity<?> getStudentById(@PathVariable Integer studentId) {
+	@GetMapping("/{studentId}")
+	public ResponseEntity<?> getStudentById(@PathVariable Integer studentId) {
 //		
-//		if(studentService.validate(student)) {
+//		if(studentService.validate(Student student)) {
 //			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Student cannot be empty");
 //		}
 //
-//		Optional<Student> studentO = studentService.getStudentById(studentId);
+//		Optional studentO = studentService.getStudentById(studentId);
 //		
 //
 //		if (studentO.isPresent()) {
@@ -50,26 +56,48 @@ public class StudentController {
 //		} else {
 //			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Student not found with ID: " + studentId);
 //		}
-//
-//	}
-
-	@PostMapping
-	public ResponseEntity<?> addStudent(Student student) {
-
-		return studentService.addStudent(student);
+		
+		
+		Optional<Student> res= studentService.getStudentById(studentId);
+		if(res.isEmpty()) {
+			return new  ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<>(studentService.getStudentById(studentId),HttpStatus.OK);
+		
 
 	}
+
+	@PostMapping
+	public ResponseEntity<?> addStudent(@RequestBody Student student) {
+		List<String> error=studentService.validate(student);
+		if(error.size()!=0) {
+			return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+			
+		}
+		return new ResponseEntity<>(studentService.addStudent(student),HttpStatus.OK);
+
+}
 
 	@PutMapping("/{studentId}")
 	public ResponseEntity<?> updateStudent(@PathVariable Integer id, @RequestBody Student student) {
-
-		return studentService.updateStudent(id, student);
+		List<String> error=studentService.validate(student);
+		if(error.size()!=0) {
+			return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+			
+		}
+		
+		return new ResponseEntity<>(studentService.updateStudent(id, student),HttpStatus.OK);
 	}
 
-	@DeleteMapping("/{studentId}")
-	public ResponseEntity<?> deleteStudent(@PathVariable int studentId) {
-
-		return studentService.deleteStudent(studentId);
-	}
+	 @DeleteMapping("/{studentId}")
+	    public ResponseEntity<Void> deleteStudent(@PathVariable int studentId) {
+	        try {
+	            studentService.deleteStudent(studentId);
+	            return ResponseEntity.noContent().build();
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+	        }
+	    }
 
 }

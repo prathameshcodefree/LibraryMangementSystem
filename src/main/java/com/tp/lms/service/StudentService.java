@@ -28,7 +28,7 @@ public class StudentService {
 	public List<String> validate(Student student) {
 		List<String> error = new ArrayList<>();
 		
-		boolean isEmail = Pattern.compile("^(.+)@(\\\\S+)$")
+		boolean isEmail = Pattern.compile("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")
 	      .matcher(student.getEmail())
 	      .matches();
 		
@@ -86,52 +86,52 @@ public class StudentService {
 //	}
 	
 	
-	public ResponseEntity<?> addStudent(Student student) {
+	public Student  addStudent(Student student) {
         
-        if (student.getFirstName()== null) {
-            return new ResponseEntity<>("First name is required", HttpStatus.BAD_REQUEST);
-        }
-        if (student.getLastName() == null || student.getLastName().isEmpty()) {
-            return new ResponseEntity<>("Last name is required", HttpStatus.BAD_REQUEST);
-        }
-        if (student.getEmail() == null || student.getEmail().isEmpty()) {
-            return new ResponseEntity<>("Email is required", HttpStatus.BAD_REQUEST);
-        }
+//        if (student.getFirstName()== null) {
+//            return new ResponseEntity<>("First name is required", HttpStatus.BAD_REQUEST);
+//        }
+//        if (student.getLastName() == null || student.getLastName().isEmpty()) {
+//            return new ResponseEntity<>("Last name is required", HttpStatus.BAD_REQUEST);
+//        }
+//        if (student.getEmail() == null || student.getEmail().isEmpty()) {
+//            return new ResponseEntity<>("Email is required", HttpStatus.BAD_REQUEST);
+//        }
        
         Student savedStudent = studentRepository.save(student);
-        return new ResponseEntity<>(savedStudent, HttpStatus.CREATED);
+        return savedStudent;
     }
 
 	
 	
-	public ResponseEntity<?> updateStudent(Integer studentId, Student updatedStudent) {
-		if (studentId == null) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Student ID cannot be empty");
-		}
-
-		if (updatedStudent == null || updatedStudent.getFirstName() == null || updatedStudent.getFirstName().isEmpty()
-				|| updatedStudent.getEmail().isEmpty()) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid updated student data");
-		}
-
-		Student existingStudent = studentRepository.findById(studentId).orElse(null);
-		if (existingStudent != null) {
-			existingStudent.setStudentId(updatedStudent.getId());
-			studentRepository.save(existingStudent);
-			return ResponseEntity.ok("Student updated successfully");
-		} else {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Student not found with ID: " + studentId);
-		}
+	public Student updateStudent(Integer studentId, Student student) {
+//		if (studentId == null) {
+//			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Student ID cannot be empty");
+//		}
+//
+//		if (updatedStudent == null || updatedStudent.getFirstName() == null || updatedStudent.getFirstName().isEmpty()
+//				|| updatedStudent.getEmail().isEmpty()) {
+//			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid updated student data");
+//		}
+//
+//		Student existingStudent = studentRepository.findById(studentId).orElse(null);
+//		if (existingStudent != null) {
+//			existingStudent.setStudentId(updatedStudent.getId());
+//			studentRepository.save(existingStudent);
+//			return ResponseEntity.ok("Student updated successfully");
+//		} else {
+//			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Student not found with ID: " + studentId);
+//		}
+		student.setStudentId(studentId);
+		return studentRepository.save(student);
 	}
 
 	
 	
-	public ResponseEntity<?> deleteStudent(Integer studentId) {
-		if (studentId == null) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Student ID cannot be empty");
-		}
+	public void deleteStudent(Integer studentId) {
+		
 
 		studentRepository.deleteById(studentId);
-		return ResponseEntity.ok("Student deleted successfully");
+		
 	}
 }

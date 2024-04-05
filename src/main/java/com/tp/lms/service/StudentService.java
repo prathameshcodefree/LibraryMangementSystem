@@ -28,34 +28,56 @@ public class StudentService {
 	public List<String> validate(Student student) {
 		List<String> error = new ArrayList<>();
 		
+<<<<<<< HEAD
 		boolean isEmail = Pattern.compile("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")
 	      .matcher(student.getEmail())
 	      .matches();
+=======
+>>>>>>> 95604fd468469fab9352473ed059ef95583636f0
 		
-		boolean isPassword = Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,20}$")
-			      .matcher(student.getPassword())
-			      .matches();
 		
 		if (student.getFirstName() == null) {
 			error.add("first name can not be empty");
-		}if (student.getLastName() == null) {
+		}
+		
+		if (student.getLastName() == null) {
 			error.add("last name can not be empty");
-		}if (student.getGender() == null) {
+		}
+		
+		if(student.getEmail()== null) {
+			error.add("Email can not be empty");
+		}
+		if(student.getPassword()==null)
+		{
+			error.add("Passwor can not be empty");
+		}
+		if (student.getGender() == null) {
 			error.add("Gender name can not be empty");
-		}if (student.getStudentstatus() == null) {
+		}
+		
+		if (student.getStudentstatus() == null) {
 			error.add("Student status can not be empty");
 		}
+		
 		if (student.getCollegeName() == null) {
 			error.add("College name can not be empty");
 		}
+		
 		if (student.getDate() == null) {
 			error.add("Date can not be empty");
 		}
+		
 		if (student.getRollNo() == null) {
 			error.add("Date can not be empty");
 		}
 		
-		
+		boolean isEmail = Pattern.compile("^(.+)@(\\\\S+)$")
+			      .matcher(student.getEmail())
+			      .matches();
+				
+		boolean isPassword = Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,20}$")
+					      .matcher(student.getPassword())
+					      .matches();
 		if (!isEmail) {
 			error.add("email is not correct");
 		}
@@ -75,6 +97,7 @@ public class StudentService {
 
 	
 	
+<<<<<<< HEAD
 //	public ResponseEntity<?> addStudent(Student student) {		if (student == null) {
 //			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Student data cannot be null");
 //		}
@@ -100,6 +123,13 @@ public class StudentService {
        
         Student savedStudent = studentRepository.save(student);
         return savedStudent;
+=======
+	public Student addStudent(Student student) {
+       
+       
+        return studentRepository.save(student);
+        
+>>>>>>> 95604fd468469fab9352473ed059ef95583636f0
     }
 
 	

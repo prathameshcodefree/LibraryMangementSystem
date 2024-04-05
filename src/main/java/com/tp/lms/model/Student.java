@@ -34,34 +34,36 @@ public class Student extends AuditColumn {
 	@Column(name = "email_address", length = 64, nullable = false)
 	private String email;
 
-	
-	private Integer contactNumber;
+	@Column(name="contact_number")
+	private String contactNumber;
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "gender_status")
 	private Gender gender;
-	
+
 	@Column(name = "date")
 	private Date date;
-	
+
 	@Column(name = "college_name", length = 50)
 	private String collegeName;
-	
+
 	@Column(name = "roll_no")
 	private Integer rollNo;
-	
+
 	@Column(name = "password")
 	private String password;
-	
+
 	@Enumerated(EnumType.STRING)
 	@Column(name = "student_status")
 	private StudentStatus studentstatus;
 
-	public int getId() {
+	
+
+	public Integer getId() {
 		return id;
 	}
 
-	public void setStudentId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -97,11 +99,11 @@ public class Student extends AuditColumn {
 		this.email = email;
 	}
 
-	public int getContactNumber() {
+	public String getContactNumber() {
 		return contactNumber;
 	}
 
-	public void setContactNumber(int contactNumber) {
+	public void setContactNumber(String contactNumber) {
 		this.contactNumber = contactNumber;
 	}
 

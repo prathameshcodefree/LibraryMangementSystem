@@ -42,7 +42,7 @@ public class StudentService {
 			error.add("Email can not be empty");
 		}
 		
-		if(student.getPassword()==null)
+		if(student.getPassword()== null)
 		{
 			error.add("Passwor can not be empty");
 		}
@@ -88,6 +88,7 @@ public class StudentService {
 	}
 	
 	
+	
 
 	public Optional<Student> getStudentById(Integer studentId) {
 
@@ -119,7 +120,7 @@ public class StudentService {
 
 		Student existingStudent = studentRepository.findById(studentId).orElse(null);
 		if (existingStudent != null) {
-			existingStudent.setStudentId(updatedStudent.getId());
+			existingStudent.setId(updatedStudent.getId());
 			studentRepository.save(existingStudent);
 			return ResponseEntity.ok("Student updated successfully");
 		
@@ -135,12 +136,14 @@ public class StudentService {
 
 	
 	
-	public ResponseEntity<?> deleteStudent(Integer studentId) {
-		if (studentId == null) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Student ID cannot be empty");
+	public boolean  deleteStudent(Integer id) {
+		boolean exists=studentRepository.existsById(id);
+		if(exists) {
+			studentRepository.deleteById(id);
+			return true;
 		}
-
-		studentRepository.deleteById(studentId);
-		return ResponseEntity.ok("Student deleted successfully");
+		else {
+			return false;
+		}
 	}
 }

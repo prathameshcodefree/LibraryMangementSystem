@@ -54,9 +54,11 @@ public class StaffController {
 			return new ResponseEntity<Staff>(HttpStatus.NOT_FOUND);
 		}
 	}
-
+	
+	
 	@DeleteMapping("/{id}")
 	public void DeleteMapping(@PathVariable int id) {
 		staffService.DeleteStaff(id);
+	
 	}
 }

@@ -49,6 +49,9 @@ public class BookMaster extends AuditColumn {
 	@ManyToOne
     @JoinColumn(name = "requirement_id")
     private Requirement requirement;
+	
+	
+	
 	public Requirement getRequirement() {
 		return requirement;
 	}

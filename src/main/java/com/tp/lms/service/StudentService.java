@@ -41,12 +41,16 @@ public class StudentService {
 		if(student.getEmail()== null) {
 			error.add("Email can not be empty");
 		}
+		
 		if(student.getPassword()==null)
 		{
 			error.add("Passwor can not be empty");
 		}
+		
 		if (student.getGender() == null) {
+		
 			error.add("Gender name can not be empty");
+		
 		}
 		
 		if (student.getStudentstatus() == null) {
@@ -65,11 +69,11 @@ public class StudentService {
 			error.add("Date can not be empty");
 		}
 		
-		boolean isEmail = Pattern.compile("^(.+)@(\\\\S+)$")
+		boolean isEmail = Pattern.compile("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$")
 			      .matcher(student.getEmail())
 			      .matches();
 				
-		boolean isPassword = Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,20}$")
+		boolean isPassword = Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$")
 					      .matcher(student.getPassword())
 					      .matches();
 		if (!isEmail) {
@@ -82,6 +86,8 @@ public class StudentService {
 		
 		return error;
 	}
+	
+	
 
 	public Optional<Student> getStudentById(Integer studentId) {
 
@@ -101,6 +107,7 @@ public class StudentService {
 	
 	
 	public ResponseEntity<?> updateStudent(Integer studentId, Student updatedStudent) {
+		
 		if (studentId == null) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Student ID cannot be empty");
 		}
@@ -115,9 +122,15 @@ public class StudentService {
 			existingStudent.setStudentId(updatedStudent.getId());
 			studentRepository.save(existingStudent);
 			return ResponseEntity.ok("Student updated successfully");
-		} else {
+		
+		}
+		
+		else
+		
+		{
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Student not found with ID: " + studentId);
 		}
+	
 	}
 
 	

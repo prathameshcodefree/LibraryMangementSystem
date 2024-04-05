@@ -25,7 +25,7 @@ public class StudentController {
 
 	@Autowired
 	StudentService studentService;
-	
+
 	Student student;
 
 	@GetMapping("")
@@ -38,12 +38,11 @@ public class StudentController {
 	@GetMapping("/{studentId}")
 	public ResponseEntity<?> getStudentById(@PathVariable Integer studentId) {
 		List<String> error = studentService.validate(student);
-		if(error.size() != 0) {
+		if (error.size() != 0) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
 		}
 
 		Optional<Student> studentO = studentService.getStudentById(studentId);
-		
 
 		if (studentO.isPresent()) {
 			return ResponseEntity.ok(studentO.get());
@@ -56,29 +55,38 @@ public class StudentController {
 	@PostMapping("/add")
 	public ResponseEntity<?> addStudent(@RequestBody Student student) {
 		List<String> error = studentService.validate(student);
-		if(error.size() != 0) {
+		if (error.size() != 0) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
 		}
 
-		
-			Student s=studentService.addStudent(student);
-			return ResponseEntity.status(HttpStatus.ACCEPTED).body(s);
-		
-		
-		
-	
+		Student addedStudent = studentService.addStudent(student);
+		return ResponseEntity.status(HttpStatus.CREATED).body(addedStudent);
+
 	}
 
-	@PutMapping("/{studentId}")
+	@PutMapping("/{id}")
 	public ResponseEntity<?> updateStudent(@PathVariable Integer id, @RequestBody Student student) {
 
-		return studentService.updateStudent(id, student);
+		List<String> error = studentService.validate(student);
+		if (error.size() != 0) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+		}
+
+		Student updatedStudent = studentService.updateStudent(id, student);
+		return ResponseEntity.status(HttpStatus.CREATED).body(updatedStudent);
+
 	}
 
-	@DeleteMapping("/{studentId}")
-	public ResponseEntity<?> deleteStudent(@PathVariable int studentId) {
+	@DeleteMapping("/{id}")
+	public ResponseEntity<?> deleteStudent(@PathVariable Integer id) {
+	
+	        boolean deleted = studentService.deleteStudent(id);
 
-		return studentService.deleteStudent(studentId);
-	}
-
+	        if (deleted) {
+	            return ResponseEntity.ok("Student with ID " + id + " deleted successfully.");
+	        } else {
+	            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+	                                 .body("Student with ID " + id + " not found.");
+	        }
+	    }
 }

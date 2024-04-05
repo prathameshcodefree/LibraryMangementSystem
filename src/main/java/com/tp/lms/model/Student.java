@@ -50,7 +50,7 @@ public class Student extends AuditColumn {
 	@Column(name = "roll_no")
 	private Integer rollNo;
 	
-	@Column(name = "password", length = 50)
+	@Column(name = "password")
 	private String password;
 	
 	@Enumerated(EnumType.STRING)

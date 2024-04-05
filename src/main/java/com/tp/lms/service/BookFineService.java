@@ -25,8 +25,8 @@ public class BookFineService {
 
 	}
 
-	public Optional<BookFine> getBookFine(Integer bookFineId) {
-		return bookfineRepository.findById(bookFineId);
+	public Optional<BookFine> getBookFineById(Integer id) {
+		return bookfineRepository.findById(id);
 
 	}
 
@@ -69,23 +69,27 @@ public class BookFineService {
 
 	}
 
-//	public BookFine updateBookFine(Integer id, @RequestBody BookFine bookfine) {
-//
-//
-//		
-//		
-//
-////		int delayDays = bookfine.getDelayByDays();
-////		int perDayFine = bookfine.getPerDayFine();
-////		float fineAmount = delayDays * perDayFine;
-////		bookfine.setFineAmount(fineAmount);
-////		return bookfinerepository.save(bookfine);
-//
-//	}
+	public BookFine updateBookFine(Integer id, @RequestBody BookFine bookfine) {
+		BookFine existingBookFine = bookfineRepository.findById(id).orElse(null);
+		existingBookFine.setId(bookfine.getId());
+		existingBookFine.setBookFineId(bookfine.getBookId());
+		existingBookFine.setBookIssueId(bookfine.getBookIssueId());
+		existingBookFine.setDelayByDays(bookfine.getDelayByDays());
+		existingBookFine.setDelayByDays(bookfine.getPerDayFine());
+		existingBookFine.setStudentId(bookfine.getStudentId());
+		return bookfineRepository.save(existingBookFine);
+	}
 
-	public void deleteBookFine(Integer bookFineId) {
+	public boolean deleteStudent(Integer id) {
 
-		bookfineRepository.deleteById(bookFineId);
+		boolean exists = bookfineRepository.existsById(id);
+		if (exists) {
+			bookfineRepository.deleteById(id);
+			return true;
+		} else {
+
+			return false;
+		}
 
 	}
 

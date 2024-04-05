@@ -1,10 +1,10 @@
 package com.tp.lms.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import com.tp.lms.model.Rack;
 import com.tp.lms.repository.RackRepository;
@@ -12,9 +12,10 @@ import com.tp.lms.repository.RackRepository;
 @Service
 public class RackService {
 
-	
+
 @Autowired	
 RackRepository rackRepository;
+
 
     public List<Rack> getAllRacks() {
  
@@ -34,9 +35,33 @@ RackRepository rackRepository;
     	return rackRepository.save(rack);
     }
     
-    
-    public Rack updateRack(Integer rackId, @RequestBody Rack rack ) {
+
+  	 
+
+public List<String> validate(Rack rack) {
+  	 List<String> error = new ArrayList<>();
+  	 
+  	 if (rack.getId()==null) {
+  	
+  		 error.add("rack id must be provided ");
+  	
+  	 }
+  	 
+  	 if (rack.getRackCode()==null) {
+  	
+  		 error.add("rack code must be provided ");
+  	 
+  	 }
+  	 
+   	 return error;
+   	   	 
+   	 }
+
+
+  	 
+    public Rack updateRack(Integer rackId,  Rack rack ) {
     	
+    
     	rack.setId(rackId);
     	return rackRepository.save(rack);
     }
@@ -47,6 +72,10 @@ RackRepository rackRepository;
     	rackRepository.deleteById(rackId);
 
     } 
+    
+    
+     
+   	 
    
     
 }

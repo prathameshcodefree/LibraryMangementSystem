@@ -2,6 +2,7 @@ package com.tp.lms.model;
 
 import java.util.Date;
 
+<<<<<<< HEAD
 import org.springframework.beans.factory.annotation.Autowired;
 
 import jakarta.persistence.CascadeType;
@@ -73,6 +74,71 @@ public class Student extends AuditColumns {
 
 	public void setUserID(int userID) {
 		this.userID = userID;
+=======
+import com.tp.lms.model.enums.Gender;
+import com.tp.lms.model.enums.StudentStatus;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "student")
+public class Student extends AuditColumn {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "student_id")
+	private Integer id;
+
+	@Column(name = "first_name")
+	private String firstName;
+
+	@Column(name = "middle_name", length = 50)
+	private String middleName;
+
+	@Column(name = "last_name", length = 50)
+	private String lastName;
+
+	@Column(name = "email_address", length = 64, nullable = false)
+	private String email;
+
+	@Column(name="contact_number")
+	private String contactNumber;
+
+	@Enumerated(EnumType.STRING)
+	@Column(name = "gender_status")
+	private Gender gender;
+
+	@Column(name = "date")
+	private Date date;
+
+	@Column(name = "college_name", length = 50)
+	private String collegeName;
+
+	@Column(name = "roll_no")
+	private Integer rollNo;
+
+	@Column(name = "password")
+	private String password;
+
+	@Enumerated(EnumType.STRING)
+	@Column(name = "student_status")
+	private StudentStatus studentstatus;
+
+	
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+>>>>>>> 93840ef2ab2233e134ffb8cb3d56a2ea581c55e7
 	}
 
 	public String getFirstName() {
@@ -123,6 +189,7 @@ public class Student extends AuditColumns {
 		this.gender = gender;
 	}
 
+<<<<<<< HEAD
 	public Date getDob() {
 		return dob;
 	}
@@ -161,6 +228,30 @@ public class Student extends AuditColumns {
 
 	public void setRollNumber(int rollNumber) {
 		this.rollNumber = rollNumber;
+=======
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public String getCollegeName() {
+		return collegeName;
+	}
+
+	public void setCollegeName(String collegeName) {
+		this.collegeName = collegeName;
+	}
+
+	public Integer getRollNo() {
+		return rollNo;
+	}
+
+	public void setRollNo(Integer rollNo) {
+		this.rollNo = rollNo;
+>>>>>>> 93840ef2ab2233e134ffb8cb3d56a2ea581c55e7
 	}
 
 	public String getPassword() {
@@ -171,6 +262,7 @@ public class Student extends AuditColumns {
 		this.password = password;
 	}
 
+<<<<<<< HEAD
 	public StudentStatus getStudentStatus() {
 		return studentStatus;
 	}
@@ -188,4 +280,14 @@ public class Student extends AuditColumns {
 	}
 	 
 
+=======
+	public StudentStatus getStudentstatus() {
+		return studentstatus;
+	}
+
+	public void setStudentstatus(StudentStatus studentstatus) {
+		this.studentstatus = studentstatus;
+	}
+
+>>>>>>> 93840ef2ab2233e134ffb8cb3d56a2ea581c55e7
 }

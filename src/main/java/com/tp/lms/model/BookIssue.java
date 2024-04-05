@@ -2,37 +2,34 @@ package com.tp.lms.model;
 
 import java.util.Date;
 
-import jakarta.persistence.*;
+import com.tp.lms.model.enums.Status;
 
-enum Status {
-	ISSUED, RETURNED
-}
+import jakarta.persistence.*;
 
 
 @Entity
-@Table(name = "bookissue",uniqueConstraints = {@UniqueConstraint(columnNames = {"student_id","book_id"})})
-public class BookIssue {
+@Table(name = "book_issue")
+public class BookIssue extends AuditColumn {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "book_id")
-	private Integer bookIssueId;
+	@Column(name = "book_issue_id")
+	private Integer id;
 
-	@ManyToOne
-	@JoinColumn(name = "student_id", referencedColumnName = "student_id")	
+	
+	@Column(name = "student_id")	
 	private int studentId;
 
-	@OneToOne
-	@JoinColumn(name = "book_id", referencedColumnName = "book_id")	
+	@Column(name = "book_id")	
 	private int bookId;
 
-	@Column(name = "issue_date",length = 30)
+	@Column(name = "issue_date")
 	private Date issueDate;
 
-	@Column(name = "return_date",length = 30)
+	@Column(name = "return_date")
 	private Date returnDate;
 
-	@Column(name = "expected_return_date",length = 30)
+	@Column(name = "expected_return_date")
 	private Date expectedReturnDate;
 
 	@Enumerated(EnumType.STRING)
@@ -42,12 +39,12 @@ public class BookIssue {
 	@Column(name = "is_delayed")
 	private boolean isDelayed;
 
-	public int getBookIssueId() {
-		return bookIssueId;
+	public int getId() {
+		return id;
 	}
 
-	public void setBookIssueId(int bookIssueId) {
-		this.bookIssueId = bookIssueId;
+	public void setBookIssueId(int id) {
+		this.id = id;
 	}
 
 	public int getStudentId() {

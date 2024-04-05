@@ -9,25 +9,23 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "book_category")
-public class BookCategory {
+public class BookCategory extends AuditColumn {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "book_category_id")
-	private int bookCategoryId;
+	private Integer id;
 	
 	@Column(name = "book_category_name", length = 128)
 	private String bookCategoryName;
 	
-	@Column(name = "audit_columns", length = 128)
-	private String auditColumns;
 
-	public int getBookCategoryId() {
-		return bookCategoryId;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setBookCategoryId(int bookCategoryId) {
-		this.bookCategoryId = bookCategoryId;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getBookCategoryName() {
@@ -37,16 +35,5 @@ public class BookCategory {
 	public void setBookCategoryName(String bookCategoryName) {
 		this.bookCategoryName = bookCategoryName;
 	}
-
-	public String getAuditColumns() {
-		return auditColumns;
-	}
-
-	public void setAuditColumns(String auditColumns) {
-		this.auditColumns = auditColumns;
-	}
-	
-	
-	
 
 }

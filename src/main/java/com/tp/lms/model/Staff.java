@@ -1,5 +1,8 @@
 package com.tp.lms.model;
 
+import com.tp.lms.model.enums.StaffStatus;
+import com.tp.lms.model.enums.StaffType;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -9,19 +12,15 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-enum StaffType {
-	Librarian, Inventory, Manager
-}
-
 
 @Entity
 @Table(name = "staff")
-public class Staff {
+public class Staff extends AuditColumn {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "staff_id")
-	private Integer staffId;
+	private Integer id;
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "staff_type",length = 128)
@@ -51,8 +50,10 @@ public class Staff {
 	@Column(name = "password", length = 64, nullable = false)
 	private String password;
 
+
+	@Enumerated(EnumType.STRING)
 	@Column(name = "staff_status", length = 128)
-	private String staffStatus;
+	private StaffStatus staffStatus;
 
 	@Column(name = "aadhar_number", length = 16)
 	private int aadhaarNumber;
@@ -60,12 +61,12 @@ public class Staff {
 	@Column(name = "pan_number", length = 10)
 	private int panNumber;
 
-	public Integer getStaffId() {
-		return staffId;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setStaffId(Integer staffId) {
-		this.staffId = staffId;
+	public void setStaffId(Integer id) {
+		this.id = id;
 	}
 
 	public StaffType getStaffType() {
@@ -140,11 +141,11 @@ public class Staff {
 		this.password = password;
 	}
 
-	public String getStaffStatus() {
+	public StaffStatus getStaffStatus() {
 		return staffStatus;
 	}
 
-	public void setStaffStatus(String staffStatus) {
+	public void setStaffStatus(StaffStatus staffStatus) {
 		this.staffStatus = staffStatus;
 	}
 

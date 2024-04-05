@@ -2,25 +2,32 @@ package com.tp.lms.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "book_master")
-public class BookMaster {
+public class BookMaster extends AuditColumn {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "book_master_id")
-	private int bookMasterId;
+	@Column(name = "book_master_id")
+	private Integer id;
 	
-	@Column(name = "book_category_id")
-	private int bookCategoryId;
 	
-	@Column(name = "book_subcategory_id")
-	private int bookSubCategoryId;
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="book_category_id",nullable=false)
+	private BookCategory bookCategory;
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="book_subcategory_id",nullable=false)
+	private BookSubCategory bookSubCategory;
 	
 	@Column(name = "title", length = 128)
 	private String title;
@@ -34,42 +41,46 @@ public class BookMaster {
 	@Column(name = "publish_by", length = 128)
 	private String publishBy;
 	
-	@Column(name = "rack_id")
-	private int rackId;
+	@JoinColumn(name = "rack_id")
+	private Integer rackId;
 	
-	@Column(name = "audit_columns", length = 128)
-    private String auditColumns;
 
-	public String getAuditColumns() {
-		return auditColumns;
+
+	@ManyToOne
+    @JoinColumn(name = "requirement_id")
+    private Requirement requirement;
+	public Requirement getRequirement() {
+		return requirement;
 	}
 
-	public void setAuditColumns(String auditColumns) {
-		this.auditColumns = auditColumns;
+	public void setRequirement(Requirement requirement) {
+		this.requirement = requirement;
 	}
 
-	public int getBookMasterId() {
-		return bookMasterId;
+
+	public int getId() {
+
+		return id;
 	}
 
-	public void setBookMasterId(int bookMasterId) {
-		this.bookMasterId = bookMasterId;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
-	public int getBookCategoryId() {
-		return bookCategoryId;
+	public BookCategory getBookCategory() {
+		return bookCategory;
 	}
 
-	public void setBookCategoryId(int bookCategoryId) {
-		this.bookCategoryId = bookCategoryId;
+	public void setBookCategory(BookCategory bookCategory) {
+		this.bookCategory = bookCategory;
 	}
 
-	public int getBookSubCategoryId() {
-		return bookSubCategoryId;
+	public BookSubCategory getBookSubCategory() {
+		return bookSubCategory;
 	}
 
-	public void setBookSubCategoryId(int bookSubCategoryId) {
-		this.bookSubCategoryId = bookSubCategoryId;
+	public void setBookSubCategory(BookSubCategory bookSubCategory) {
+		this.bookSubCategory = bookSubCategory;
 	}
 
 	public String getTitle() {
@@ -104,16 +115,16 @@ public class BookMaster {
 		this.publishBy = publishBy;
 	}
 
-	public int getRackId() {
+	public Integer getRackId() {
 		return rackId;
 	}
 
-	public void setRackId(int rackId) {
+	public void setRackId(Integer rackId) {
 		this.rackId = rackId;
 	}
+
 	
-	
-	
+
 	
 
 	

@@ -18,10 +18,10 @@ public class BookIssue extends AuditColumn {
 
 	
 	@Column(name = "student_id")	
-	private int studentId;
+	private Integer studentId;
 
 	@Column(name = "book_id")	
-	private int bookId;
+	private Integer bookId;
 
 	@Column(name = "issue_date")
 	private Date issueDate;
@@ -39,27 +39,29 @@ public class BookIssue extends AuditColumn {
 	@Column(name = "is_delayed")
 	private boolean isDelayed;
 
-	public int getId() {
+	
+
+	public Integer getId() {
 		return id;
 	}
 
-	public void setBookIssueId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	public int getStudentId() {
+	public Integer getStudentId() {
 		return studentId;
 	}
 
-	public void setStudentId(int studentId) {
+	public void setStudentId(Integer studentId) {
 		this.studentId = studentId;
 	}
 
-	public int getBookId() {
+	public Integer getBookId() {
 		return bookId;
 	}
 
-	public void setBookId(int bookId) {
+	public void setBookId(Integer bookId) {
 		this.bookId = bookId;
 	}
 

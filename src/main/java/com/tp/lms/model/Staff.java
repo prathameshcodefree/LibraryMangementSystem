@@ -61,10 +61,10 @@ public class Staff extends AuditColumn {
 	private StaffStatus staffStatus;
 
 	@Column(name = "aadhar_number", length = 16)
-	private int aadhaarNumber;
+	private Integer aadhaarNumber;
 
 	@Column(name = "pan_number", length = 10)
-	private int panNumber;
+	private String  panNumber;
 	
 	
 	@OneToMany
@@ -168,11 +168,11 @@ public class Staff extends AuditColumn {
 		this.aadhaarNumber = aadhaarNumber;
 	}
 
-	public int getPanNumber() {
+	public String  getPanNumber() {
 		return panNumber;
 	}
 
-	public void setPanNumber(int panNumber) {
+	public void setPanNumber(String  panNumber) {
 		this.panNumber = panNumber;
 	}
 	

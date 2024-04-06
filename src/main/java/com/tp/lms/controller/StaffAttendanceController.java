@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -49,15 +51,27 @@ public class StaffAttendanceController {
 	
 	
 	@PostMapping
-	public ResponseEntity<StaffAttendance> createAttendance(@RequestBody StaffAttendance attendance){
+	public ResponseEntity<?> createAttendance(@RequestBody StaffAttendance attendance){
+		
+		List<String> error = service.validate(attendance);
+		
+		if (!error.isEmpty()) {
+			ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+		}
+		
 		return ResponseEntity.ok(service.createAttendance(attendance));
 	
 	}
 	
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<StaffAttendance> updateAttendance(@PathVariable Integer id ,@RequestBody StaffAttendance attendance )
+	public ResponseEntity<?> updateAttendance(@PathVariable Integer id ,@RequestBody StaffAttendance attendance )
 	{
+		List<String > error = service.validate(attendance);
+		if(!error.isEmpty())
+		{
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+		}
 		
      return ResponseEntity.ok(service.updateAttendance(id, attendance));	
       
@@ -69,6 +83,7 @@ public class StaffAttendanceController {
    {
 	   service.delete(id);
 	   return ResponseEntity.ok("deleted");   
+
    }
 		
 }

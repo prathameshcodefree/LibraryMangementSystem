@@ -37,13 +37,21 @@ public class BookSubCategoryController {
     }
 
     @PostMapping
-    public ResponseEntity<BookSubCategory> addBookSubCategory(@RequestBody BookSubCategory bookSubCategory) {
+    public ResponseEntity<?> addBookSubCategory(@RequestBody BookSubCategory bookSubCategory) {
+    	List<String> error = bookSubCategoryService.validate(bookSubCategory);
+		if (error.size() != 0) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+		}
         BookSubCategory savedBookSubCategory = bookSubCategoryService.addBookSubCategory(bookSubCategory);
         return new ResponseEntity<>(savedBookSubCategory, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<BookSubCategory> updateBookSubCategory(@PathVariable Integer id, @RequestBody BookSubCategory bookSubCategory) {
+    public ResponseEntity<?> updateBookSubCategory(@PathVariable Integer id, @RequestBody BookSubCategory bookSubCategory) {
+    	List<String> error = bookSubCategoryService.validate(bookSubCategory);
+		if (error.size() != 0) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+		}
         BookSubCategory updatedBookSubCategory = bookSubCategoryService.updateBookSubCategory(id, bookSubCategory);
         if (updatedBookSubCategory == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

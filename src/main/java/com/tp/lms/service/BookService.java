@@ -1,5 +1,6 @@
 package com.tp.lms.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,34 @@ public class BookService {
     public BookService(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
     }
+    
+    public List<String> validate(Book book){
+    	List<String> error = new ArrayList<>();
+    	
+    	if (book.getBookRemark()== null) {
+			error.add("Book Remark can not be empty");
+		}
+    	
+    	if(book.getBookStatus() == null) {
+    		error.add("Book Status can not be empty");
+    	}
+    	
+    	if(book.getId() == null) {
+    		error.add("Book Id can not be empty");
+    	}
+    	
+    	if(book.getIsbnCode() == null) {
+    		error.add("Book ISBN Code can not be empty");
+    	}
+    	
+    	
+    	return error;
+    	
+    }
+    
+    
+    
+    
     
     public List<Book> getBook(){
 		return bookRepository.findAll();

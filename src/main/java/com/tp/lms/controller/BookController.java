@@ -12,6 +12,7 @@ import com.tp.lms.service.BookService;
 
 
 @RestController
+@RequestMapping("/book")
 public class BookController {
 	@Autowired
     private final BookService bookService;
@@ -37,13 +38,25 @@ public class BookController {
     }
     
     @PostMapping
-    public ResponseEntity<Book> addBook(@RequestBody Book book) {
+    public ResponseEntity<?> addBook(@RequestBody Book book) {
+    	List<String> error = bookService.validate(book);
+		if (error.size() != 0) {
+
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+		
+		}
     	Book addbook = bookService.addBook(book);
     	return new ResponseEntity<>(addbook, HttpStatus.CREATED);
     }
     
     @PutMapping("/{id}")
-    public ResponseEntity<Book> updateById(@PathVariable int id, @RequestBody Book book) {
+    public ResponseEntity<?> updateById(@PathVariable int id, @RequestBody Book book) {
+    	List<String> error = bookService.validate(book);
+		if (error.size() != 0) {
+
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+		
+		}
     	Book updatebook = bookService.updateById(id, book);
     	if (updatebook == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

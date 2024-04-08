@@ -20,9 +20,9 @@ public class Student extends AuditColumn {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "student_id")
-	private int id;
+	private Integer id;
 
-	@Column(name = "first_name", length = 50)
+	@Column(name = "first_name")
 	private String firstName;
 
 	@Column(name = "middle_name", length = 50)
@@ -34,29 +34,36 @@ public class Student extends AuditColumn {
 	@Column(name = "email_address", length = 64, nullable = false)
 	private String email;
 
-	private Integer contactNumber;
+	@Column(name="contact_number")
+	private String contactNumber;
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "gender_status")
 	private Gender gender;
-	
+
 	@Column(name = "date")
 	private Date date;
+
 	@Column(name = "college_name", length = 50)
 	private String collegeName;
+
 	@Column(name = "roll_no")
-	private int rollNo;
-	@Column(name = "password", length = 50)
+	private Integer rollNo;
+
+	@Column(name = "password")
 	private String password;
+
 	@Enumerated(EnumType.STRING)
 	@Column(name = "student_status")
 	private StudentStatus studentstatus;
 
-	public int getId() {
+	
+
+	public Integer getId() {
 		return id;
 	}
 
-	public void setStudentId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -92,11 +99,11 @@ public class Student extends AuditColumn {
 		this.email = email;
 	}
 
-	public int getContactNumber() {
+	public String getContactNumber() {
 		return contactNumber;
 	}
 
-	public void setContactNumber(int contactNumber) {
+	public void setContactNumber(String contactNumber) {
 		this.contactNumber = contactNumber;
 	}
 
@@ -124,11 +131,11 @@ public class Student extends AuditColumn {
 		this.collegeName = collegeName;
 	}
 
-	public int getRollNo() {
+	public Integer getRollNo() {
 		return rollNo;
 	}
 
-	public void setRollNo(int rollNo) {
+	public void setRollNo(Integer rollNo) {
 		this.rollNo = rollNo;
 	}
 

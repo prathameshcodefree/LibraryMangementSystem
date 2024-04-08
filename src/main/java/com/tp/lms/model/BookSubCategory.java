@@ -9,7 +9,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "book_sub_category")
-public class BookSubCategory {
+public class BookSubCategory extends AuditColumn {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

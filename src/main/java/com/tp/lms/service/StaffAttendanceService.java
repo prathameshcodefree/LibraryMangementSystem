@@ -1,6 +1,8 @@
 package com.tp.lms.service;
 
 
+import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -22,7 +24,8 @@ public class StaffAttendanceService {
     
     
     // get all Attendance 
-    public List<StaffAttendance> allAttendance(){
+    public List<StaffAttendance> allAttendance()
+    {
 		
 		return staffAttendanceRepository.findAll();
     
@@ -35,7 +38,8 @@ public class StaffAttendanceService {
    {
  
 	   return staffAttendanceRepository.findById(id);
-    }
+   
+   }
    
     
     // create Attendance 
@@ -52,11 +56,23 @@ public class StaffAttendanceService {
 	  public StaffAttendance updateAttendance( Integer  id, StaffAttendance attendance  )
 	  {
 		  
-		StaffAttendance sRef  = staffAttendanceRepository.getReferenceById(id);
-		
-		if (sRef == null) return null ;
+		StaffAttendance staffattendance = staffAttendanceRepository.getReferenceById(id);
 		 
-		return staffAttendanceRepository.save(attendance);
+		staffattendance.setCheckIn(attendance.getCheckIn());
+		staffattendance.setCheckOut(attendance.getCheckOut());
+		staffattendance.setCreatedAt(attendance.getCreatedAt());
+		staffattendance.setCreatedBy(attendance.getCreatedBy());
+		staffattendance.setCreatedByType(attendance.getCreatedByType());
+		staffattendance.setId(attendance.getId());
+		staffattendance.setPresenty(attendance.getPresenty());
+		staffattendance.setUpdatedAt(attendance.getUpdatedAt());
+		staffattendance.setUpdatedBy(attendance.getUpdatedBy());
+		staffattendance.setUpdatedByType(attendance.getUpdatedByType());
+		
+		
+	//	if (sRef == null) return null ;
+		 
+		return staffAttendanceRepository.save(staffattendance);
 		 
 	 }
 	 
@@ -65,9 +81,43 @@ public class StaffAttendanceService {
 	 public void delete(Integer id ) 
 	 
 	 {
+		 
 		 staffAttendanceRepository.deleteById(id);
 	
 	 }
 	 
+	
+	 // validation method  
+	 
+	 public List<String> validate(StaffAttendance staffattendance) {
+	 List<String> error = new ArrayList<>();
+	 
+	 if (staffattendance.getCheckIn()==null) {
+	
+		 error.add("check-in date must be provided ");
+	 }
+	 
+	 if (staffattendance.getCheckOut()==null) {
+	
+		 error.add("check-out date must be provided ");
+	 }
+	 
+	 if (staffattendance.getId()==0) {
+		
+		 error.add("Id must be provided in number");
+	
+	 }
+	 
+	 if(staffattendance.getPresenty()==null) {
+		
+		 error.add("presence status must be provided ");
+	 
+	 }
+	 
+	 
+	 return error;
+	 
+	 
+	 }
 	 
 }

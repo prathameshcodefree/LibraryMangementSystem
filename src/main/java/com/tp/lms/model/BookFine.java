@@ -9,7 +9,7 @@ import jakarta.persistence.Table;
 
 
 @Entity
-@Table(name = "bookfine")
+@Table(name = "book_fine")
 public class BookFine extends AuditColumn {
 
 	@Id
@@ -35,8 +35,16 @@ public class BookFine extends AuditColumn {
 	@Column(name = "fine_amount")
 	private float fineAmount;
 
+	
+	
+	
+
 	public Integer getId() {
 		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public void setBookFineId(Integer id) {

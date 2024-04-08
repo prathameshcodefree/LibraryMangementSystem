@@ -13,7 +13,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "book_master")
-public class BookMaster {
+public class BookMaster extends AuditColumn {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -49,6 +49,9 @@ public class BookMaster {
 	@ManyToOne
     @JoinColumn(name = "requirement_id")
     private Requirement requirement;
+	
+	
+	
 	public Requirement getRequirement() {
 		return requirement;
 	}

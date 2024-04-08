@@ -30,7 +30,7 @@ public abstract class AuditColumn  implements Serializable {
 
 	
 	@Column(name = "created_by")
-	private Integer createdBy;
+	private UserType createdBy;
 
 	
 	@Column(name = "created_at")
@@ -68,11 +68,13 @@ public abstract class AuditColumn  implements Serializable {
 		this.createdByType = createdByType;
 	}
 
-	public Integer getCreatedBy() {
+	
+
+	public UserType getCreatedBy() {
 		return createdBy;
 	}
 
-	public void setCreatedBy(Integer createdBy) {
+	public void setCreatedBy(UserType createdBy) {
 		this.createdBy = createdBy;
 	}
 

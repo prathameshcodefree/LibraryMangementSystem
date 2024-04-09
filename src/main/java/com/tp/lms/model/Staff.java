@@ -160,12 +160,29 @@ public class Staff extends AuditColumn {
 		this.staffStatus = staffStatus;
 	}
 
+<<<<<<< Updated upstream
+=======
+	
+
+>>>>>>> Stashed changes
 	public Integer getAadhaarNumber() {
 		return aadhaarNumber;
 	}
 
 	public void setAadhaarNumber(Integer aadhaarNumber) {
 		this.aadhaarNumber = aadhaarNumber;
+	}
+
+	public List<StaffAttendance> getStaffattendance() {
+		return staffattendance;
+	}
+
+	public void setStaffattendance(List<StaffAttendance> staffattendance) {
+		this.staffattendance = staffattendance;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String  getPanNumber() {

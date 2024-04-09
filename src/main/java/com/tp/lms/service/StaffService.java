@@ -27,7 +27,7 @@ public class StaffService {
 		return staffRepository.save(staff);
 	}
 
-	public Staff UpdateStaff(Staff staff, int id) {
+	public Staff UpdateStaff( Staff staff, int id) {
 		staff.setStaffId(id);
 		return staffRepository.save(staff);
 	}

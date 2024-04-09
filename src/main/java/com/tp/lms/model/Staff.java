@@ -60,7 +60,7 @@ public class Staff extends AuditColumn {
 	@Column(name = "staff_status", length = 128)
 	private StaffStatus staffStatus;
 
-	@Column(name = "aadhar_number", length = 16)
+	@Column(name = "aadhar_number")
 	private Integer aadhaarNumber;
 
 	@Column(name = "pan_number", length = 10)
@@ -160,11 +160,11 @@ public class Staff extends AuditColumn {
 		this.staffStatus = staffStatus;
 	}
 
-	public int getAadhaarNumber() {
+	public Integer getAadhaarNumber() {
 		return aadhaarNumber;
 	}
 
-	public void setAadhaarNumber(int aadhaarNumber) {
+	public void setAadhaarNumber(Integer aadhaarNumber) {
 		this.aadhaarNumber = aadhaarNumber;
 	}
 

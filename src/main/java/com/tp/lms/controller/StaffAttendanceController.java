@@ -3,6 +3,9 @@ package com.tp.lms.controller;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +23,7 @@ import com.tp.lms.service.StaffAttendanceService;
 @RequestMapping("/attendance")
 public class StaffAttendanceController {
 	
+	@Autowired
 	StaffAttendanceService service;
 	
 	@GetMapping
@@ -30,28 +34,44 @@ public class StaffAttendanceController {
 	}
 	
 	
-	
 	@GetMapping("{id}")
-	public ResponseEntity<StaffAttendance> getById(@PathVariable Integer id ){
-		
+	public ResponseEntity<StaffAttendance> getById(@PathVariable Integer id )
+	{	
 		Optional<StaffAttendance> attendance = service.getAttendanceById(id);
         if (attendance.isPresent()) {
-            return ResponseEntity.ok(attendance.get());
+       
+        	return ResponseEntity.ok(attendance.get());
+        
         } else {
+        	
             return ResponseEntity.notFound().build();
+        
         }
-	} 
+        } 
+	
 	
 	@PostMapping
-	public ResponseEntity<StaffAttendance> createAttendance(@RequestBody StaffAttendance attendance){
+	public ResponseEntity<?> createAttendance(@RequestBody StaffAttendance attendance){
+		
+		List<String> error = service.validate(attendance);
+		
+		if (!error.isEmpty()) {
+			ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+		}
+		
 		return ResponseEntity.ok(service.createAttendance(attendance));
 	
 	}
 	
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<StaffAttendance> updateAttendance(@PathVariable Integer id ,@RequestBody StaffAttendance attendance )
+	public ResponseEntity<?> updateAttendance(@PathVariable Integer id ,@RequestBody StaffAttendance attendance )
 	{
+		List<String > error = service.validate(attendance);
+		if(!error.isEmpty())
+		{
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+		}
 		
      return ResponseEntity.ok(service.updateAttendance(id, attendance));	
       
@@ -59,12 +79,11 @@ public class StaffAttendanceController {
 	
 	
    @DeleteMapping("/{id}")
-   public ResponseEntity<String> deleteAttedance (Integer id ){
+   public ResponseEntity<String> deleteAttedance (Integer id )
+   {
 	   service.delete(id);
-	   return ResponseEntity.ok("deleted");
-	   
+	   return ResponseEntity.ok("deleted");   
+
    }
-	
-     
-	
+		
 }

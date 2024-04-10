@@ -60,6 +60,7 @@ public class StudentController {
 
 	@PostMapping("")
 	public ResponseEntity<?> addStudent(@RequestBody Student student) {
+		
 		List<String> error = studentService.validate(student);
 		if (error.size() != 0) {
 
@@ -71,6 +72,7 @@ public class StudentController {
 
 
 	}
+
 
 
 	@PutMapping("/{id}")

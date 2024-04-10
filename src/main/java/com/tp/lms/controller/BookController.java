@@ -12,10 +12,10 @@ import com.tp.lms.service.BookService;
 
 
 @RestController
-@RequestMapping("/book")
+@RequestMapping("book")
 public class BookController {
 	@Autowired
-    private final BookService bookService;
+    BookService bookService;
 
     
     public BookController(BookService bookService) {

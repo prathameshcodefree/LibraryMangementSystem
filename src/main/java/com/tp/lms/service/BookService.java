@@ -36,7 +36,7 @@ public class BookService {
     		error.add("Book Status can not be empty");
     	}
     	
-    	if(book.)
+    	
     	
     	
     	if(book.getIsbnCode() == null) {

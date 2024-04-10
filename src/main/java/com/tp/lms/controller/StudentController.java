@@ -51,6 +51,7 @@ public class StudentController {
 
 	@PostMapping(" ")
 	public ResponseEntity<?> addStudent(@RequestBody Student student) {
+		
 		List<String> error = studentService.validate(student);
 		if (error.size() != 0) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
@@ -60,6 +61,7 @@ public class StudentController {
 		return ResponseEntity.ok().body("Student added successfully.");
 
 	}
+
 
 	@PutMapping("/{id}")
 	public ResponseEntity<?> updateStudent(@PathVariable Integer id, @RequestBody Student student) {

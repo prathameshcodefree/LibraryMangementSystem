@@ -30,9 +30,11 @@ public class StaffService {
 	public Staff UpdateStaff(Staff staff, int id) {
 		staff.setStaffId(id);
 		return staffRepository.save(staff);
-	}
+	} 
 
 	public void DeleteStaff(int id) {
 		staffRepository.deleteById(id);
 	}
+	
+	
 }

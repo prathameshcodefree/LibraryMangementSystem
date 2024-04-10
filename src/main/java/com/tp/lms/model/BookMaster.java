@@ -49,9 +49,6 @@ public class BookMaster extends AuditColumn {
 	@ManyToOne
     @JoinColumn(name = "requirement_id")
     private Requirement requirement;
-	
-	
-	
 	public Requirement getRequirement() {
 		return requirement;
 	}
@@ -124,6 +121,25 @@ public class BookMaster extends AuditColumn {
 
 	public void setRackId(Integer rackId) {
 		this.rackId = rackId;
+	}
+
+	public BookMaster(Integer id, BookCategory bookCategory, BookSubCategory bookSubCategory, String title,
+			String author, float price, String publishBy, Integer rackId, Requirement requirement) {
+		super();
+		this.id = id;
+		this.bookCategory = bookCategory;
+		this.bookSubCategory = bookSubCategory;
+		this.title = title;
+		this.author = author;
+		this.price = price;
+		this.publishBy = publishBy;
+		this.rackId = rackId;
+		this.requirement = requirement;
+	}
+
+	public BookMaster() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	

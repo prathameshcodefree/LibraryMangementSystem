@@ -4,6 +4,10 @@ package com.tp.lms.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,11 +38,16 @@ public class RackController {
 	    public Rack getRackById(@PathVariable Integer id) {
 	        return rackService.getRackById(id);
 	    }
-	    
-	    @PostMapping("")
-	    public Rack addRack(Rack rack) {
+	   
+	    @PostMapping
+	    public ResponseEntity<?> addRack(Rack rack) {
+
 	    	
-	    	return rackService.addRack(rack);
+	    	List<String> error = rackService.validate(rack);
+	    	if(!error.isEmpty()) {
+	    		ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+	    	}
+	    	return  ResponseEntity.accepted().body(rackService.addRack(rack));
          
          }
 	    
@@ -53,6 +62,7 @@ public class RackController {
 	    public void deleteRack(Integer rackId) {
 	    	
 	    	rackService.deleteRack(rackId);
+	   
 	    }
 	    
 

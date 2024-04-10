@@ -41,8 +41,8 @@ public class StaffAttendance extends AuditColumn {
     @Column(name= "presenty")
     private Presenty presenty;
 
-    //@ManyToOne
-    //@JoinColumn(name = "staff_id")
+    @ManyToOne
+    @JoinColumn(name = "staff_id")
     private Staff staff;
     
     

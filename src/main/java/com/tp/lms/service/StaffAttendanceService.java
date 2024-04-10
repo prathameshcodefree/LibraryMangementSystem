@@ -56,11 +56,23 @@ public class StaffAttendanceService {
 	  public StaffAttendance updateAttendance( Integer  id, StaffAttendance attendance  )
 	  {
 		  
-		StaffAttendance sRef  = staffAttendanceRepository.getReferenceById(id);
-		
-		if (sRef == null) return null ;
+		StaffAttendance staffattendance = staffAttendanceRepository.getReferenceById(id);
 		 
-		return staffAttendanceRepository.save(attendance);
+		staffattendance.setCheckIn(attendance.getCheckIn());
+		staffattendance.setCheckOut(attendance.getCheckOut());
+		staffattendance.setCreatedAt(attendance.getCreatedAt());
+		staffattendance.setCreatedBy(attendance.getCreatedBy());
+		staffattendance.setCreatedByType(attendance.getCreatedByType());
+		staffattendance.setId(attendance.getId());
+		staffattendance.setPresenty(attendance.getPresenty());
+		staffattendance.setUpdatedAt(attendance.getUpdatedAt());
+		staffattendance.setUpdatedBy(attendance.getUpdatedBy());
+		staffattendance.setUpdatedByType(attendance.getUpdatedByType());
+		
+		
+	//	if (sRef == null) return null ;
+		 
+		return staffAttendanceRepository.save(staffattendance);
 		 
 	 }
 	 

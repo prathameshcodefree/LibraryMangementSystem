@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.tp.lms.model.Student;
+
 
 
 
@@ -24,6 +26,21 @@ public class DemoController {
 		
 		return "Hello ghhgng";
 	}
+	
+	
+	@GetMapping("/test2")
+	public Student sayHello2() {
+		
+		Student student=new Student();
+		
+		student.setRollNo(1);
+		student.setId(1);
+		student.setEmail("abc@gmail.com");
+		student.setFirstName("abc");
+		
+		return  student;
+	}
+	
 
 
 }

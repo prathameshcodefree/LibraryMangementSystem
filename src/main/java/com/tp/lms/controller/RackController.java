@@ -36,31 +36,44 @@ public class RackController {
 
 	    @GetMapping("/{id}")
 	    public Rack getRackById(@PathVariable Integer id) {
-	        return rackService.getRackById(id);
+	        
+	    	return rackService.getRackById(id);
+	
 	    }
 	    
 	    @PostMapping
 	    public ResponseEntity<?> addRack(Rack rack) {
+			
 	    	
-	    	List<String> error = rackService.validate(rack);
-	    	if(!error.isEmpty()) {
-	    		ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+	    	System.out.println("we are in add rack controller block "); 
+	    	
+	    	List<String>  error = rackService.validate(rack);
+	    	
+	    	if(!error.isEmpty()) 
+	    	{
+	    		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+	    		
 	    	}
+	    	
 	    	return  ResponseEntity.accepted().body(rackService.addRack(rack));
          
          }
 	    
 	    @PutMapping("/{id}")
-	    public Rack updateRack(Integer rackId,@RequestBody Rack rack) {
+	    public ResponseEntity<?> updateRack(Integer rackId,@RequestBody Rack rack) {
 	    	
-	    	return rackService.updateRack(rackId, rack);
+	    	List<String> error = rackService.validate(rack);
+	    	if (!error.isEmpty()) {
+	    		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+	    	}
+	    	return  ResponseEntity.accepted().body(rackService.updateRack(rackId, rack));
 	    }
 	    
 	    
 	    @DeleteMapping("/{id}")
-	    public void deleteRack(Integer rackId) {
+	    public void  deleteRack(@PathVariable Integer  rackId) {
 	    	
-	    	rackService.deleteRack(rackId);
+	    rackService.deleteRack(rackId)	;
 	   
 	    }
 	    

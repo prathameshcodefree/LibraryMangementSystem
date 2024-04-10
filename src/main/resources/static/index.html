@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+
+<title>home page </title>
+
+<head>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
+	<script>
+
+		function showalert() {
+
+			var alertmessage = document.getElementById("msg");
+
+			var inputvalue = alertmessage.value;
+
+			alert(inputvalue)
+
+		}
+	</script>
+
+
+	<script>
+
+		$(document).ready(function () {
+			$.ajax({
+				url: 'http://localhost:8080/demo/hello',
+				method: 'GET',
+				contentType: 'application/json',
+				data: {}, // Data sent as query parameters
+				success: function (response) {
+					console.log(response);
+					var res = document.getElementById("response")
+					res.innerHTML = response; // Handle the response
+				},
+				error: function (xhr, status, error) {
+					console.error('Error:', error);
+				}
+			});
+		});
+
+	</script>
+
+</head>
+
+
+<div id="response"></div>
+
+<h1 class="text-center" my-4">Welcome to our website</h1>
+
+<div id="response"></div>
+<a href="demo1.html">demo1</a>
+<img src="http://localhost:8080/img/iphone.jpg" width="100" height="100">
+
+<br>
+
+<form>
+	<label>message </label>
+	<input type="text" id="msg"> <br>
+	<button type="button" onclick="showalert()"> submit </button>
+
+</form>
+
+</body>
+
+</html>

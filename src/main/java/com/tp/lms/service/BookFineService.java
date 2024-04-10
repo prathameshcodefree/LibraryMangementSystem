@@ -81,12 +81,14 @@ public class BookFineService {
 	}
 
 	public boolean deleteStudent(Integer id) {
-
+		
 		boolean exists = bookfineRepository.existsById(id);
 		if (exists) {
 			bookfineRepository.deleteById(id);
-			return true;
-		} else {
+		return true;
+		
+		}
+		else {
 
 			return false;
 		}

@@ -40,10 +40,10 @@ public class RackController {
 	    	return rackService.getRackById(id);
 	
 	    }
-	    
+	   
 	    @PostMapping
 	    public ResponseEntity<?> addRack(Rack rack) {
-			
+
 	    	
 	    	System.out.println("we are in add rack controller block "); 
 	    	

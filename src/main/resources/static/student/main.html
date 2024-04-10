@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Book Store - Library Management System</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Custom CSS */
+         body {
+            font-family: Arial, sans-serif;
+           /* background-image: url('/public/images/backimg.jpg'); /* Specify the URL of your background image */
+            background-size: cover; /* Cover the entire viewport */
+            background-repeat: no-repeat; /* Do not repeat the background image */
+            margin-bottom: 50px; /* Added margin to ensure panels stay at the bottom */
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        .panel {
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .admin-panel {
+            background-color: #007bff; /* Blue */
+            border-top: 5px solid #0056b3; /* Darker blue */
+            color: #ffffff; /* White text */
+        }
+        .inventory-panel {
+            background-color: #28a745; /* Green */
+            border-top: 5px solid #218838; /* Darker green */
+            color: #ffffff; /* White text */
+        }
+        .librarian-panel {
+            background-color: #dc3545; /* Red */
+            border-top: 5px solid #c82333; /* Darker red */
+            color: #ffffff; /* White text */
+        }
+        .student-panel {
+            background-color: #ffc107; /* Orange */
+            border-top: 5px solid #d39e00; /* Darker orange */
+            color: #000000; /* Black text */
+        }
+        .navbar {
+            background-color: lightgray; /* Dark Gray */
+        }
+        .navbar-brand {
+            color: #ffffff; /* White text */
+        }
+        .navbar-nav .nav-item .nav-link {
+            color: #ffffff; /* White text */
+        }
+        .navbar-nav .nav-item .nav-link:hover {
+            color: #cccccc; /* Light Gray on hover */
+        }
+    </style>
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+			<!-- Add fixed-top class to navbar -->
+			<div class="container-fluid">
+				<a class="navbar-brand font-italic" href="#">Library Management
+					System</a>
+				<button class="navbar-toggler" type="button"
+					data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+					aria-controls="navbarSupportedContent" aria-expanded="false"
+					aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse offset-1" id="navbarSupportedContent">
+					<ul class="navbar-nav me-auto mb-2 mb-lg-0 offset-1">
+						<li class="nav-item offset-1"><a class="nav-link active"
+							aria-current="page" href="#">Home</a></li>
+						
+					</ul>
+					<form class="d-flex offset-6">
+						<input class="form-control me-2" type="search"
+							placeholder="Search" aria-label="Search">
+						<button class="btn btn-outline-success mr-2" type="submit">Search</button>
+						<!-- Add notification icon -->
+					
+					</form>
+				</div>
+			</div>
+		</nav>
+
+		<br> <br>
+
+    <div class="container ">
+        <div class="row ">
+            <div class="col-md-6 mt-30">
+                <div class="panel admin-panel">
+                    <h2>Admin </h2>
+                   
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="panel inventory-panel">
+                    <h2>Inventory </h2>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="panel librarian-panel">
+                    <h2>Librarian </h2>
+                   
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="panel student-panel">
+						<a href="login.html" style="text-decoration: none; color: inherit;">
+                    <h2>Student</h2>
+                  
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

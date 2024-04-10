@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Management System</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .panel {
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            background-color: #fff;
+        }
+        .panel-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .panel-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .panel-list li {
+            margin-bottom: 10px;
+        }
+        .btn-panel {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+            color: #fff;
+            font-weight: bold;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        .btn-admin {
+            background-color: #007bff;
+        }
+        .btn-inventory {
+            background-color: #28a745;
+        }
+        .btn-librarian {
+            background-color: #ffc107;
+        }
+        .btn-student {
+            background-color: #dc3545;
+        }
+        .btn-panel:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+        <a class="navbar-brand" href="#">Library Management System</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="home2.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="about.html">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Login</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="panel">
+                <h2 class="panel-title">Admin</h2>
+                <ul class="panel-list">
+                    <li><a href="#" class="btn btn-panel btn-admin">Admin Panel</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="panel">
+                <h2 class="panel-title">Inventory</h2>
+                <ul class="panel-list">
+                    <li><a href="#" class="btn btn-panel btn-inventory">Inventory Management</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="panel">
+                <h2 class="panel-title">Librarian</h2>
+                <ul class="panel-list">
+                    <li><a href="#" class="btn btn-panel btn-librarian">Librarian Dashboard</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="panel">
+                <h2 class="panel-title">Student</h2>
+                <ul class="panel-list">
+                    <li><a href="#" class="btn btn-panel btn-student">Student Dashboard</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

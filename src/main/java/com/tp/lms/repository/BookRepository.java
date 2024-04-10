@@ -7,4 +7,6 @@ import com.tp.lms.model.Book;
 @Repository
 public interface BookRepository extends JpaRepository<Book, Integer> {
 
+	
+
 }

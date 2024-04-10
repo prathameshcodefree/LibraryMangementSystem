@@ -19,24 +19,60 @@ import jakarta.persistence.Table;
 public class Book  extends AuditColumn {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "book_id")
-	private Integer id;
-	
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "book_id")
+    private Integer id;
 
-	@ManyToOne
-	@JoinColumn(name = "book_master_id")
-	private BookMaster bookMaster;
+    @Column(name = "isbn_code", nullable = false)
+    private String isbnCode;
 
-	@Column(name = "isbn_code", length = 20)
-	private Integer isbnCode;
+   
+    @ManyToOne
+    @JoinColumn(name = "book_master_id")
+    private BookMaster bookMaster;
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "book_status")
 	private BookStatus bookStatus;
 
-	@Column(name = "remark", length = 30)
+	@Column(name = "remark")
 	private String bookRemark;
+
+
+
+	public String getIsbnCode() {
+		return isbnCode;
+	}
+
+	public BookMaster getBookMaster() {
+		return bookMaster;
+	}
+
+	public BookStatus getBookStatus() {
+		return bookStatus;
+	}
+
+	public String getBookRemark() {
+		return bookRemark;
+	}
+
+	
+
+	public void setIsbnCode(String isbnCode) {
+		this.isbnCode = isbnCode;
+	}
+
+	public void setBookMaster(BookMaster bookMaster) {
+		this.bookMaster = bookMaster;
+	}
+
+	public void setBookStatus(BookStatus bookStatus) {
+		this.bookStatus = bookStatus;
+	}
+
+	public void setBookRemark(String bookRemark) {
+		this.bookRemark = bookRemark;
+	}
 
 	public Integer getId() {
 		return id;
@@ -46,29 +82,5 @@ public class Book  extends AuditColumn {
 		this.id = id;
 	}
 
-
-	public Integer getIsbnCode() {
-		return isbnCode;
-	}
-
-	public void setIsbnCode(Integer isbnCode) {
-		this.isbnCode = isbnCode;
-	}
-
-	public BookStatus getBookStatus() {
-		return bookStatus;
-	}
-
-	public void setBookStatus(BookStatus bookStatus) {
-		this.bookStatus = bookStatus;
-	}
-
-	public String getBookRemark() {
-		return bookRemark;
-	}
-
-	public void setBookRemark(String bookRemark) {
-		this.bookRemark = bookRemark;
-	}
-
+		
 }

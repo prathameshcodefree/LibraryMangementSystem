@@ -1,7 +1,6 @@
 package com.tp.lms.service;
 
 
-import com.tp.lms.model.BookCategory;
 import com.tp.lms.model.BookSubCategory;
 import com.tp.lms.repository.BookSubCategoryRepository;
 

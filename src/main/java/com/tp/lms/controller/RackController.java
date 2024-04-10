@@ -38,9 +38,10 @@ public class RackController {
 	    public Rack getRackById(@PathVariable Integer id) {
 	        return rackService.getRackById(id);
 	    }
-	    
+	   
 	    @PostMapping
 	    public ResponseEntity<?> addRack(Rack rack) {
+
 	    	
 	    	List<String> error = rackService.validate(rack);
 	    	if(!error.isEmpty()) {

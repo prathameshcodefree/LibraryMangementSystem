@@ -23,6 +23,11 @@ public class BookService {
     public List<String> validate(Book book){
     	List<String> error = new ArrayList<>();
     	
+    	
+    	if(book.getId() == null) {
+    		error.add("Book Id can not be empty");
+    	}
+    	
     	if (book.getBookRemark()== null) {
 			error.add("Book Remark can not be empty");
 		}
@@ -31,9 +36,8 @@ public class BookService {
     		error.add("Book Status can not be empty");
     	}
     	
-    	if(book.getId() == null) {
-    		error.add("Book Id can not be empty");
-    	}
+    	
+    	
     	
     	if(book.getIsbnCode() == null) {
     		error.add("Book ISBN Code can not be empty");

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 
+
 @RestController
 @RequestMapping("demo")
 public class DemoController {
@@ -23,5 +24,6 @@ public class DemoController {
 		
 		return "Hello ghhgng";
 	}
+
 
 }

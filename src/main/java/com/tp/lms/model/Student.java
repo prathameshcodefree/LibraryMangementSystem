@@ -34,7 +34,7 @@ public class Student extends AuditColumn {
 	@Column(name = "email_address", length = 64, nullable = false)
 	private String email;
 
-	@Column(name="contact_number")
+	@Column(name = "contact_number")
 	private String contactNumber;
 
 	@Enumerated(EnumType.STRING)
@@ -153,6 +153,7 @@ public class Student extends AuditColumn {
 		this.studentstatus = studentstatus;
 	}
 
+
 	public Student(Integer id, String firstName, String middleName, String lastName, String email, String contactNumber,
 			Gender gender, Date date, String collegeName, Integer rollNo, String password,
 			StudentStatus studentstatus) {
@@ -181,3 +182,6 @@ public class Student extends AuditColumn {
 	
 
 }
+
+
+

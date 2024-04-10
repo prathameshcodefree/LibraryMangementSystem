@@ -1,5 +1,8 @@
 package com.tp.lms.model;
 
+
+
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -8,7 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "book_category")
+@Table(name = "bookCategory")
 public class BookCategory extends AuditColumn {
 	
 	@Id
@@ -37,3 +40,7 @@ public class BookCategory extends AuditColumn {
 	}
 
 }
+
+
+    
+

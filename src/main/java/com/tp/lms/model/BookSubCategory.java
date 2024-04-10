@@ -8,7 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "book_sub_category")
+@Table(name = "booksubcategory")
 public class BookSubCategory extends AuditColumn {
 	
 	@Id

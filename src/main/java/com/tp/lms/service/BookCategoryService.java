@@ -31,9 +31,7 @@ public class BookCategoryService {
 			error.add("Book Category Name can not be empty");
 		}
     	
-    	if(bookCategory.getId() == null) {
-    		error.add("Book Category Id can not be empty");
-    	}
+  
     	return error;
     	
     }
@@ -51,7 +49,7 @@ public class BookCategoryService {
     }
     
     public BookCategory updateBookCategory(int id, BookCategory bookCategory) {
-    	bookCategory.setId(id);
+    	bookCategory.setBookCategoryId(id);
     	return bookCategoryRepository.save(bookCategory);
     }
 

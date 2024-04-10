@@ -13,4 +13,11 @@ public class demo {
 	public String getDemo(@RequestParam String username) {
 		return username;
 	}
+	
+	
+	@GetMapping("checkvalue")
+	public String getDemovalue() {
+		return "Hello Durgesh Prajapati";
+	}
+	
 }

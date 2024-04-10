@@ -5,8 +5,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-
 
 @Entity
 @Table(name = "book_fine")
@@ -17,14 +18,17 @@ public class BookFine extends AuditColumn {
 	@Column(name = "book_fine_id")
 	private Integer id;
 
-	@Column(name = "book_issue_id")
-	private Integer bookIssueId;
+	@ManyToOne
+	@JoinColumn(name = "book_issue_id", nullable = false)
+	private BookIssue bookIssue;
 
-	@Column(name = "student_id")
-	private Integer studentId;
+	@ManyToOne
+	@JoinColumn(name = "student_id", nullable = false)
+	private Student student;
 
-	@Column(name = "book_id")
-	private Integer bookId;
+	@ManyToOne
+	@JoinColumn(name = "book_id", nullable = false)
+	private Book book;
 
 	@Column(name = "delay_by_days")
 	private Integer delayByDays;
@@ -34,10 +38,6 @@ public class BookFine extends AuditColumn {
 
 	@Column(name = "fine_amount")
 	private float fineAmount;
-
-	
-	
-	
 
 	public Integer getId() {
 		return id;
@@ -51,28 +51,28 @@ public class BookFine extends AuditColumn {
 		this.id = id;
 	}
 
-	public Integer getBookIssueId() {
-		return bookIssueId;
+	public BookIssue getBookIssue() {
+		return bookIssue;
 	}
 
-	public void setBookIssueId(Integer bookIssueId) {
-		this.bookIssueId = bookIssueId;
+	public void setBookIssue(BookIssue bookIssue) {
+		this.bookIssue = bookIssue;
 	}
 
-	public Integer getStudentId() {
-		return studentId;
+	public Student getStudent() {
+		return student;
 	}
 
-	public void setStudentId(Integer studentId) {
-		this.studentId = studentId;
+	public void setStudent(Student student) {
+		this.student = student;
 	}
 
-	public Integer getBookId() {
-		return bookId;
+	public Book getBook() {
+		return book;
 	}
 
-	public void setBookId(Integer bookId) {
-		this.bookId = bookId;
+	public void setBook(Book book) {
+		this.book = book;
 	}
 
 	public Integer getDelayByDays() {
@@ -98,8 +98,5 @@ public class BookFine extends AuditColumn {
 	public void setFineAmount(float fineAmount) {
 		this.fineAmount = fineAmount;
 	}
-	
-	
-	
 
 }

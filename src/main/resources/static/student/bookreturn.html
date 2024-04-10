@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book History - Library Management System</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Custom CSS */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+        }
+        .panel {
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .book-issue-panel {
+            background-color: #007bff; /* Blue for Book Issue */
+            border-top: 5px solid #0056b3; /* Darker blue */
+            margin-bottom: 20px; /* Add margin between panels */
+        }
+        
+        .book-return-panel {
+            background-color: #28a745; /* Green for Book Return */
+            border-top: 5px solid #218838; /* Darker green */
+            margin-bottom: 20px;
+        }
+        
+        .fine-amount-panel {
+            background-color: #ffc107; /* Orange */
+            border-top: 5px solid #d39e00; /* Darker orange */
+            text-align: center; /* Center content */
+            padding-bottom: 20px;
+            width: 100%; /* Add padding at bottom */
+        }
+        h2 {
+            margin-top: 0;
+            color: #ffffff; /* White text for better visibility */
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+
+        /* Sidebar style */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 250px;
+            background-color: #f8f9fa;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        .sidebar a {
+            display: block;
+            padding: 10px;
+            color: #333;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .sidebar a:hover {
+            color: #007bff;
+            background-color: #e9ecef;
+        }
+        .sidebar .active {
+            background-color: #007bff;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <!-- Bootstrap Sidebar -->
+    <div class="sidebar">
+        <h5 class="text-center">Navigation</h5>
+        <a href="bookreturn.html" class="active">Book Return</a>
+    </div>
+
+    <!-- Page content -->
+    <div class="container" style="margin-left: 250px; padding: 20px;">
+        <div class="row">
+            
+            <div class="col-md-6" id="book-return">
+                <div class="panel book-return-panel">
+                    <h2>Book Return</h2>
+                    <table>
+                        <tr>
+                            <th>Book Name</th>
+                            <th>Return Date</th>
+                        </tr>
+                        <tr>
+                            <td>The Great Gatsby</td>
+                            <td>2024-04-15</td>
+                        </tr>
+                        <tr>
+                            <td>To Kill a Mockingbird</td>
+                            <td>2024-04-10</td>
+                        </tr>
+                        <!-- Add more book return information here -->
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        </div>
+    </div>
+
+    <!-- Bootstrap JS (optional) -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

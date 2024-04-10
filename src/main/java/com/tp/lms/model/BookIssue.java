@@ -6,22 +6,22 @@ import com.tp.lms.model.enums.Status;
 
 import jakarta.persistence.*;
 
-
 @Entity
 @Table(name = "book_issue")
 public class BookIssue extends AuditColumn {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "book_issue_id")
 	private Integer id;
 
-	
-	@Column(name = "student_id")	
-	private Integer studentId;
+	@ManyToOne
+	@JoinColumn(name = "student_id", nullable = false)
+	private Student student;
 
-	@Column(name = "book_id")	
-	private Integer bookId;
+	@ManyToOne
+	@JoinColumn(name = "book_id", nullable = false)
+	private Book book;
 
 	@Column(name = "issue_date")
 	private Date issueDate;
@@ -37,9 +37,7 @@ public class BookIssue extends AuditColumn {
 	private Status status;
 
 	@Column(name = "is_delayed")
-	private boolean isDelayed;
-
-	
+	private boolean delayed;
 
 	public Integer getId() {
 		return id;
@@ -49,20 +47,20 @@ public class BookIssue extends AuditColumn {
 		this.id = id;
 	}
 
-	public Integer getStudentId() {
-		return studentId;
+	public Student getStudent() {
+		return student;
 	}
 
-	public void setStudentId(Integer studentId) {
-		this.studentId = studentId;
+	public void setStudent(Student student) {
+		this.student = student;
 	}
 
-	public Integer getBookId() {
-		return bookId;
+	public Book getBook() {
+		return book;
 	}
 
-	public void setBookId(Integer bookId) {
-		this.bookId = bookId;
+	public void setBook(Book book) {
+		this.book = book;
 	}
 
 	public Date getIssueDate() {
@@ -98,14 +96,11 @@ public class BookIssue extends AuditColumn {
 	}
 
 	public boolean isDelayed() {
-		return isDelayed;
+		return delayed;
 	}
 
-	public void setDelayed(boolean isDelayed) {
-		this.isDelayed = isDelayed;
+	public void setDelayed(boolean delayed) {
+		this.delayed = delayed;
 	}
 
-	
-	
-	
 }

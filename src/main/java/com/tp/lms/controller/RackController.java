@@ -35,7 +35,7 @@ public class RackController {
 	        return rackService.getRackById(id);
 	    }
 	    
-	    @PostMapping
+	    @PostMapping("")
 	    public Rack addRack(Rack rack) {
 	    	
 	    	return rackService.addRack(rack);

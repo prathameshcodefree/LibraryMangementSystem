@@ -27,20 +27,14 @@ public class BookIssueService {
 
 		List<String> error = new ArrayList<>();
 
-		if (bookIssue.getId() == null) {
-			error.add("Id can not be empty");
-		}
-
-		if (bookIssue.getBookId() == null) {
-			error.add("Book Id can not be empty");
-		}
-
-		if (bookIssue.getStudentId() == null) {
+		if (bookIssue.getStudent() == null) {
 			error.add("StudentId can not be empty");
 		}
+		
 		if (bookIssue.getIssueDate() == null) {
 			error.add("IssueDate can not be empty");
 		}
+		
 		if (bookIssue.getReturnDate() == null) {
 			error.add("Return date can not be empty");
 		}
@@ -51,10 +45,6 @@ public class BookIssueService {
 
 		if (bookIssue.getStatus() == null) {
 			error.add("Status can not be empty");
-		}
-
-		if (!bookIssue.isDelayed()) {
-			error.add("Delayed cannot be empty");
 		}
 
 		return error;
@@ -73,15 +63,17 @@ public class BookIssueService {
 
 	public BookIssue updateBookIssue(Integer id, @RequestBody BookIssue bookissue) {
 
-		BookIssue bookIssue = bookIssueRepository.findById(id).get();
+		BookIssue existingBookIssue = bookIssueRepository.findById(id).get();
 
-		bookIssue.setIssueDate(bookissue.getIssueDate());
-		bookIssue.setReturnDate(bookissue.getReturnDate());
-		bookIssue.setExpectedReturnDate(bookissue.getExpectedReturnDate());
-		bookIssue.setStatus(bookissue.getStatus());
-		bookIssue.setDelayed(bookissue.isDelayed());
+		existingBookIssue.setStudent(bookissue.getStudent());
+		existingBookIssue.setBook(bookissue.getBook());
+		existingBookIssue.setIssueDate(bookissue.getIssueDate());
+		existingBookIssue.setReturnDate(bookissue.getReturnDate());
+		existingBookIssue.setExpectedReturnDate(bookissue.getExpectedReturnDate());
+		existingBookIssue.setStatus(bookissue.getStatus());
+		existingBookIssue.setDelayed(bookissue.isDelayed());
 
-		return bookIssueRepository.save(bookIssue);
+		return bookIssueRepository.save(existingBookIssue);
 
 	}
 

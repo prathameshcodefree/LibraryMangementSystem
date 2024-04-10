@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tp.lms.model.BookFine;
-import com.tp.lms.model.Student;
 import com.tp.lms.service.BookFineService;
 
 @RestController
@@ -26,62 +25,64 @@ public class BookFineController {
 	@Autowired
 	BookFineService bookFineService;
 
-	@GetMapping(" ")
-	public List<BookFine> getBookFine() {
-
-		return bookFineService.getBookFine();
-
+	@GetMapping("")
+	public ResponseEntity<?> getBookFine() {
+		List<BookFine> bookFine = bookFineService.getBookFine();
+		if (bookFine.isEmpty()) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Book Fine not found");
+		}
+		return ResponseEntity.ok(bookFine);
 	}
-
 
 	@GetMapping("/{id}")
 	public ResponseEntity<?> getBookFineById(@PathVariable Integer id) {
-	    Optional<BookFine> res = bookFineService.getBookFineById(id);
-	    if (res.isEmpty()) {
-	       
-	        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-	    } else {
-	        
-	        BookFine bookFine = res.get();
-	        
-	        return ResponseEntity.ok().body(bookFine);
-	    }
+		Optional<BookFine> bookFineById = bookFineService.getBookFineById(id);
+		if (bookFineById.isEmpty()) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Book Fine id not found");
+		} else {
+			BookFine bookFine = bookFineById.get();
+			return ResponseEntity.ok().body(bookFine);
+		}
 	}
 
-
-	@PostMapping("/add")
-	public ResponseEntity<?> addStudent(@RequestBody BookFine bookfine) {
+	@PostMapping("")
+	public ResponseEntity<?> addBookFine(@RequestBody BookFine bookfine) {
 		List<String> error = bookFineService.validate(bookfine);
 		if (error.size() != 0) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
 		}
 
 		bookFineService.addBookFine(bookfine);
-		return ResponseEntity.ok().body("BookFine added successfully.");
+		return ResponseEntity.ok().body("Book Fine  added successfully.");
 
 	}
 
 	@PutMapping("/{id}")
 	public ResponseEntity<?> updateBookFine(@PathVariable Integer id, @RequestBody BookFine bookfine) {
-		List<String> error = bookFineService.validate(bookfine);
-		if (!error.isEmpty()) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+
+		List<String> errors = bookFineService.validate(bookfine);
+		if (!errors.isEmpty()) {
+			return ResponseEntity.badRequest().body(errors);
+		}
+
+		Optional<BookFine> existingStudent = bookFineService.getBookFineById(id);
+		if (!existingStudent.isPresent()) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Bookfine with id " + id + " not found.");
 		}
 
 		bookFineService.updateBookFine(id, bookfine);
-		return ResponseEntity.ok().body("Bookfine with ID " + id + " Updated successfully.");
-
+		return ResponseEntity.ok().body("Book Fine with ID " + id + " updated successfully.");
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<?> deleteStudent(@PathVariable Integer id) {
+	public ResponseEntity<?> deleteBookFine(@PathVariable Integer id) {
 
-		boolean deleted = bookFineService.deleteStudent(id);
+		boolean deleted = bookFineService.deleteBookFine(id);
 
 		if (deleted) {
 			return ResponseEntity.ok("BookFine with ID " + id + " deleted successfully.");
 		} else {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("BookFine with ID " + id + " not found.");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Bookfine with id " + id + " not found.");
 		}
 
 	}

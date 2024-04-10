@@ -76,15 +76,6 @@ public class BookFineService {
 		return bookFineRepository.save(existingBookFine);
 	}
 
-	public boolean deleteStudent(Integer id) {
-		
-		boolean exists = bookfineRepository.existsById(id);
-		if (exists) {
-			bookfineRepository.deleteById(id);
-		return true;
-		
-		}
-		else {
 
 	public boolean deleteBookFine(Integer id) {
 

@@ -18,9 +18,7 @@ public abstract class AuditColumn  implements Serializable {
 	private UserType updatedByType;
 
 	@Column(name = "updated_by")
-
-	private String  updatedBy;
-	private UserType updatedBy;
+	private String updatedBy;
 
 	
 	@Column(name = "updated_at")
@@ -32,7 +30,7 @@ public abstract class AuditColumn  implements Serializable {
 
 	
 	@Column(name = "created_by")
-	private UserType createdBy;
+	private String createdBy;
 
 	
 	@Column(name = "created_at")
@@ -51,13 +49,6 @@ public abstract class AuditColumn  implements Serializable {
 	}
 
 	public void setUpdatedBy(String updatedBy) {
-
-	public UserType getUpdatedBy() {
-		return updatedBy;
-	}
-
-	public void setUpdatedBy(UserType updatedBy) {
-
 		this.updatedBy = updatedBy;
 	}
 
@@ -77,13 +68,11 @@ public abstract class AuditColumn  implements Serializable {
 		this.createdByType = createdByType;
 	}
 
-	
-
-	public UserType getCreatedBy() {
+	public String getCreatedBy() {
 		return createdBy;
 	}
 
-	public void setCreatedBy(UserType createdBy) {
+	public void setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;
 	}
 

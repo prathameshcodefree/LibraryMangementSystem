@@ -65,7 +65,7 @@ public class StaffController {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<?> updateStaff(@PathVariable Integer id, @RequestBody Staff staff) {
+	public ResponseEntity<?> updateStaff(@PathVariable int id, @RequestBody Staff staff) {
 		List<String> error = staffService.validate(staff);
 		if (!error.isEmpty()) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);

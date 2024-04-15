@@ -1,24 +1,71 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+	crossorigin="anonymous"></script>
+
+
+
+
+
+<script type="text/javascript">
+	
+	
+$(document).ready(function() {
+    $.ajax({
+        url: 'http://localhost:8080/demo/fales',
+        method: 'GET',
+        contentType: 'application/json',
+        success: function(response) {
+            // Handle success response
+            console.log(response);
+            var name = document.getElementById("name");
+            var email = document.getElementById("email");
+            name.innerHTML = response.lastName;
+            email.innerHTML = response.email;
+           
+        },
+        error: function(xhr, status, error) {
+            // Handle error response
+            console.error(xhr.responseText);
+        }
+    });
+});
+
+	function myAlert() {
+		var text = document.getElementById("message");
+
+		alert(text.value);
+	}
+</script>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 </head>
 <body>
-<form action="/">
-<label for="Username">Username</label>
-<input type="text">
-<br></br>
-<label for="Password">Password</label>
-<input type="text">
+	<form action="/">
+		<label for="Username">Username: <span id="name">Name</span> || <span id="email">Email</span></label> <input type="text"> <br></br>
+		<label for="Password">Password</label> <input type="text">
 
-<button class="btn btn-success" input type="submit">Submit</button>
-</form>
-<h1>Welcome To Gotham</h1>
-<div class="container mt-5"></div>
-<p>Im Batman</p>
-<br><br>
-<a href="second.html">hhhhhhh</a>
-<img alt="Batman" src="http://localhost:8080//img/the-batman-2-heres-what-we-know-so-far-about-release-date-cast-plot-and-more.webp">
+		<button class="btn btn-success" input type="submit">Submit</button>
+	</form>
+	<h1>Welcome To Gotham</h1>
+	<div class="container mt-5"></div>
+	<p>Im Batman</p>
+	<br>
+	<br>
+	<a href="second.html">hhhhhhh</a>
+	<br></br>
+
+	<img alt="Batman"
+		src="http://localhost:8080//img/the-batman-2-heres-what-we-know-so-far-about-release-date-cast-plot-and-more.webp">
+	<input type="text" id="message">
+	<br>
+	<label>Alert Notification</label>
+	<br>
+	<button class="btn btn-success" onClick="myAlert()">Alert</button>
+
+
+	<div id="response"></div>
 </body>
 </html>

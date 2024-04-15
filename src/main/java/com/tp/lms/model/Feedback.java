@@ -1,6 +1,7 @@
 package com.tp.lms.model;
 
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,12 +15,13 @@ public class Feedback extends AuditColumn {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
+	@Column(name="student_id")
+	private Integer studentid;
 	
-	private Integer student_id;
-	
+	@Column(name="feedback")
 	private String feedback;
 	
-	private AuditColumn auditcolumn;
+
 
 	public Integer getId() {
 		return id;
@@ -29,14 +31,7 @@ public class Feedback extends AuditColumn {
 		this.id = id;
 	}
 
-	public Integer getStudent_id() {
-		return student_id;
-	}
-
-	public void setStudent_id(Integer student_id) {
-		this.student_id = student_id;
-	}
-
+	
 	public String getFeedback() {
 		return feedback;
 	}
@@ -44,13 +39,30 @@ public class Feedback extends AuditColumn {
 	public void setFeedback(String feedback) {
 		this.feedback = feedback;
 	}
+	
+	
 
-	public AuditColumn getAuditcolumn() {
-		return auditcolumn;
+	public Integer getStudentid() {
+		return studentid;
 	}
 
-	public void setAuditcolumn(AuditColumn auditcolumn) {
-		this.auditcolumn = auditcolumn;
+	public void setStudentid(Integer studentid) {
+		this.studentid = studentid;
+	}
+
+	
+
+	public Feedback(Integer id, Integer student_id, String feedback, AuditColumn auditcolumn) {
+		super();
+		this.id = id;
+		this.studentid = student_id;
+		this.feedback = feedback;
+		
+	}
+
+	public Feedback() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 	
 	

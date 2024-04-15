@@ -51,7 +51,7 @@ public class FeedBackController {
 	}
 
 
-	@PostMapping("/add")
+	@PostMapping(" ")
 	public ResponseEntity<?> addFeedBack(@RequestBody Feedback feedback) {
 		List<String> error = feedbackService.validate(feedback);
 		if (error.size() != 0) {

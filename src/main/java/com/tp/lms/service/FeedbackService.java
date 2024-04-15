@@ -36,7 +36,7 @@ public class FeedbackService {
 			error.add("Id can not be empty");
 		}
 
-		if (feedback.getStudent_id() == null) {
+		if (feedback.getStudentid() == null) {
 			error.add("FeedBack Student can not be empty");
 		}
 
@@ -55,7 +55,7 @@ public class FeedbackService {
 	public Feedback updateFeedBack(Integer id, @RequestBody Feedback feedback) {
 		Feedback existingStaff = feedBackRespository.findById(id).orElse(null);
 		existingStaff.setId(feedback.getId());
-		existingStaff.setStudent_id(feedback.getStudent_id());
+		existingStaff.setStudentid(feedback.getStudentid());
 		existingStaff.setFeedback(feedback.getFeedback());
 		return feedBackRespository.save(existingStaff);
 	}

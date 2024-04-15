@@ -3,7 +3,6 @@ package com.tp.lms.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,9 +40,9 @@ public class StaffService {
 
 		List<String> error = new ArrayList<>();
 
-		if (staff.getId() == null) {
-			error.add("Id can not be empty");
-		}
+//		if (staff.getId() == null) {
+//			error.add("Id can not be empty");
+//		}
 
 		if (staff.getEmail() == null) {
 			error.add("Staff Email can not be empty");
@@ -95,11 +94,10 @@ public class StaffService {
 
 	}
 
-<<<<<<< Updated upstream
 	public Staff UpdateStaff( Staff staff, int id) {
 		staff.setStaffId(id);
-		return staffRepository.save(staff);
-=======
+		return staffRepository.save(staff);}
+
 	public Staff updateStaff(Integer id, @RequestBody Staff staff) {
 		Staff existingStaff = staffRepository.findById(id).orElse(null);
 		existingStaff.setStaffId(staff.getId());
@@ -115,7 +113,7 @@ public class StaffService {
 		existingStaff.setPassword(staff.getPassword());
 		
 		return staffRepository.save(existingStaff);
->>>>>>> Stashed changes
+
 	}
 
 	public boolean deleteStaff(Integer id) {

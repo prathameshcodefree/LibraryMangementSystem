@@ -15,89 +15,75 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tp.lms.model.BookFine;
 import com.tp.lms.model.BookIssue;
-import com.tp.lms.model.Student;
 import com.tp.lms.service.BookIssueService;
-
 
 @RestController
 @RequestMapping("/bookissue")
 public class BookIssueController {
-	
-		
-		
-		@Autowired
-		BookIssueService bookIssueService;
-		
-		@GetMapping("")
-		public ResponseEntity<String> getStudent () {
 
-			List<BookIssue> bookIssue= bookIssueService.getBookIssue();
-			if(bookIssue.size()==0) {
-				return new  ResponseEntity<>(HttpStatus.NOT_FOUND);
-			}
+	@Autowired
+	BookIssueService bookIssueService;
 
-			 return ResponseEntity.ok().body("BookIssue with ID " + bookIssue + " ");
-
+	@GetMapping("")
+	public ResponseEntity<?> getBookIssue() {
+		List<BookIssue> bookIssue = bookIssueService.getBookIssue();
+		if (bookIssue.isEmpty()) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Book Issue not found");
 		}
-		
+		return ResponseEntity.ok(bookIssue);
+	}
 
-		@GetMapping("/{id}")
-		public ResponseEntity<?> getBookIssueById(@PathVariable Integer id) {
-		    Optional<BookIssue> res = bookIssueService.getBookIssueById(id);
-		    if (res.isEmpty()) {
-		       
-		        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		    } else {
-		        
-		        BookIssue bookIssue = res.get();
-		        
-		        return ResponseEntity.ok().body(bookIssue);
-		    }
+	@GetMapping("/{id}")
+	public ResponseEntity<?> getBookIssueById(@PathVariable Integer id) {
+		Optional<BookIssue> bookIssueById = bookIssueService.getBookIssueById(id);
+		if (bookIssueById.isEmpty()) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Book Issue by id  " + id + "  not found");
+		} else {
+			BookIssue bookIssue = bookIssueById.get();
+			return ResponseEntity.ok().body(bookIssue);
+		}
+	}
+
+	@PostMapping("")
+	public ResponseEntity<?> addBookIssue(@RequestBody BookIssue bookissue) {
+		List<String> error = bookIssueService.validate(bookissue);
+		if (error.size() != 0) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
 		}
 
-		
-		@PostMapping("/add")
-		public ResponseEntity<?> addStudent(@RequestBody BookIssue bookissue) {
-			List<String> error = bookIssueService.validate(bookissue);
-			if (error.size() != 0) {
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
-			}
+		bookIssueService.addBookIssue(bookissue);
+		return ResponseEntity.ok().body("BookIssue added successfully.");
 
-			bookIssueService.addBookIssue(bookissue);
-			 return ResponseEntity.ok().body("Student added successfully.");
+	}
 
+	@PutMapping("/{id}")
+	public ResponseEntity<?> updateBookIssue(@PathVariable Integer id, @RequestBody BookIssue bookissue) {
 
+		List<String> errors = bookIssueService.validate(bookissue);
+		if (!errors.isEmpty()) {
+			return ResponseEntity.badRequest().body(errors);
 		}
-		
-		@PutMapping("/{bookIssueId}")
-		public ResponseEntity<?> updateStudent(@PathVariable Integer id, @RequestBody BookIssue bookissue) {
-	        List<String> error = bookIssueService.validate(bookissue);
-	        if (!error.isEmpty()) {
-	            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
-	        }
 
-	        bookIssueService.updateBookIssue(id, bookissue);
-	        return ResponseEntity.ok().body("Book Issue with ID " + id + " Updated successfully.");
+		Optional<BookIssue> existingStudent = bookIssueService.getBookIssueById(id);
+		if (!existingStudent.isPresent()) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Book Issue with " + id + " not found." );
+		}
 
-	    }
+		bookIssueService.updateBookIssue(id, bookissue);
+		return ResponseEntity.ok().body("Book Issue with ID " + id + " updated successfully.");
+	}
 
-		
-		@DeleteMapping("/{bookIssueId}")
-		public ResponseEntity<?> deleteBookIssue(@PathVariable Integer id) {
-		
-		        boolean deleted = bookIssueService.deleteBookIssue(id);
+	@DeleteMapping("/{id}")
+	public ResponseEntity<?> deleteBookIssue(@PathVariable Integer id) {
 
+		boolean deleted = bookIssueService.deleteBookIssue(id);
 
-		        if (deleted) {
-		            return ResponseEntity.ok("Book Issue with ID " + id + " deleted successfully.");
-		        } else {
-		            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-		                                 .body("Book Issue with ID " + id + " not found.");
-		        }
-		    }
-			
-
+		if (deleted) {
+			return ResponseEntity.ok("Book Issue with ID " + id + " deleted successfully.");
+		} else {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Book Issue with ID " + id + " not found.");
+		}
+	}
 
 }

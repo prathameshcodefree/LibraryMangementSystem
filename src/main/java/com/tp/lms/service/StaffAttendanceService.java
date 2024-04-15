@@ -47,8 +47,10 @@ public class StaffAttendanceService {
 	 public StaffAttendance createAttendance(StaffAttendance attendance )
 	 {
 	 
-		 return staffAttendanceRepository.save(attendance);			
 		
+		 return staffAttendanceRepository.save(attendance);			
+	
+		 
 	 }
 	
 	 
@@ -68,6 +70,7 @@ public class StaffAttendanceService {
 		staffattendance.setUpdatedAt(attendance.getUpdatedAt());
 		staffattendance.setUpdatedBy(attendance.getUpdatedBy());
 		staffattendance.setUpdatedByType(attendance.getUpdatedByType());
+		 
 		
 		
 	//	if (sRef == null) return null ;
@@ -113,6 +116,7 @@ public class StaffAttendanceService {
 		 error.add("presence status must be provided ");
 	 
 	 }
+	 
 	 
 	 
 	 return error;

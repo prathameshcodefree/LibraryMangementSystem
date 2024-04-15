@@ -25,7 +25,7 @@ public class Requirement {
 	
 	@Id
 	@Column(name="requirement_id")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy =	 GenerationType.IDENTITY)
 	private Integer id;
 	
 	

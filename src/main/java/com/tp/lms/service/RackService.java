@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.tp.lms.model.Rack;
@@ -39,6 +40,8 @@ RackRepository rackRepository;
   	 
 
 public List<String> validate(Rack rack) {
+	
+	System.out.println("we are in valid");
   	 List<String> error = new ArrayList<>();
   	 
   	 if (rack.getId()==null) {
@@ -46,6 +49,7 @@ public List<String> validate(Rack rack) {
   		 error.add("rack id must be provided ");
   	
   	 }
+  	 
   	 
   	 if (rack.getRackCode()==null) {
   	
@@ -67,7 +71,7 @@ public List<String> validate(Rack rack) {
     }
     
     
-    public void deleteRack(Integer rackId) {
+    public void  deleteRack(Integer rackId) {
     	
     	rackRepository.deleteById(rackId);
 

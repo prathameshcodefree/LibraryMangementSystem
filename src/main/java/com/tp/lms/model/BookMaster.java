@@ -21,6 +21,14 @@ public class BookMaster extends AuditColumn {
 	private Integer id;
 	
 	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="book_category_id",nullable=false)
+	private BookCategory bookCategory;
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="book_subcategory_id",nullable=false)
+	private BookSubCategory bookSubCategory;
+	
 	@Column(name = "title", length = 128)
 	private String title;
 	
@@ -41,9 +49,6 @@ public class BookMaster extends AuditColumn {
 	@ManyToOne
     @JoinColumn(name = "requirement_id")
     private Requirement requirement;
-	
-	
-	
 	public Requirement getRequirement() {
 		return requirement;
 	}
@@ -62,6 +67,21 @@ public class BookMaster extends AuditColumn {
 		this.id = id;
 	}
 
+	public BookCategory getBookCategory() {
+		return bookCategory;
+	}
+
+	public void setBookCategory(BookCategory bookCategory) {
+		this.bookCategory = bookCategory;
+	}
+
+	public BookSubCategory getBookSubCategory() {
+		return bookSubCategory;
+	}
+
+	public void setBookSubCategory(BookSubCategory bookSubCategory) {
+		this.bookSubCategory = bookSubCategory;
+	}
 
 	public String getTitle() {
 		return title;
@@ -101,6 +121,25 @@ public class BookMaster extends AuditColumn {
 
 	public void setRackId(Integer rackId) {
 		this.rackId = rackId;
+	}
+
+	public BookMaster(Integer id, BookCategory bookCategory, BookSubCategory bookSubCategory, String title,
+			String author, float price, String publishBy, Integer rackId, Requirement requirement) {
+		super();
+		this.id = id;
+		this.bookCategory = bookCategory;
+		this.bookSubCategory = bookSubCategory;
+		this.title = title;
+		this.author = author;
+		this.price = price;
+		this.publishBy = publishBy;
+		this.rackId = rackId;
+		this.requirement = requirement;
+	}
+
+	public BookMaster() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	

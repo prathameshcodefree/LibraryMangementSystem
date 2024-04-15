@@ -96,6 +96,7 @@ public class StaffService {
 
 	public Staff UpdateStaff( Staff staff, int id) {
 		staff.setStaffId(id);
+
 		return staffRepository.save(staff);}
 
 	public Staff updateStaff(Integer id, @RequestBody Staff staff) {
@@ -114,6 +115,8 @@ public class StaffService {
 		
 		return staffRepository.save(existingStaff);
 
+	
+
 	}
 
 	public boolean deleteStaff(Integer id) {
@@ -127,6 +130,5 @@ public class StaffService {
 			return false;
 		}
 
-	}
+	}}
 
-}

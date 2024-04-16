@@ -51,11 +51,12 @@
             background-color: #0056b3; /* Darker Blue on hover */
         }
     </style>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     <div class="container">
         <h2>Login</h2>
-        <form>
+        <form id="loginForm">
             <div class="form-group">
                 <label for="username">Username</label>
                 <input type="text" id="username" name="username" required>
@@ -64,10 +65,44 @@
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" required>
             </div>
-            <a href="Admin.html" class="btn btn-primary">Login</a>
-
+            <button type="submit" class="btn btn-primary">Login</button>
         </form>
     </div>
+    
+    <script>
+        $(document).ready(function() {
+            $('#loginForm').submit(function(event) {
+                event.preventDefault(); // Prevent form submission
+
+                var formData = {
+                    username: $('#username').val(),
+                    password: $('#password').val()
+                };
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/login/check', 
+                    contentType: 'application/json',
+                    data: JSON.stringify(formData),
+                    success: function(response) {
+                        console.log(response);
+                        
+                        if (response.status) {
+                           
+                            window.location.href = 'Admin.html';
+                        } else {
+                            alert(response.message);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        // Handle error response
+                        var errorMessage = xhr.responseJSON.message;
+                        alert(errorMessage);
+                    }
+                });
+            });
+        });
+    </script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

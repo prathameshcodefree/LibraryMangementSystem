@@ -2,6 +2,7 @@ package com.tp.lms.controller;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -16,50 +17,76 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.tp.lms.model.BookFine;
 import com.tp.lms.model.Staff;
+import com.tp.lms.service.BookFineService;
 import com.tp.lms.service.StaffService;
 
 @RestController
-@RequestMapping("/Staff")
+@RequestMapping("/staff")
 public class StaffController {
 
 	@Autowired
-	private StaffService staffService;
+	StaffService staffService;
 
-	@GetMapping
-	public List<Staff> getAllList() {
-		return staffService.GetAllStaff();
+	@GetMapping(" ")
+	public List<Staff> getStaff() {
+
+		return staffService.getStaff();
+
 	}
+
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Staff> GetStaff(@PathVariable Integer id) {
-		try {
-			Staff staff = staffService.GetStaff(id);
-			return new ResponseEntity<Staff>(staff, HttpStatus.OK);
-		} catch (NoSuchElementException e) {
-			return new ResponseEntity<Staff>(HttpStatus.NOT_FOUND);
-		}
+	public ResponseEntity<?> getStaffById(@PathVariable Integer id) {
+	    Optional<Staff> res = staffService.getStaffById(id);
+	    if (res.isEmpty()) {
+	       
+	        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	    } else {
+	        
+	        Staff staff = res.get();
+	        
+	        return ResponseEntity.ok().body(staff);
+	    }
 	}
 
-	@PostMapping
-	public Staff AddStaff(@RequestBody Staff staff) {
-		return staffService.AddStaff(staff);
+
+	@PostMapping("")
+	public ResponseEntity<?> addStaff(@RequestBody Staff staff) {
+		List<String> error = staffService.validate(staff);
+		if (error.size() != 0) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+		}
+
+		staffService.addStaff(staff);
+		return ResponseEntity.ok().body("Staff added successfully.");
+
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<Staff> Update(@PathVariable Integer id, @RequestBody Staff staff1) {
-		try {
-			staffService.UpdateStaff(staff1, id);
-			return new ResponseEntity<Staff>(staff1, HttpStatus.OK);
-		} catch (NoSuchElementException e) {
-			return new ResponseEntity<Staff>(HttpStatus.NOT_FOUND);
+	public ResponseEntity<?> updateStaff(@PathVariable int id, @RequestBody Staff staff) {
+		List<String> error = staffService.validate(staff);
+		if (!error.isEmpty()) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
 		}
+
+		staffService.updateStaff(id,staff);
+		return ResponseEntity.ok().body("Staff with ID " + id + " Updated successfully.");
+
 	}
-	
-	
+
 	@DeleteMapping("/{id}")
-	public void DeleteMapping(@PathVariable int id) {
-		staffService.DeleteStaff(id);
-	
+	public ResponseEntity<?> deleteStaff(@PathVariable Integer id) {
+
+		boolean deleted = staffService.deleteStaff(id);
+
+		if (deleted) {
+			return ResponseEntity.ok("Staff with ID " + id + " deleted successfully.");
+		} else {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Staff with ID " + id + " not found.");
+		}
+
 	}
+
 }

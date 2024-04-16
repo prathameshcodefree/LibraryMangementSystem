@@ -1,7 +1,9 @@
 package com.tp.lms.model;
 
 import java.util.Date;
+import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tp.lms.model.enums.Status;
 
 import jakarta.persistence.*;
@@ -16,13 +18,17 @@ public class BookIssue extends AuditColumn {
 	private Integer id;
 
 	@ManyToOne
-	@JoinColumn(name = "student_id", nullable = false)
-	private Student student;
+    @JoinColumn(name = "student_id")
+    private Student student;
 
-	@ManyToOne
-	@JoinColumn(name = "book_id", nullable = false)
-	private Book book;
+    @ManyToOne
+    @JoinColumn(name = "book_id")
+    private Book book;
+    
+    @Column(name = "book_title")
+	private String bookTitle;
 
+    
 	@Column(name = "issue_date")
 	private Date issueDate;
 
@@ -47,6 +53,7 @@ public class BookIssue extends AuditColumn {
 		this.id = id;
 	}
 
+	
 	public Student getStudent() {
 		return student;
 	}
@@ -55,12 +62,23 @@ public class BookIssue extends AuditColumn {
 		this.student = student;
 	}
 
+	
 	public Book getBook() {
 		return book;
 	}
 
 	public void setBook(Book book) {
 		this.book = book;
+	}
+	
+	
+
+	public String getBookTitle() {
+		return bookTitle;
+	}
+
+	public void setBookTitle(String bookTitle) {
+		this.bookTitle = bookTitle;
 	}
 
 	public Date getIssueDate() {

@@ -42,30 +42,43 @@ public class StaffAttendance extends AuditColumn {
     private Presenty presenty;
 
     @ManyToOne
-    @JoinColumn(name = "staff_id")
+    @JoinColumn(name = "staff_id",nullable = false)
     private Staff staff;
     
     
     // Getters and Setters
     
     
-    public int getId() {
-        return id;
-    }
+  
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public Date getCheckIn() {
+    public Date getCheckIn()
+    {
         return checkIn;
     }
 
-    public void setCheckIn(Date checkIn) {
+    public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Staff getStaff() {
+		return staff;
+	}
+
+	public void setStaff(Staff staff) {
+		this.staff = staff;
+	}
+
+	public void setCheckIn(Date checkIn) 
+    {
         this.checkIn = checkIn;
     }
 
-    public Date getCheckOut() {
+    public Date getCheckOut() 
+    {
         return checkOut;
     }
 
@@ -83,6 +96,7 @@ public class StaffAttendance extends AuditColumn {
         this.presenty = presenty;
            
         }
+    
 }
 
 

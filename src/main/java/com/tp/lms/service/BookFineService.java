@@ -32,21 +32,12 @@ public class BookFineService {
 
 		List<String> error = new ArrayList<>();
 
-		if (bookFine.getBook() == null) {
-			error.add(" BookId can not be empty");
-		}
-
-		if (bookFine.getBookIssue() == null) {
-			error.add("BookIssueId can not be empty");
-		}
 
 		if (Float.compare(bookFine.getFineAmount(), 0.0f) == 0) {
 			error.add("FineAmount cannot be empty");
 		}
 
-		if (bookFine.getStudent() == null) {
-			error.add("StudentId can not be empty");
-		}
+		
 
 		if (bookFine.getDelayByDays() == null) {
 			error.add("delay by days  can not be empty");
@@ -76,6 +67,7 @@ public class BookFineService {
 		return bookFineRepository.save(existingBookFine);
 	}
 
+
 	public boolean deleteBookFine(Integer id) {
 
 		boolean exists = bookFineRepository.existsById(id);
@@ -83,6 +75,7 @@ public class BookFineService {
 			bookFineRepository.deleteById(id);
 			return true;
 		} else {
+
 
 			return false;
 		}

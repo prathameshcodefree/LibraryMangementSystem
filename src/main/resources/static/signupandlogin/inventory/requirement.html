@@ -98,32 +98,50 @@
 
 		<!-- Move sidebar within navbar -->
 		<div class="sidebar bg-light mt-2">
-			<a href="http://localhost:8080/staff/inventory/InventoryDashborad.html#"><h3 class="text-center text-black">Dashboard</h3><br></a>
-			<a href="http://localhost:8080/staff/inventory/rackDashborad.html" class="btn btn-primary btn-lg btn-block">Rack</a><br>
-			<a href="http://localhost:8080/staff/inventory/AddCategory.html" class="btn btn-primary btn-lg btn-block">Book Category</a><br>
-			<a href="http://localhost:8080/staff/inventory/addinventory.html" class="btn btn-primary btn-lg btn-block">Add Inventory</a> <br>
-			<a href="http://localhost:8080/staff/inventory/requirement.html" class="btn btn-primary btn-lg btn-block">Requirement</a> <br>
-			<a href="#" class="btn btn-primary btn-lg btn-block">Find book</a> <br>
-			 
-			<div class="btn-group d-grid gap-2 align-center">
-				<button class="btn btn-danger" type="button">Delete</button>
-				<button class="btn btn-warning" type="button">Update</button>
-			</div>
+			<a href="/staff/inventory/InventoryDashborad.html"><h3 class="text-center text-black">Dashboard</h3><br></a>
+			<a href="/staff/inventory/rackDashborad.html" class="btn btn-primary btn-lg btn-block">Rack</a><br>
+			<a href="/staff/inventory/AddCategory.html" class="btn btn-primary btn-lg btn-block">Book Category</a><br>
+			<a href="/staff/inventory/addinventory.html" class="btn btn-primary btn-lg btn-block">Add Inventory</a> <br>
+			<a href="/staff/inventory/requirement.html" class="btn btn-primary btn-lg btn-block">Requirement</a> <br>
+			<a href="/staff/inventory/staffAttendance.html" class="btn btn-primary btn-lg btn-block">Staff Attendence</a> <br>
+			
+			
 		</div>
 	</div> 	
 
 	<!-- Add padding-top to body to account for navbar height -->
 
-	<div class="container offset-2 mt-5">
+	<div class="container offset-3 mt-5">
 			<form>
 				<div class="form-group">
-					<label for="exampleInputtext1">Book Category Id</label>
-					<input type="text" class="form-control col-3" id="book_category_id" placeholder="Book Category Id "><br>
+					<label for="exampleInputtext1">Requirement Id</label>
+					<input type="text" class="form-control col-3" id="requirement_id" placeholder="Requirement Id"><br>
 				</div>
 				<div class="form-group">
-					<label for="exampleInputtext1">Book Category Name</label>
-					<input type="text" class="form-control col-3" id="book_category_name" placeholder="Book Category Name"><br>
+					<label for="exampleInputtext1">Book Master Id</label>
+					<input type="text" class="form-control col-3" id="book_master_id" placeholder="Book Master Id"><br>
 				</div>
+				<div class="form-group">
+					<label for="exampleInputtext1">Quantity</label>
+					<input type="text" class="form-control col-3" id="quantity" placeholder="Quantity"><br>
+				</div>
+				<div class="form-group">
+					<label for="exampleInputtext1">Price</label>
+					<input type="text" class="form-control col-3" id="price" placeholder="Enter Amount"><br>
+				</div>
+				<div class="form-group">
+					<label for="exampleInputtext1">Expected Fullfilment Date</label>
+					<input type="date" class="form-control col-3" id="expected_fullfilment_date" placeholder="Enter date"><br>
+				</div>
+				<div class="form-group">
+					<label for="exampleInputtext1">Requirement Status</label>
+					<input type="text" class="form-control col-3" id="requirement_status" placeholder="Requirement Status"><br>
+				</div>
+				<div class="form-group">
+					<label for="exampleInputtext1">Requirement Reason</label>
+					<input type="text" class="form-control col-3" id="requirement_reason" placeholder="Requirement Reason"><br>
+				</div>
+				
 				<div class="form-group">
 					<label for="exampleInputtext1">Audit By</label>
 					<input type="text" class="form-control col-3" id="author" placeholder="Enter Name "><br>

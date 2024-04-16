@@ -2,9 +2,9 @@ package com.tp.lms.model;
 
 import java.util.List;
 
+
 import com.tp.lms.model.enums.StaffStatus;
 import com.tp.lms.model.enums.StaffType;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -52,22 +52,19 @@ public class Staff extends AuditColumn {
 
 	@Column(name = "password", length = 64, nullable = false)
 	private String password;
-
-	
-	
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name = "staff_status", length = 128)
 	private StaffStatus staffStatus;
 
 	@Column(name = "aadhar_number", length = 16)
-	private Integer aadhaarNumber;
+	private Integer  aadhaarNumber;
 
 	@Column(name = "pan_number", length = 10)
 	private String  panNumber;
 	
 	
-	@OneToMany
+	@OneToMany(mappedBy="staff")
 	private List<StaffAttendance> staffattendance;
 	
 	

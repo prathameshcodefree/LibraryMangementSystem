@@ -11,6 +11,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "book_fine")
+
 public class BookFine extends AuditColumn {
 
 	@Id
@@ -19,17 +20,17 @@ public class BookFine extends AuditColumn {
 	private Integer id;
 
 	@ManyToOne
-	@JoinColumn(name = "book_issue_id", nullable = false)
-	private BookIssue bookIssue;
+    @JoinColumn(name = "book_issue_id")
+    private BookIssue bookIssue;
 
-	@ManyToOne
-	@JoinColumn(name = "student_id", nullable = false)
-	private Student student;
+    @ManyToOne
+    @JoinColumn(name = "student_id")
+    private Student student;
 
-	@ManyToOne
-	@JoinColumn(name = "book_id", nullable = false)
-	private Book book;
-
+    @ManyToOne
+    @JoinColumn(name = "book_id")
+    private Book book;
+    
 	@Column(name = "delay_by_days")
 	private Integer delayByDays;
 
@@ -99,4 +100,5 @@ public class BookFine extends AuditColumn {
 		this.fineAmount = fineAmount;
 	}
 
+	
 }

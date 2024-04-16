@@ -1,5 +1,6 @@
 package com.tp.lms.model;
 
+
 import com.tp.lms.model.enums.BookStatus;
 
 import jakarta.persistence.Column;
@@ -11,6 +12,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 
@@ -29,7 +31,7 @@ public class Book  extends AuditColumn {
    
     @ManyToOne
     @JoinColumn(name = "book_master_id")
-    private BookMaster bookMaster;
+    private BookMaster bookMasters;
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "book_status")
@@ -45,7 +47,7 @@ public class Book  extends AuditColumn {
 	}
 
 	public BookMaster getBookMaster() {
-		return bookMaster;
+		return bookMasters;
 	}
 
 	public BookStatus getBookStatus() {
@@ -63,7 +65,7 @@ public class Book  extends AuditColumn {
 	}
 
 	public void setBookMaster(BookMaster bookMaster) {
-		this.bookMaster = bookMaster;
+		this.bookMasters = bookMaster;
 	}
 
 	public void setBookStatus(BookStatus bookStatus) {

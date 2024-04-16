@@ -24,7 +24,7 @@ public class StudentService {
         List<String> errors = new ArrayList<>();
         if (student.getUserName() == null || student.getUserName().isEmpty()) {
             errors.add("Username cannot be null or empty");
-        }
+        }8
         if (student.getPassword() == null || student.getPassword().isEmpty()) {
             errors.add("Password cannot be null or empty");
         }

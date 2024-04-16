@@ -52,6 +52,7 @@ public class AuthController {
 			UserDTO userDto = new UserDTO();
 			userDto.setFirstName(student.getFirstName());
 			userDto.setMiddleName(student.getMiddleName());
+			userDto.setUserName(student.getUserName());
 			
 			
 			

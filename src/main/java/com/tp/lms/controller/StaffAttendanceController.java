@@ -34,11 +34,15 @@ public class StaffAttendanceController {
 	}
 	
 	
+	
 	@GetMapping("{id}")
 	public ResponseEntity<StaffAttendance> getById(@PathVariable Integer id )
+	
 	{	
+	
 		Optional<StaffAttendance> attendance = service.getAttendanceById(id);
-        if (attendance.isPresent()) {
+        
+		if (attendance.isPresent()) {
        
         	return ResponseEntity.ok(attendance.get());
         
@@ -47,7 +51,8 @@ public class StaffAttendanceController {
             return ResponseEntity.notFound().build();
         
         }
-        } 
+        
+	} 
 	
 	
 	@PostMapping
@@ -56,7 +61,7 @@ public class StaffAttendanceController {
 		List<String> error = service.validate(attendance);
 		
 		if (!error.isEmpty()) {
-			ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
 		}
 		
 		return ResponseEntity.ok(service.createAttendance(attendance));
@@ -73,15 +78,17 @@ public class StaffAttendanceController {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
 		}
 		
-     return ResponseEntity.ok(service.updateAttendance(id, attendance));	
+        return ResponseEntity.ok(service.updateAttendance(id, attendance));	
       
 	}
 	
 	
    @DeleteMapping("/{id}")
-   public ResponseEntity<String> deleteAttedance (Integer id )
+   public ResponseEntity<?> deleteAttedance (Integer id )
+   
    {
-	   service.delete(id);
+	
+	   service.delete(id); 
 	   return ResponseEntity.ok("deleted");   
 
    }

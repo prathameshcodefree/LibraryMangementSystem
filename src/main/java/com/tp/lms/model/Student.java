@@ -1,7 +1,9 @@
 package com.tp.lms.model;
 
 import java.util.Date;
+import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tp.lms.model.enums.Gender;
 import com.tp.lms.model.enums.StudentStatus;
 
@@ -12,6 +14,8 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -21,20 +25,24 @@ public class Student extends AuditColumn {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "student_id")
 	private Integer id;
+	
+	@Column(name = "username", unique = true)
+	private String userName;
+	
 
 	@Column(name = "first_name")
 	private String firstName;
 
-	@Column(name = "middle_name", length = 50)
+	@Column(name = "middle_name")
 	private String middleName;
 
-	@Column(name = "last_name", length = 50)
+	@Column(name = "last_name")
 	private String lastName;
 
-	@Column(name = "email_address", length = 64, nullable = false)
+	@Column(name = "email_address", unique = true)
 	private String email;
 
-	@Column(name="contact_number")
+	@Column(name = "contact_number")
 	private String contactNumber;
 
 	@Enumerated(EnumType.STRING)
@@ -44,7 +52,7 @@ public class Student extends AuditColumn {
 	@Column(name = "date")
 	private Date date;
 
-	@Column(name = "college_name", length = 50)
+	@Column(name = "college_name")
 	private String collegeName;
 
 	@Column(name = "roll_no")
@@ -57,7 +65,22 @@ public class Student extends AuditColumn {
 	@Column(name = "student_status")
 	private StudentStatus studentstatus;
 
+	@JsonIgnore
+	@OneToMany
+	@JoinColumn(name="book_issue_id")
+	private List<BookIssue> bookissue;
 	
+	
+	
+	
+	
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String username) {
+		this.userName = username;
+	}
 
 	public Integer getId() {
 		return id;
@@ -154,5 +177,43 @@ public class Student extends AuditColumn {
 	public void setStudentstatus(StudentStatus studentstatus) {
 		this.studentstatus = studentstatus;
 	}
+	
+	
+
+	@JsonIgnore
+	public List<BookIssue> getBookissue() {
+		return bookissue;
+	}
+
+	public void setBookissue(List<BookIssue> bookissue) {
+		this.bookissue = bookissue;
+	}
+
+	public Student(Integer id, String firstName, String middleName, String lastName, String email, String contactNumber,
+			Gender gender, Date date, String collegeName, Integer rollNo, String password,
+			StudentStatus studentstatus) {
+		super();
+		this.id = id;
+		this.firstName = firstName;
+		this.middleName = middleName;
+		this.lastName = lastName;
+		this.email = email;
+		this.contactNumber = contactNumber;
+		this.gender = gender;
+		this.date = date;
+		this.collegeName = collegeName;
+		this.rollNo = rollNo;
+		this.password = password;
+		this.studentstatus = studentstatus;
+	}
+
+	public Student() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+	
+
+	
 
 }

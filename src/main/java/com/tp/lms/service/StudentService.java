@@ -8,6 +8,8 @@ import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.tp.lms.dto.LoginRequestDTO;
+
 import com.tp.lms.model.Student;
 import com.tp.lms.repository.StudentRepository;
 
@@ -16,6 +18,60 @@ public class StudentService {
 
 	@Autowired
 	StudentRepository studentRepository;
+
+
+    public List<String> validates(Student student) {
+        List<String> errors = new ArrayList<>();
+        if (student.getUserName() == null || student.getUserName().isEmpty()) {
+            errors.add("Username cannot be null or empty");
+        }
+        if (student.getPassword() == null || student.getPassword().isEmpty()) {
+            errors.add("Password cannot be null or empty");
+        }
+        return errors;
+    }
+
+    public void addLogin(Student student) {
+        studentRepository.save(student);
+    }
+
+    
+    public boolean checkUserExists(String username, String password) {
+        List<Student> logins = studentRepository.findAll();
+        
+        for (Student login : logins) {
+            String loginUsername = login.getUserName();
+            String loginPassword = login.getPassword();
+            if (loginUsername != null && loginPassword != null && loginUsername.equals(username) && loginPassword.equals(password)) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    
+
+    public Student login(LoginRequestDTO loginRequestDto) {
+        Optional<Student> studentO = studentRepository.findByUserName(loginRequestDto.getUserName());
+        Student student = null;
+        
+        
+        if(studentO.isPresent()) {
+        	
+        	Student studentdb = studentO.get();
+        	if(studentdb.getPassword().equals(loginRequestDto.getPassword())) {
+        		student = studentdb;
+        	}
+        	
+        }
+        
+        return student;
+    }
+
+
+	
+	
 
 	public List<Student> getStudent() {
 
@@ -58,13 +114,13 @@ public class StudentService {
 		}
 
 		if (student.getRollNo() == null) {
-			error.add("Date can not be empty");
+			error.add("Roll No can not be empty");
 		}
 
 		boolean isEmail = Pattern.compile("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$")
 				.matcher(student.getEmail()).matches();
 
-		boolean isPassword = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%?&])[A-Za-z\\d@$!%?&]{8,}$")
+		boolean isPassword = Pattern.compile("^(?=.[a-z])(?=.[A-Z])(?=.\\d)(?=.[@$!%?&])[A-Za-z\\d@$!%?&]{8,}$")
                 .matcher(student.getPassword()).matches();
 		
 
@@ -73,9 +129,9 @@ public class StudentService {
 			error.add("email is not correct");
 		}
 
-	if (!isPassword) {
-			error.add("password is not correct");
-	}
+//	if (!isPassword) {
+//			error.add("password is not correct");
+//	}
 
 		return error;
 	}

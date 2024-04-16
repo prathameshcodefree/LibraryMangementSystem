@@ -14,8 +14,10 @@ import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import com.tp.lms.model.Admin;
 import com.tp.lms.repository.AdminRepository;
+import com.tp.lms.repository.LoginRepository;
 
 /**
  *
@@ -26,6 +28,9 @@ public class AdminService {
 
 	@Autowired
 	AdminRepository adminRepository;
+	
+	@Autowired
+	LoginRepository loginRepository;
 
 	public List<String> validate(Admin admin) {
 		List<String> error = new ArrayList<>();
@@ -92,5 +97,21 @@ public class AdminService {
 		return adminRepository.save(admin);
 
 	}
+	
+	
+	 public void addLogin(com.tp.lms.response.Login login) {
+	        loginRepository.save(login);
+	    }
 
-}
+	    public boolean checkUserExists(String username, String password) {
+	        List<com.tp.lms.response.Login> logins = (List<com.tp.lms.response.Login>) loginRepository.findAll();
+	        
+	        for (com.tp.lms.response.Login login : logins) {
+	            if (login.getUsername().equals(username) && login.getPassword().equals(password)) {
+	                return true;
+	            }
+	        }
+	        
+	        return false;
+	    }}
+

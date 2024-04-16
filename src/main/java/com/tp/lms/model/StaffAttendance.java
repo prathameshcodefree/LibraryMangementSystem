@@ -46,9 +46,7 @@ public class StaffAttendance extends AuditColumn {
     private Staff staff;
     
       // Getters and Setters
-    
-   
-
+  
     public Date getCheckIn()
     {
         return checkIn;

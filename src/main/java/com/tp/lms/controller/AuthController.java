@@ -5,10 +5,52 @@
  */
 package com.tp.lms.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.tp.lms.dto.LoginRequestDTO;
+import com.tp.lms.dto.LoginResponseDTO;
+import com.tp.lms.dto.UserDTO;
+import com.tp.lms.model.Student;
+import com.tp.lms.service.StudentService;
+
 /**
  *
  * @author Suhail Tamboli
  */
+@RestController
+@RequestMapping("auth")
 public class AuthController {
     
+	
+	@Autowired
+	StudentService studentService;
+	
+	@PostMapping("student/login")
+	public LoginResponseDTO studentLogin(@RequestBody LoginRequestDTO loginRequestDto) {
+		LoginResponseDTO loginResponseDto = new LoginResponseDTO();
+		
+		Student student = studentService.login(loginRequestDto);
+		
+		if(student != null) {
+			UserDTO userDto = new UserDTO();
+			userDto.setFirstName(student.getFirstName());
+			userDto.setMiddleName(student.getMiddleName());
+			
+			
+			
+			loginResponseDto.setStatus(true);
+			loginResponseDto.setMessage("Login Successfully");
+			loginResponseDto.setUser(userDto);
+		}else {
+			loginResponseDto.setStatus(false);
+			loginResponseDto.setMessage("user credentials are not correct");
+		}
+		return loginResponseDto;
+		
+	}
 }

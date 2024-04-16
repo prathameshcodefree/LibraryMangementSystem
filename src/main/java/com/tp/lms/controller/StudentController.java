@@ -17,7 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
 
+
 import com.tp.lms.model.Student;
+import com.tp.lms.response.ErrorResponse;
+import com.tp.lms.response.SuccessResponse;
 import com.tp.lms.service.StudentService;
 
 @RestController
@@ -93,4 +96,27 @@ public class StudentController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Student with id " + id + " not found.");
 		}
 	}
+	
+	
+
+	    @PostMapping("/add")
+	    public ResponseEntity<?> addLogin(@RequestBody Student student) {
+	        List<String> errors = studentService.validates(student);
+	        if (!errors.isEmpty()) {
+	            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse(false, errors.toString()));
+	        }
+	        studentService.addLogin(student);
+	        return ResponseEntity.status(HttpStatus.CREATED).body(new SuccessResponse(true, "Login added successfully"));
+	    }
+	    
+	    
+	    @PostMapping("/check")
+	    public ResponseEntity<Object> checkUser(@RequestBody Student student) {
+	        boolean userExists = studentService.checkUserExists(student.getUsername(), student.getPassword());
+	        if (userExists) {
+	            return ResponseEntity.ok(new SuccessResponse(true, "User exists. Login successful."));
+	        } else {
+	            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse(false, "User does not exist."));
+	        }
+	    }
 }

@@ -17,6 +17,41 @@ public class StudentService {
 	@Autowired
 	StudentRepository studentRepository;
 
+
+    public List<String> validates(Student student) {
+        List<String> errors = new ArrayList<>();
+        if (student.getUsername() == null || student.getUsername().isEmpty()) {
+            errors.add("Username cannot be null or empty");
+        }
+        if (student.getPassword() == null || student.getPassword().isEmpty()) {
+            errors.add("Password cannot be null or empty");
+        }
+        return errors;
+    }
+
+    public void addLogin(Student student) {
+        studentRepository.save(student);
+    }
+
+    
+    public boolean checkUserExists(String username, String password) {
+        List<Student> logins = studentRepository.findAll();
+        
+        for (Student login : logins) {
+            String loginUsername = login.getUsername();
+            String loginPassword = login.getPassword();
+            if (loginUsername != null && loginPassword != null && loginUsername.equals(username) && loginPassword.equals(password)) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+
+
+	
+	
+
 	public List<Student> getStudent() {
 
 		return studentRepository.findAll();
@@ -58,13 +93,13 @@ public class StudentService {
 		}
 
 		if (student.getRollNo() == null) {
-			error.add("Date can not be empty");
+			error.add("Roll No can not be empty");
 		}
 
 		boolean isEmail = Pattern.compile("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$")
 				.matcher(student.getEmail()).matches();
 
-		boolean isPassword = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%?&])[A-Za-z\\d@$!%?&]{8,}$")
+		boolean isPassword = Pattern.compile("^(?=.[a-z])(?=.[A-Z])(?=.\\d)(?=.[@$!%?&])[A-Za-z\\d@$!%?&]{8,}$")
                 .matcher(student.getPassword()).matches();
 		
 
@@ -73,9 +108,9 @@ public class StudentService {
 			error.add("email is not correct");
 		}
 
-	if (!isPassword) {
-			error.add("password is not correct");
-	}
+//	if (!isPassword) {
+//			error.add("password is not correct");
+//	}
 
 		return error;
 	}

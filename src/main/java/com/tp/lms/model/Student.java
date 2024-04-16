@@ -3,6 +3,7 @@ package com.tp.lms.model;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tp.lms.model.enums.Gender;
 import com.tp.lms.model.enums.StudentStatus;
 
@@ -24,17 +25,21 @@ public class Student extends AuditColumn {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "student_id")
 	private Integer id;
+	
+	@Column(name = "username")
+	private String username;
+	
 
 	@Column(name = "first_name")
 	private String firstName;
 
-	@Column(name = "middle_name", length = 50)
+	@Column(name = "middle_name")
 	private String middleName;
 
-	@Column(name = "last_name", length = 50)
+	@Column(name = "last_name")
 	private String lastName;
 
-	@Column(name = "email_address", length = 64, nullable = false)
+	@Column(name = "email_address")
 	private String email;
 
 	@Column(name = "contact_number")
@@ -47,7 +52,7 @@ public class Student extends AuditColumn {
 	@Column(name = "date")
 	private Date date;
 
-	@Column(name = "college_name", length = 50)
+	@Column(name = "college_name")
 	private String collegeName;
 
 	@Column(name = "roll_no")
@@ -60,12 +65,23 @@ public class Student extends AuditColumn {
 	@Column(name = "student_status")
 	private StudentStatus studentstatus;
 
+	@JsonIgnore
 	@OneToMany
 	@JoinColumn(name="book_issue_id")
 	private List<BookIssue> bookissue;
 	
 	
 	
+	
+	
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -164,7 +180,7 @@ public class Student extends AuditColumn {
 	
 	
 
-
+	@JsonIgnore
 	public List<BookIssue> getBookissue() {
 		return bookissue;
 	}
@@ -201,6 +217,3 @@ public class Student extends AuditColumn {
 	
 
 }
-
-
-

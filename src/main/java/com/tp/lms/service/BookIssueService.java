@@ -27,9 +27,9 @@ public class BookIssueService {
 
 		List<String> error = new ArrayList<>();
 
-		if (bookIssue.getStudent() == null) {
-			error.add("StudentId can not be empty");
-		}
+//		if (bookIssue.getStudent() == null) {
+//			error.add("StudentId can not be empty");
+//		}
 		
 		if (bookIssue.getIssueDate() == null) {
 			error.add("IssueDate can not be empty");

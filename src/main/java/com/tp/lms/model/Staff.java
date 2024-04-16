@@ -38,19 +38,19 @@ public class Staff extends AuditColumn {
 	@Column(name = "last_name", length = 128)
 	private String lastName;
 
-	@Column(name = "email", length = 64, nullable=false)
+	@Column(name = "email", length = 64)
 	private String email;
 
 	@Column(name = "contact_number", length = 10)
-	private int contactNumber;
+	private Integer contactNumber;
 
-	@Column(name = "gender", length = 128)
+	@Column(name = "gender")
 	private String gender;
 
-	@Column(name = "dob", length = 64)
+	@Column(name = "dob")
 	private String dob;
 
-	@Column(name = "password", length = 64, nullable = false)
+	@Column(name = "password")
 	private String password;
 	
 	@Enumerated(EnumType.STRING)
@@ -62,7 +62,6 @@ public class Staff extends AuditColumn {
 
 	@Column(name = "pan_number", length = 10)
 	private String  panNumber;
-	
 	
 	@OneToMany(mappedBy="staff")
 	private List<StaffAttendance> staffattendance;
@@ -117,11 +116,11 @@ public class Staff extends AuditColumn {
 		this.email = email;
 	}
 
-	public int getContactNumber() {
+	public Integer getContactNumber() {
 		return contactNumber;
 	}
 
-	public void setContactNumber(int contactNumber) {
+	public void setContactNumber(Integer contactNumber) {
 		this.contactNumber = contactNumber;
 	}
 
@@ -157,11 +156,11 @@ public class Staff extends AuditColumn {
 		this.staffStatus = staffStatus;
 	}
 
-	public int getAadhaarNumber() {
+	public Integer getAadhaarNumber() {
 		return aadhaarNumber;
 	}
 
-	public void setAadhaarNumber(int aadhaarNumber) {
+	public void setAadhaarNumber(Integer aadhaarNumber) {
 		this.aadhaarNumber = aadhaarNumber;
 	}
 

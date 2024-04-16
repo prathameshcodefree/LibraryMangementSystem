@@ -51,9 +51,11 @@ public class StaffController {
 		try {
 			staffService.UpdateStaff(staff1, id);
 			return new ResponseEntity<Staff>(staff1, HttpStatus.OK);
-		} catch (NoSuchElementException e) {
+		}
+		catch (NoSuchElementException e) {
 			return new ResponseEntity<Staff>(HttpStatus.NOT_FOUND);
 		}
+		
 	}
 	
 	
@@ -62,4 +64,6 @@ public class StaffController {
 		staffService.DeleteStaff(id);
 	
 	}
+	
 }
+ 

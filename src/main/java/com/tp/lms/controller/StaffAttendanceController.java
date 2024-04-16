@@ -71,6 +71,7 @@ public class StaffAttendanceController {
 	
 	@PutMapping("/{id}")
 	public ResponseEntity<?> updateAttendance(@PathVariable Integer id ,@RequestBody StaffAttendance attendance )
+	
 	{
 		List<String > error = service.validate(attendance);
 		if(!error.isEmpty())

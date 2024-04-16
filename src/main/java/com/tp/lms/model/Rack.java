@@ -17,7 +17,7 @@ public class Rack {
 	private Integer id;
 
 	@Column(name = "rack_code")
-	private Integer rackCode;
+	private String  rackCode;
 
 	public Integer getId() {
 		
@@ -30,14 +30,13 @@ public class Rack {
 	
 	}
 
-	public Integer getRackCode() {
+	public String getRackCode() {
 		return rackCode;
 	}
 
-	public void setRackCode(Integer rackCode) {
+	public void setRackCode(String rackCode) {
 		this.rackCode = rackCode;
 	}
-
-	
+ 
 	
 }

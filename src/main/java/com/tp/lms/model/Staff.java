@@ -12,8 +12,6 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -59,19 +57,14 @@ public class Staff extends AuditColumn {
 	@Column(name = "staff_status", length = 128)
 	private StaffStatus staffStatus;
 
-
-	
-
 	@Column(name = "aadhar_number", length = 16)
 	private Integer  aadhaarNumber;
-
 
 	@Column(name = "pan_number", length = 10)
 	private String  panNumber;
 	
 	
-	@OneToMany(mappedBy = "staff")
-    @Column(name = "staff_attendance_id")
+	@OneToMany(mappedBy="staff")
 	private List<StaffAttendance> staffattendance;
 	
 	
@@ -164,18 +157,12 @@ public class Staff extends AuditColumn {
 		this.staffStatus = staffStatus;
 	}
 
-	
-
-	public List<StaffAttendance> getStaffattendance() {
-		return staffattendance;
+	public int getAadhaarNumber() {
+		return aadhaarNumber;
 	}
 
-	public void setStaffattendance(List<StaffAttendance> staffattendance) {
-		this.staffattendance = staffattendance;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
+	public void setAadhaarNumber(int aadhaarNumber) {
+		this.aadhaarNumber = aadhaarNumber;
 	}
 
 	public String  getPanNumber() {
@@ -184,14 +171,6 @@ public class Staff extends AuditColumn {
 
 	public void setPanNumber(String  panNumber) {
 		this.panNumber = panNumber;
-	}
-
-	public Integer getAadhaarNumber() {
-		return aadhaarNumber;
-	}
-
-	public void setAadhaarNumber(Integer aadhaarNumber) {
-		this.aadhaarNumber = aadhaarNumber;
 	}
 	
 	

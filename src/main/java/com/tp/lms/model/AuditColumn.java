@@ -11,18 +11,14 @@ import jakarta.persistence.MappedSuperclass;
 
 
 @MappedSuperclass
-
 public abstract class AuditColumn  implements Serializable {
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "updated_by_type")
 	private UserType updatedByType;
 
-	@Enumerated(EnumType.STRING)
 	@Column(name = "updated_by")
-
-	private UserType updatedBy;
-
+	private String updatedBy;
 
 	
 	@Column(name = "updated_at")
@@ -46,6 +42,14 @@ public abstract class AuditColumn  implements Serializable {
 
 	public void setUpdatedByType(UserType updatedByType) {
 		this.updatedByType = updatedByType;
+	}
+
+	public String getUpdatedBy() {
+		return updatedBy;
+	}
+
+	public void setUpdatedBy(String updatedBy) {
+		this.updatedBy = updatedBy;
 	}
 
 	public Date getUpdatedAt() {

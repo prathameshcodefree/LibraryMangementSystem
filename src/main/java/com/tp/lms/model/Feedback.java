@@ -23,41 +23,14 @@ public class Feedback extends AuditColumn {
 	
 	@Column(name="feedback")
 	private String feedback;
-	
-//	@ManyToOne(fetch=FetchType.LAZY)
-	@Column(name = "Student_id")
-	private Student studentId;
 
 	public Integer getId() {
 		return id;
 	}
 
-
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
-
-
-	public Student getStudentId() {
-		return studentId;
-	}
-
-
-	public void setStudentId(Student studentId) {
-		this.studentId = studentId;
-	}
-
-
-	public String getFeedback() {
-		return feedback;
-	}
-
-
-	public void setFeedback(String feedback) {
-		this.feedback = feedback;
-	}
-
 
 	public Integer getStudentid() {
 		return studentid;
@@ -67,22 +40,30 @@ public class Feedback extends AuditColumn {
 		this.studentid = studentid;
 	}
 
-	
+	public String getFeedback() {
+		return feedback;
+	}
 
-	public Feedback(Integer id, Integer student_id, String feedback, AuditColumn auditcolumn) {
+	public void setFeedback(String feedback) {
+		this.feedback = feedback;
+	}
+
+	public Feedback(Integer id, Integer studentid, String feedback) {
 		super();
 		this.id = id;
-		this.studentid = student_id;
+		this.studentid = studentid;
 		this.feedback = feedback;
-		
 	}
+	
 
-	public Feedback() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
 	
 	
+
+
+
+
+
+		
 
 
 	

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LMS</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+	crossorigin="anonymous">
+
+<style>
+/* Custom styles */
+.sidebar {
+	position: fixed;
+	top: 60px; /* Adjust top position to avoid overlapping with navbar */
+	left: 0;
+	width: 250px;
+	height: 100%;
+	background-color: #333;
+	padding-top: 20px;
+	z-index: 1000; /* Ensure sidebar appears above other content */
+}
+
+.sidebar a {
+	padding: 10px 20px;
+	text-decoration: none;
+	display: block;
+	color: #fff;
+}
+
+.sidebar a:hover {
+	background-color: #555;
+}
+
+.btn-group {
+	margin-top: 20px;
+}
+</style>
+</head>
+<body>
+	<div class=row>
+		<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+			<!-- Add fixed-top class to navbar -->
+			<div class="container-fluid">
+				<a class="navbar-brand font-italic" href="#">Library Management
+					System</a>
+				<button class="navbar-toggler" type="button"
+					data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+					aria-controls="navbarSupportedContent" aria-expanded="false"
+					aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav me-auto mb-2 mb-lg-0 offset-1">
+						<li class="nav-item offset-1"><a class="nav-link active"
+							aria-current="page" href="#">Home</a></li>
+						<li class="nav-item dropdown offset-1"><a
+							class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+							role="button" data-bs-toggle="dropdown" aria-expanded="false">Notifications
+								<span class="badge bg-danger">3</span>
+						</a> <!-- Add badge for notification count -->
+							<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+								<li><a class="dropdown-item" href="#">Notification 1</a></li>
+								<li><a class="dropdown-item" href="#">Notification 2</a></li>
+								<li><hr class="dropdown-divider"></li>
+								<li><a class="dropdown-item" href="#">View All</a></li>
+							</ul></li>
+					</ul>
+					<form class="d-flex">
+						<input class="form-control me-2" type="search"
+							placeholder="Search" aria-label="Search">
+						<button class="btn btn-outline-success mr-2" type="submit">Search</button>
+						<!-- Add notification icon -->
+					
+					</form>
+					
+				</div>
+			</div>
+		</nav>
+
+		<br> <br>
+
+		<!-- Move sidebar within navbar -->
+		<div class="sidebar bg-light mt-2">
+			<h3 class="text-center text-black">Hello Admin !!</h3>
+			<a href="requirement.html" class="btn btn-primary btn-lg btn-block">Requirement</a><br>
+			 <a href="staffattendance.html" class="btn btn-primary btn-lg btn-block">Staff Attendance</a><br> 
+				<a href="feedback.html" class="btn btn-primary btn-lg btn-block">Feedback</a> <br>
+			<div class="btn-group d-grid gap-2 align-center">
+				<button class="btn btn-danger" type="button">Delete</button>
+				<button class="btn btn-warning" type="button">Update</button>
+			</div>
+		</div>
+	</div> 	
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feedback Table</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-NDvomY4MQ0W61+xtXCZcObn6SbVNf2A4FnMsXnnRv4MkZoQP/FTXagCFbH6X0eii" crossorigin="anonymous">
+</head>
+<body>
+  <div class="container-fluid mt-5 offset-3" >
+    <h2>Feedback Table</h2>
+    <table class="table table-striped" class="cotainer mt-5" class="d-flex justify-content-between">
+      <thead>
+        <tr>
+          <th scope="col">Feedback Number</th>
+          <th scope="col">Student ID</th>
+          <th scope="col">Student Name</th>
+          <th scope="col">Student Email</th>
+          <th scope="col">Student Contact Number</th>
+          <th scope="col">Student College Name</th>
+          <th scope="col">Student FeedBack</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>123456</td>
+          <td>John Doe</td>
+          <td>john.doe@example.com</td>
+          <td>1234567890</td>
+          <td>ABC University</td>
+          <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>654321</td>
+          <td>Jane Smith</td>
+          <td>jane.smith@example.com</td>
+          <td>9876543210</td>
+          <td>XYZ College</td>
+          <td>Nulla vitae elit libero, a pharetra augue.</td>
+        </tr>
+        <!-- Add more rows as needed -->
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Bootstrap JS (Optional) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-foVXQvv2CGuDHJs1teOsZcQC4rJfqEBdJ5ZzpXHcuMf0HzKs9gP7kWvo5ybNmPe3" crossorigin="anonymous"></script>
+</body>
+</html>
+
+	
+	
+	</div>
+
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+		crossorigin="anonymous"></script>
+</body>
+</html>

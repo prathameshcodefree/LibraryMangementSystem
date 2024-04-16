@@ -2,6 +2,7 @@ package com.tp.lms.controller;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,45 +17,78 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tp.lms.model.Feedback;
+import com.tp.lms.model.Staff;
 import com.tp.lms.service.FeedbackService;
+import com.tp.lms.service.StaffService;
 
 @RestController
 @RequestMapping("/feedback")
 public class FeedBackController {
-         @Autowired
-         private FeedbackService feedbackService;
-         
-         @GetMapping
-         public List<Feedback> GetAllFeedBack() {
-         return feedbackService.GetAllFeedBack();
-         }
-         
-     	@GetMapping("/{id}")
-    	public ResponseEntity<Feedback> GetStaff(@PathVariable Integer id) {
-    		try {
-    	          Feedback feedback = feedbackService.GetFeedBack(id);
-    			return new ResponseEntity<Feedback>(feedback, HttpStatus.OK);
-    		} catch (NoSuchElementException e) {
-    			return new ResponseEntity<Feedback>(HttpStatus.NOT_FOUND);
-    		}
-    	}
-         
-         @PostMapping
-         public Feedback AddFeedBack(@RequestBody Feedback feedback) {
-        	return feedbackService.AddFeedBack(feedback);
-         }
-         
-         @DeleteMapping("/{id}")
-         public void DeleteFeedback(@PathVariable int id) {
-        	 feedbackService.DeleteFeedback(id);
-         }
-         @PutMapping("/{id}")
-     	public ResponseEntity<Feedback> Update(@PathVariable Integer id, @RequestBody Feedback feedback) {
-     		try {
-     			feedbackService.UpdateFeedback(feedback, id);
-     			return new ResponseEntity<Feedback>(feedback, HttpStatus.OK);
-     		} catch (NoSuchElementException e) {
-     			return new ResponseEntity<Feedback>(HttpStatus.NOT_FOUND);
-     		}
-     	}
+
+	@Autowired
+	FeedbackService feedbackService;
+
+	@GetMapping(" ")
+	public List<Feedback> getFeedbacks() {
+
+		return feedbackService.getFeddBack();
+
+	}
+
+
+	@GetMapping("/{id}")
+	public ResponseEntity<?> getFeedBackById(@PathVariable Integer id) {
+	    Optional<Feedback> res = feedbackService.getFeedBackById(id);
+	    if (res.isEmpty()) {
+	       
+	        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	    } else {
+	        
+	        Feedback feedback = res.get();
+	        
+	        return ResponseEntity.ok().body(feedback);
+	    }
+	}
+
+
+	@PostMapping(" ")
+	public ResponseEntity<?> addFeedBack(@RequestBody Feedback feedback) {
+		List<String> error = feedbackService.validate(feedback);
+		if (error.size() != 0) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+		}
+
+		feedbackService.addFeedback(feedback);
+		return ResponseEntity.ok().body("FeedBack added successfully.");
+
+	}
+
+	@PutMapping("/{id}")
+	public ResponseEntity<?> updateFeedBack(@PathVariable Integer id, @RequestBody Feedback feedback) {
+		List<String> error = feedbackService.validate(feedback);
+		if (!error.isEmpty()) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+		}
+
+		feedbackService.updateFeedBack(id,feedback);
+		return ResponseEntity.ok().body("FeedBack with ID " + id + " Updated successfully.");
+
+	}
+
+	@DeleteMapping("/{id}")
+	public ResponseEntity<?> deleteFeedBack(@PathVariable Integer id) {
+
+		boolean deleted = feedbackService.deleteFeedBack(id);
+
+		if (deleted) {
+			return ResponseEntity.ok("Feedback with ID " + id + " deleted successfully.");
+		} else {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("FeedBack with ID " + id + " not found.");
+		}
+
+	}
+
 }
+
+
+

@@ -75,13 +75,13 @@
                 event.preventDefault(); // Prevent form submission
 
                 var formData = {
-                    username: $('#username').val(),
+                    userName: $('#username').val(),
                     password: $('#password').val()
                 };
 
                 $.ajax({
                     type: 'POST',
-                    url: '/student/check', 
+                    url: '/auth/student/login', 
                     contentType: 'application/json',
                     data: JSON.stringify(formData),
                     success: function(response) {
@@ -92,11 +92,13 @@
                            localStorage.setItem("info", JSON.stringify(response.user));
                            
                            
-                           
-                           var user = JSON.stringify(localStorage.getItem("info"));
-                           
-                           
+                       
+                       
                             window.location.href = 'dashboard.html';
+                               
+                           
+                     
+                         
                         } else {
                             alert(response.message);
                         }

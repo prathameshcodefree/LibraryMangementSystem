@@ -153,35 +153,4 @@ public class Student extends AuditColumn {
 		this.studentstatus = studentstatus;
 	}
 
-
-	public Student(Integer id, String firstName, String middleName, String lastName, String email, String contactNumber,
-			Gender gender, Date date, String collegeName, Integer rollNo, String password,
-			StudentStatus studentstatus) {
-		super();
-		this.id = id;
-		this.firstName = firstName;
-		this.middleName = middleName;
-		this.lastName = lastName;
-		this.email = email;
-		this.contactNumber = contactNumber;
-		this.gender = gender;
-		this.date = date;
-		this.collegeName = collegeName;
-		this.rollNo = rollNo;
-		this.password = password;
-		this.studentstatus = studentstatus;
-	}
-
-	public Student() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	
-	
-
-	
-
 }
-
-
-

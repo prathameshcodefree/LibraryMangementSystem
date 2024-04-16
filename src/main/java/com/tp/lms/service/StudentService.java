@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.tp.lms.dto.LoginRequestDTO;
@@ -60,7 +61,10 @@ public class StudentService {
         if(studentO.isPresent()) {
         	
         	Student studentdb = studentO.get();
-        	if(studentdb.getPassword().equals(loginRequestDto.getPassword())) {
+        	BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        	
+        	System.out.print("passwrod user: " + loginRequestDto.getPassword() + " from db:" + studentdb.getPassword());
+        	if(passwordEncoder.matches(loginRequestDto.getPassword() ,studentdb.getPassword())) {
         		student = studentdb;
         	}
         	

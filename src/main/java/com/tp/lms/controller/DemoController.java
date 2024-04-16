@@ -1,10 +1,6 @@
 package com.tp.lms.controller;
 
 
-import java.util.List;
-import java.util.Optional;
-
-import org.aspectj.lang.Aspects14;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tp.lms.model.Staff;
 import com.tp.lms.model.Student;
 import com.tp.lms.repository.StaffRepository;
-import com.tp.lms.service.StaffService;
 
 
 

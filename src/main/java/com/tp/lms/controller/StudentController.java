@@ -112,7 +112,7 @@ public class StudentController {
 	    
 	    @PostMapping("/check")
 	    public ResponseEntity<Object> checkUser(@RequestBody Student student) {
-	        boolean userExists = studentService.checkUserExists(student.getUsername(), student.getPassword());
+	        boolean userExists = studentService.checkUserExists(student.getUserName(), student.getPassword());
 	        if (userExists) {
 	            return ResponseEntity.ok(new SuccessResponse(true, "User exists. Login successful."));
 	        } else {

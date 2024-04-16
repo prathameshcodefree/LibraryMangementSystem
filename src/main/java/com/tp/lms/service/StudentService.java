@@ -8,6 +8,8 @@ import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.tp.lms.dto.LoginRequestDTO;
+
 import com.tp.lms.model.Student;
 import com.tp.lms.repository.StudentRepository;
 
@@ -20,7 +22,7 @@ public class StudentService {
 
     public List<String> validates(Student student) {
         List<String> errors = new ArrayList<>();
-        if (student.getUsername() == null || student.getUsername().isEmpty()) {
+        if (student.getUserName() == null || student.getUserName().isEmpty()) {
             errors.add("Username cannot be null or empty");
         }
         if (student.getPassword() == null || student.getPassword().isEmpty()) {
@@ -38,7 +40,7 @@ public class StudentService {
         List<Student> logins = studentRepository.findAll();
         
         for (Student login : logins) {
-            String loginUsername = login.getUsername();
+            String loginUsername = login.getUserName();
             String loginPassword = login.getPassword();
             if (loginUsername != null && loginPassword != null && loginUsername.equals(username) && loginPassword.equals(password)) {
                 return true;
@@ -46,6 +48,25 @@ public class StudentService {
         }
         
         return false;
+    }
+    
+    
+
+    public Student login(LoginRequestDTO loginRequestDto) {
+        Optional<Student> studentO = studentRepository.findByUserName(loginRequestDto.getUserName());
+        Student student = null;
+        
+        
+        if(studentO.isPresent()) {
+        	
+        	Student studentdb = studentO.get();
+        	if(studentdb.getPassword().equals(loginRequestDto.getPassword())) {
+        		student = studentdb;
+        	}
+        	
+        }
+        
+        return student;
     }
 
 

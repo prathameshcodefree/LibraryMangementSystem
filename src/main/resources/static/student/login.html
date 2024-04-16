@@ -89,6 +89,13 @@
                         
                         if (response.status) {
                            
+                           localStorage.setItem("info", JSON.stringify(response.user));
+                           
+                           
+                           
+                           var user = JSON.stringify(localStorage.getItem("info"));
+                           
+                           
                             window.location.href = 'dashboard.html';
                         } else {
                             alert(response.message);

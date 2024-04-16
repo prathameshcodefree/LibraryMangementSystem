@@ -26,8 +26,8 @@ public class Student extends AuditColumn {
 	@Column(name = "student_id")
 	private Integer id;
 	
-	@Column(name = "username")
-	private String username;
+	@Column(name = "username", unique = true)
+	private String userName;
 	
 
 	@Column(name = "first_name")
@@ -39,7 +39,7 @@ public class Student extends AuditColumn {
 	@Column(name = "last_name")
 	private String lastName;
 
-	@Column(name = "email_address")
+	@Column(name = "email_address", unique = true)
 	private String email;
 
 	@Column(name = "contact_number")
@@ -74,12 +74,12 @@ public class Student extends AuditColumn {
 	
 	
 	
-	public String getUsername() {
-		return username;
+	public String getUserName() {
+		return userName;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setUserName(String username) {
+		this.userName = username;
 	}
 
 	public Integer getId() {

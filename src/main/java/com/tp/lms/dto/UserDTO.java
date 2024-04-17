@@ -11,7 +11,6 @@ public class UserDTO {
 	private Integer id;
 	
 	private String userName;
-	
 
 	private String firstName;
 
@@ -119,16 +118,22 @@ public class UserDTO {
 		return rollNo;
 	}
 
-	public void setRollNo(Integer rollNo) {
+	public void setRollNo(Integer rollNo)
+	
+	{
 		this.rollNo = rollNo;
+	
 	}
 	
-	public StudentStatus getStudentstatus() {
+	public StudentStatus getStudentstatus() 
+	{
 		return studentstatus;
+		
 	}
 
 	public void setStudentstatus(StudentStatus studentstatus) {
 		this.studentstatus = studentstatus;
+	
 	}
 	
 }

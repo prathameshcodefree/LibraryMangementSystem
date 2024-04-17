@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+
+<head>
+	
+	
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+
+
+ $(document).ready(function() {	
+	 
+	 $("#submitButton").click(function(){
+	  
+        var formData = {
+            email: $("#user").val(),
+            password: $("#password").val()
+        };
+       
+$.ajax({
+    url: 'http://localhost:8080/demo/test2',
+    type: 'POST',
+    contentType: 'application/json',
+    data:JSON.stringify(formData), // Empty data object
+    success: function(response) {
+        console.log(response);
+        
+        var email = document.getElementById("user");
+    var password = document.getElementById("password");
+    email.value = response.email; 
+    password.value = response.password;
+   var passdiv = document.getElementById("passdiv");
+     passdiv.innerHTML=response.email;
+    },
+    error: function(xhr, status, error) {
+    console.error(xhr.responseText);
+    }
+    
+});
+});
+ 
+</script>
+</head>
+<body>
+	
+<h2>HTML Forms</h2>
+  <form action="/home/check" method="post">
+  <label >User Name:</label><br>
+  <input type="text" id="user" name="user" ><br>
+  <div id = "passdiv"></div>
+  <label for="lname">Password:</label><br>
+  <input type="text" id="password" name="password"><br><br>
+  <button type="button" id="SubmitButton "> submit </button>
+</form> 
+
+
+</body>
+</html>
+

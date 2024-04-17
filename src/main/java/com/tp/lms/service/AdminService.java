@@ -12,10 +12,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-
+import com.tp.lms.dto.LoginRequestDTO;
 import com.tp.lms.model.Admin;
+import com.tp.lms.model.Student;
 import com.tp.lms.repository.AdminRepository;
 import com.tp.lms.repository.LoginRepository;
 
@@ -113,5 +115,34 @@ public class AdminService {
 	        }
 	        
 	        return false;
-	    }}
+	    }
+
+	    
+
+public Admin login(LoginRequestDTO loginRequestDto) {
+    Optional<Admin> adminO = adminRepository.findByUserName(loginRequestDto.getUserName());
+    System.out.println(adminO);
+    Admin admin = null;
+    
+    
+    if(adminO.isPresent()) {
+    	
+    	Admin admindb = adminO.get();
+    	BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    	
+    	System.out.println("Admin Name"+admindb);
+    	
+    	System.out.print("passwrod user: " + loginRequestDto.getPassword() + " from db:" + admindb.getPassword());
+    	if(passwordEncoder.matches(loginRequestDto.getPassword() ,admindb.getPassword())) {
+    		admin = admindb;
+    	}
+    	
+    }
+    
+    return admin;
+}
+}
+
+
+
 

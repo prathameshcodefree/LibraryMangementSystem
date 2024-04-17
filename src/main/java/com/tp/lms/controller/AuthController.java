@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tp.lms.dto.LoginRequestDTO;
 import com.tp.lms.dto.LoginResponseDTO;
 import com.tp.lms.dto.UserDTO;
+import com.tp.lms.model.Admin;
 import com.tp.lms.model.Student;
+import com.tp.lms.service.AdminService;
 import com.tp.lms.service.StudentService;
 
 /**
@@ -32,9 +34,12 @@ public class AuthController {
 	@Autowired
 	StudentService studentService;
 	
+	@Autowired
+	AdminService adminService;
+	
 	
 	@GetMapping("converttohash")
-	public String convertToHash(@RequestParam String clearText) {
+	public String convertToHash(@RequestParam(name="kaustubh") String clearText) {
 		
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String cipherText = passwordEncoder.encode(clearText);
@@ -54,6 +59,33 @@ public class AuthController {
 			userDto.setMiddleName(student.getMiddleName());
 			
 			
+			
+			loginResponseDto.setStatus(true);
+			loginResponseDto.setMessage("Login Successfully");
+			loginResponseDto.setUser(userDto);
+		}else {
+			loginResponseDto.setStatus(false);
+			loginResponseDto.setMessage("user credentials are not correct");
+		}
+		return loginResponseDto;
+		
+	}
+	
+	
+	
+	
+	
+	
+	@PostMapping("admin/login")
+	public LoginResponseDTO adminLogin(@RequestBody LoginRequestDTO loginRequestDto) {
+		LoginResponseDTO loginResponseDto = new LoginResponseDTO();
+		
+		Admin admin = adminService.login(loginRequestDto);
+		
+		if(admin != null) {
+			UserDTO userDto = new UserDTO();
+			userDto.setFirstName(admin.getFirstName());
+			userDto.setLastName(admin.getLastName());
 			
 			loginResponseDto.setStatus(true);
 			loginResponseDto.setMessage("Login Successfully");

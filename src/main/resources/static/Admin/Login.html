@@ -75,13 +75,13 @@
                 event.preventDefault(); // Prevent form submission
 
                 var formData = {
-                    username: $('#username').val(),
+                    userName: $('#username').val(),
                     password: $('#password').val()
                 };
 
                 $.ajax({
                     type: 'POST',
-                    url: '/login/check', 
+                    url: '/auth/admin/login', 
                     contentType: 'application/json',
                     data: JSON.stringify(formData),
                     success: function(response) {
@@ -89,7 +89,16 @@
                         
                         if (response.status) {
                            
+                           localStorage.setItem("info", JSON.stringify(response.user));
+                           
+                           
+                       
+                       
                             window.location.href = 'Admin.html';
+                               
+                           
+                     
+                         
                         } else {
                             alert(response.message);
                         }

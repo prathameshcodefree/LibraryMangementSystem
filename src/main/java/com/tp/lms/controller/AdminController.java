@@ -68,7 +68,7 @@ public class AdminController {
 
 		}
 		adminService.AddAdmin(admin);
-		return ResponseEntity.ok().body("Student added successfully.");
+		return ResponseEntity.ok().body("Admin added successfully.");
 
 	}
 	@PutMapping("/{id}")

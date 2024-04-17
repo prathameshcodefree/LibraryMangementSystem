@@ -73,7 +73,8 @@
 							placeholder="Search" aria-label="Search">
 						<button class="btn btn-outline-success mr-2" type="submit">Search</button>
 						<!-- Add notification icon -->
-					
+						<div id="userName"></div>
+
 					</form>
 				</div>
 			</div>
@@ -85,14 +86,16 @@
 		<div class="sidebar bg-light mt-2">
 			<h3 class="text-center text-black">Hello Admin !!</h3>
 			<a href="requirement.html" class="btn btn-primary btn-lg btn-block">Requirement</a><br>
-			 <a href="staffattendance.html" class="btn btn-primary btn-lg btn-block">Staff Attendance</a><br> 
-				<a href="feedback.html" class="btn btn-primary btn-lg btn-block">Feedback</a> <br>
+			<a href="staffattendance.html"
+				class="btn btn-primary btn-lg btn-block">Staff Attendance</a><br>
+			<a href="feedback.html" class="btn btn-primary btn-lg btn-block">Feedback</a>
+			<br>
 			<div class="btn-group d-grid gap-2 align-center">
 				<button class="btn btn-danger" type="button">Delete</button>
 				<button class="btn btn-warning" type="button">Update</button>
 			</div>
 		</div>
-	</div> 	
+	</div>
 
 	<!-- Add padding-top to body to account for navbar height -->
 	<div style="padding-top: 100px;">
@@ -151,5 +154,13 @@
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
 		crossorigin="anonymous"></script>
+
+
+	<script>
+		var user = JSON.parse(localStorage.getItem("info"));
+		userTag = document.getElementById("userName");
+		userTag.innerText = "Welcome " + user.firstName + "(" + user.userName
+				+ ")"
+	</script>
 </body>
 </html>

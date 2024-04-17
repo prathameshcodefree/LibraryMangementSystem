@@ -62,7 +62,7 @@ public class StudentService {
         	
         	Student studentdb = studentO.get();
         	BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        	
+        	System.out.println("Student Name"+student);
         	System.out.print("passwrod user: " + loginRequestDto.getPassword() + " from db:" + studentdb.getPassword());
         	if(passwordEncoder.matches(loginRequestDto.getPassword() ,studentdb.getPassword())) {
         		student = studentdb;

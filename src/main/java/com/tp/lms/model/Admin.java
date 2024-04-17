@@ -25,6 +25,9 @@ public class Admin {
     @Column(name = "first_name", length = 128)
     private String firstName;
     
+    @Column(name = "username", unique = true)
+	private String userName;
+    
     
     @Column(name = "last_name", length = 128)
     private String lastName;
@@ -44,8 +47,19 @@ public class Admin {
     public void setId(Integer id) {
         this.id = id;
     }
+    
+    
+    
 
-    public String getFirstName() {
+    public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getFirstName() {
         return firstName;
     }
 

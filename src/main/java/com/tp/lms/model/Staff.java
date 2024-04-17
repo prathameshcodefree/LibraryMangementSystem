@@ -28,6 +28,9 @@ public class Staff extends AuditColumn {
 	@Enumerated(EnumType.STRING)
 	@Column(name = "staff_type",length = 128)
 	private StaffType staffType;
+	
+	@Column(name = "user_name", length = 128)
+	private String userName;
 
 	@Column(name = "first_name", length = 128,unique=true)
 	private String firstName;
@@ -137,6 +140,28 @@ public class Staff extends AuditColumn {
 
 	public String getEmail() {
 		return email;
+	}
+	
+	
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public List<StaffAttendance> getStaffattendance() {
+		return staffattendance;
+	}
+
+	public void setStaffattendance(List<StaffAttendance> staffattendance) {
+		this.staffattendance = staffattendance;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 

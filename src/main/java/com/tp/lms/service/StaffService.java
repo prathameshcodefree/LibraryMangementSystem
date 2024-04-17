@@ -1,6 +1,7 @@
 package com.tp.lms.service;
 
 import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.regex.Pattern;
@@ -153,5 +154,29 @@ public class StaffService {
 			return false;
 		}
 
-	}}
+	}
+
+
+public Staff login(LoginRequestDTO loginRequestDto) {
+    Optional<Staff> Librarian = staffRepository.findByUserName(loginRequestDto.getUserName());
+    Staff  Stafflibrarian = null;
+    
+    
+    if(Librarian.isPresent()) {
+    	
+    	Staff librariandb = Librarian.get();
+    	BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    	
+    	System.out.print("passwrod user: " + loginRequestDto.getPassword() + " from db:" + librariandb.getPassword());
+    	if(passwordEncoder.matches(loginRequestDto.getPassword() ,librariandb.getPassword())) {
+    		Stafflibrarian = librariandb;
+    	}
+    	
+    }
+    
+    return Stafflibrarian;
+}
+
+}
+
 

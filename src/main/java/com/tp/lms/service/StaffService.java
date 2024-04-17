@@ -1,14 +1,17 @@
 package com.tp.lms.service;
 
 import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.tp.lms.dto.LoginRequestDTO;
 import com.tp.lms.model.Staff;
 import com.tp.lms.repository.StaffRepository;
 
@@ -130,5 +133,29 @@ public class StaffService {
 			return false;
 		}
 
-	}}
+	}
+
+
+public Staff login(LoginRequestDTO loginRequestDto) {
+    Optional<Staff> Librarian = staffRepository.findByUserName(loginRequestDto.getUserName());
+    Staff  Stafflibrarian = null;
+    
+    
+    if(Librarian.isPresent()) {
+    	
+    	Staff librariandb = Librarian.get();
+    	BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    	
+    	System.out.print("passwrod user: " + loginRequestDto.getPassword() + " from db:" + librariandb.getPassword());
+    	if(passwordEncoder.matches(loginRequestDto.getPassword() ,librariandb.getPassword())) {
+    		Stafflibrarian = librariandb;
+    	}
+    	
+    }
+    
+    return Stafflibrarian;
+}
+
+}
+
 

@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package com.tp.lms.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,8 +54,6 @@ public class AuthController {
 			userDto.setFirstName(student.getFirstName());
 			userDto.setMiddleName(student.getMiddleName());
 			userDto.setUserName(student.getUserName());
-			
-			
 			
 			loginResponseDto.setStatus(true);
 			loginResponseDto.setMessage("Login Successfully");

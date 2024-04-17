@@ -73,9 +73,9 @@ public class StaffService {
 		if (staff.getContactNumber() ==0) {
 			error.add("Staff Contact Number can not be empty");
 		}
-		if (staff.getAadhaarNumber() == 0) {
-			error.add("Staff AadharNumber Number can not be empty");
-		}
+//		if (staff.getAadhaarNumber() ==null) {
+//			error.add("Staff AadharNumber Number can not be empty");
+//		}
 
 		if (staff.getGender() == null) {
 			error.add("Staff Gender can not be empty");
@@ -97,14 +97,14 @@ public class StaffService {
 
 	}
 
-	public Staff UpdateStaff( Staff staff, int id) {
-		staff.setStaffId(id);
+	public Staff UpdateStaff( Staff staff, Integer id) {
+		staff.setId(id);
 
 		return staffRepository.save(staff);}
 
 	public Staff updateStaff(Integer id, @RequestBody Staff staff) {
 		Staff existingStaff = staffRepository.findById(id).orElse(null);
-		existingStaff.setStaffId(staff.getId());
+		existingStaff.setId(staff.getId());
 		existingStaff.setFirstName(staff.getFirstName());
 		existingStaff.setMiddleName(staff.getMiddleName());
 		existingStaff.setLastName(staff.getLastName());
@@ -123,7 +123,7 @@ public class StaffService {
 	}
 	
 	  public Staff login(LoginRequestDTO loginRequestDto) {
-	        Optional<Staff> staffO = staffRepository.findbyUserName(loginRequestDto.getUserName());
+	        Optional<Staff> staffO = staffRepository.findByUserName(loginRequestDto.getUserName());
 	        Staff staff = null;
 	        
 	        

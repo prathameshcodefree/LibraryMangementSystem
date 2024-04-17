@@ -1,6 +1,7 @@
 package com.tp.lms.service;
 
 import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.regex.Pattern;
@@ -19,6 +20,9 @@ public class StudentService {
 
 	@Autowired
 	StudentRepository studentRepository;
+	
+//	@Autowired
+//    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
     public List<String> validates(Student student) {
@@ -33,6 +37,7 @@ public class StudentService {
     }
 
     public void addLogin(Student student) {
+    	
         studentRepository.save(student);
     }
 
@@ -56,7 +61,7 @@ public class StudentService {
     public Student login(LoginRequestDTO loginRequestDto) {
         Optional<Student> studentO = studentRepository.findByUserName(loginRequestDto.getUserName());
         Student student = null;
-        
+        	
         
         if(studentO.isPresent()) {
         	
@@ -147,6 +152,8 @@ public class StudentService {
 	}
 
 	public Student addStudent(Student student) {
+//		String hashcode = bCryptPasswordEncoder.encode( student.getPassword());
+//    	student.setPassword(hashcode);
 
 		return studentRepository.save(student);
 
@@ -166,6 +173,7 @@ public class StudentService {
 		existingStudent.setRollNo(student.getRollNo());
 		existingStudent.setPassword(student.getPassword());
 		existingStudent.setStudentstatus(student.getStudentstatus());
+		existingStudent.setUserName(student.getUserName());
 		return studentRepository.save(existingStudent);
 
 	}

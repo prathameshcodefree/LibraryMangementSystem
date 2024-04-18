@@ -12,23 +12,29 @@ import jakarta.persistence.*;
 @Table(name = "book_issue")
 public class BookIssue extends AuditColumn {
 
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "book_issue_id")
 	private Integer id;
 
 	@ManyToOne
-    @JoinColumn(name = "student_id")
-    private Student student;
+	@JoinColumn(name = "student_id")
+	private Student student;
 
-    @ManyToOne
-    @JoinColumn(name = "book_id")
-    private Book book;
-    
-    @Column(name = "book_title")
-	private String bookTitle;
+	@ManyToOne
+	@JoinColumn(name = "book_id")
+	private Book book;
 
-    
+	@JsonIgnore
+	@OneToMany(mappedBy = "bookIssue")
+	// @JoinColumn(name = "book_fine_id")
+	private List<BookFine> bookFine;
+
+	@Column(name = "title")
+	private String title;
+
 	@Column(name = "issue_date")
 	private Date issueDate;
 
@@ -53,7 +59,6 @@ public class BookIssue extends AuditColumn {
 		this.id = id;
 	}
 
-	
 	public Student getStudent() {
 		return student;
 	}
@@ -62,7 +67,6 @@ public class BookIssue extends AuditColumn {
 		this.student = student;
 	}
 
-	
 	public Book getBook() {
 		return book;
 	}
@@ -70,15 +74,21 @@ public class BookIssue extends AuditColumn {
 	public void setBook(Book book) {
 		this.book = book;
 	}
-	
-	
 
-	public String getBookTitle() {
-		return bookTitle;
+	public List<BookFine> getBookFine() {
+		return bookFine;
 	}
 
-	public void setBookTitle(String bookTitle) {
-		this.bookTitle = bookTitle;
+	public void setBookFine(List<BookFine> bookFine) {
+		this.bookFine = bookFine;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public Date getIssueDate() {

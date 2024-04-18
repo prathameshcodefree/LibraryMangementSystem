@@ -31,51 +31,71 @@ public class RackController {
 	
 	    @GetMapping
 	    public List<Rack> getAllRacks() {
-	        return rackService.getAllRacks();
+	    
+	    	return rackService.getAllRacks();
+  
 	    }
 
+	    
 	    @GetMapping("/{id}")
-	    public Rack getRackById(@PathVariable Integer id) {
-	        
-	    	return rackService.getRackById(id);
-	
+	     
+	    public Rack getRackById(@PathVariable Integer id) 
+	    
+	    {
+	    	
+		return rackService.getRackById(id);
+	    
 	    }
-	   
+	    
+	    
 	    @PostMapping
-	    public ResponseEntity<?> addRack(Rack rack) {
+	    public ResponseEntity<?> addRack(@RequestBody Rack rack) {
 
 	    	
-	    	System.out.println("we are in add rack controller block "); 
+	     System.out.println("we are in add rack controller block "); 
+	     	
+	   	List<String>  error = rackService.validate(rack);
 	    	
-	    	List<String>  error = rackService.validate(rack);
+	   	if(!error.isEmpty()) 
 	    	
-	    	if(!error.isEmpty()) 
-	    	{
-	    		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+	   	{
+	  
+	   		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
 	    		
 	    	}
 	    	
 	    	return  ResponseEntity.accepted().body(rackService.addRack(rack));
          
          }
+
+
 	    
 	    @PutMapping("/{id}")
-	    public ResponseEntity<?> updateRack(Integer rackId,@RequestBody Rack rack) {
+	    
+	    public ResponseEntity<?> updateRack(@PathVariable  Integer rackId,@RequestBody Rack rack) {
 	    	
 	    	List<String> error = rackService.validate(rack);
+	    
 	    	if (!error.isEmpty()) {
+	    	
 	    		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+	    
 	    	}
+	    	
 	    	return  ResponseEntity.accepted().body(rackService.updateRack(rackId, rack));
+	    
 	    }
+	    
 	    
 	    
 	    @DeleteMapping("/{id}")
-	    public void  deleteRack(@PathVariable Integer  rackId) {
+	    
+	    public void  deleteRack(@PathVariable Integer id)
+	   
+	    {
 	    	
-	    rackService.deleteRack(rackId)	;
+	    rackService.deleteRack(id)	;
 	   
 	    }
-	    
 
 }

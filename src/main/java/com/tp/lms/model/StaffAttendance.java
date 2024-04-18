@@ -42,15 +42,11 @@ public class StaffAttendance extends AuditColumn {
     private Presenty presenty;
 
     @ManyToOne
-    @JoinColumn(name = "staff_id",nullable = false)
+    @JoinColumn(name = "staff_id")
     private Staff staff;
     
-    
-    // Getters and Setters
-    
-    
+      // Getters and Setters
   
-
     public Date getCheckIn()
     {
         return checkIn;

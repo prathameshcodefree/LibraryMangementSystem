@@ -12,7 +12,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 
@@ -20,18 +19,20 @@ import jakarta.persistence.Table;
 @Table(name = "book")
 public class Book  extends AuditColumn {
 
+	private static final long serialVersionUID = 1L;
+
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "book_id")
     private Integer id;
 
-    @Column(name = "isbn_code", nullable = false)
+    @Column(name = "isbn_code")
     private String isbnCode;
 
    
     @ManyToOne
     @JoinColumn(name = "book_master_id")
-    private BookMaster bookMasters;
+    private BookMaster bookMaster;
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "book_status")
@@ -39,42 +40,6 @@ public class Book  extends AuditColumn {
 
 	@Column(name = "remark")
 	private String bookRemark;
-
-
-
-	public String getIsbnCode() {
-		return isbnCode;
-	}
-
-	public BookMaster getBookMaster() {
-		return bookMasters;
-	}
-
-	public BookStatus getBookStatus() {
-		return bookStatus;
-	}
-
-	public String getBookRemark() {
-		return bookRemark;
-	}
-
-	
-
-	public void setIsbnCode(String isbnCode) {
-		this.isbnCode = isbnCode;
-	}
-
-	public void setBookMaster(BookMaster bookMaster) {
-		this.bookMasters = bookMaster;
-	}
-
-	public void setBookStatus(BookStatus bookStatus) {
-		this.bookStatus = bookStatus;
-	}
-
-	public void setBookRemark(String bookRemark) {
-		this.bookRemark = bookRemark;
-	}
 
 	public Integer getId() {
 		return id;
@@ -84,5 +49,36 @@ public class Book  extends AuditColumn {
 		this.id = id;
 	}
 
+	public String getIsbnCode() {
+		return isbnCode;
+	}
+
+	public void setIsbnCode(String isbnCode) {
+		this.isbnCode = isbnCode;
+	}
+
+	public BookMaster getBookMaster() {
+		return bookMaster;
+	}
+
+	public void setBookMaster(BookMaster bookMaster) {
+		this.bookMaster = bookMaster;
+	}
+
+	public BookStatus getBookStatus() {
+		return bookStatus;
+	}
+
+	public void setBookStatus(BookStatus bookStatus) {
+		this.bookStatus = bookStatus;
+	}
+
+	public String getBookRemark() {
+		return bookRemark;
+	}
+
+	public void setBookRemark(String bookRemark) {
+		this.bookRemark = bookRemark;
+	}
 		
 }

@@ -2,6 +2,7 @@ package com.tp.lms.dto;
 
 import java.util.Date;
 
+
 import com.tp.lms.model.enums.Gender;
 import com.tp.lms.model.enums.StudentStatus;
 
@@ -11,7 +12,6 @@ public class UserDTO {
 	private Integer id;
 	
 	private String userName;
-	
 
 	private String firstName;
 
@@ -119,16 +119,22 @@ public class UserDTO {
 		return rollNo;
 	}
 
-	public void setRollNo(Integer rollNo) {
+	public void setRollNo(Integer rollNo)
+	
+	{
 		this.rollNo = rollNo;
+	
 	}
 	
-	public StudentStatus getStudentstatus() {
+	public StudentStatus getStudentstatus() 
+	{
 		return studentstatus;
+		
 	}
 
 	public void setStudentstatus(StudentStatus studentstatus) {
 		this.studentstatus = studentstatus;
+	
 	}
 	
 }

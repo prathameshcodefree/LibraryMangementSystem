@@ -6,6 +6,7 @@
 package com.tp.lms.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -43,9 +44,11 @@ public class AuthController {
 		
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String cipherText = passwordEncoder.encode(clearText);
+        
 		
 		return cipherText;
 	}
+	
 	
 	@PostMapping("student/login")
 	public LoginResponseDTO studentLogstafin(@RequestBody LoginRequestDTO loginRequestDto) {
@@ -53,7 +56,7 @@ public class AuthController {
 		
 		Student student = studentService.login(loginRequestDto);
 		
-		if(student != null) {
+		if(student != null) { 
 			UserDTO userDto = new UserDTO();
 			userDto.setFirstName(student.getFirstName());
 			userDto.setMiddleName(student.getMiddleName());
@@ -71,7 +74,6 @@ public class AuthController {
 		return loginResponseDto;
 		
 	}
-	
 	
 	
 	@PostMapping("librarian/login")
@@ -105,4 +107,18 @@ public class AuthController {
 		return loginResponseDto;
 		
 	}
+	
+	@PostMapping("librarian/addstaff")
+	public LoginResponseDTO addStaff (@RequestBody  LoginRequestDTO loginRequestDto )
+	{
+	 LoginResponseDTO loginResponseDto = new LoginResponseDTO(); 
+	
+	Staff staff = staffService.addStaffDTO(loginRequestDto);
+	
+		
+	// ResponseEntity.ok().body(staff)
+		return loginResponseDto; 
+		
+	}	
+	
 }

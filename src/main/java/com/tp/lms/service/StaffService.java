@@ -7,6 +7,8 @@ import java.util.Optional;
 import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -92,6 +94,13 @@ public class StaffService {
 	}
 
 	public Staff addStaff(Staff staff) {
+		
+		
+		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();	
+		 
+		String hascode = bCryptPasswordEncoder.encode(staff.getPassword());
+		
+		staff.setPassword(hascode);
 
 		return staffRepository.save(staff);
 
@@ -149,13 +158,47 @@ public Staff login(LoginRequestDTO loginRequestDto) {
     	System.out.print("passwrod user: " + loginRequestDto.getPassword() + " from db:" + librariandb.getPassword());
     	if(passwordEncoder.matches(loginRequestDto.getPassword() ,librariandb.getPassword())) {
     		Stafflibrarian = librariandb;
-    	}
     	
+    	}	
     }
     
     return Stafflibrarian;
 }
 
+
+
+
+
+// Auth controller request 
+ 
+  public Staff addStaffDTO( LoginRequestDTO loginRequestDto) {
+  BCryptPasswordEncoder PasswordEncoder = new BCryptPasswordEncoder();
+  
+  String hascode = PasswordEncoder.encode(loginRequestDto.getPassword());
+  
+  Staff responseStaff = null;
+  Optional<Staff> staff =  staffRepository.findByUserName(loginRequestDto.getUserName());
+  
+  if (staff.isPresent()) {
+	  
+	 Staff userInfoDb = staff.get();
+	 
+	 userInfoDb.setPassword(hascode);
+	 
+
+	 //ResponseEntity.ok(staffRepository.save(userInfoDb))
+	 
+	 return  userInfoDb;
+  }
+  
+  
+  //new ResponseEntity<> ("invalid credentials", HttpStatus.NOT_FOUND)
+    return responseStaff ; 
+    
+  
+  }
+ 
+ 
 }
 
 

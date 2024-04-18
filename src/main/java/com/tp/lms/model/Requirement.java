@@ -1,7 +1,9 @@
 package com.tp.lms.model;
 
 import java.util.Date;
+import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tp.lms.model.enums.RequirementStatus;
 
 import jakarta.persistence.Column;
@@ -11,95 +13,91 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-
-/**
- * 
- * 
- @author DURGESH */
 
 @Entity
 @Table(name = "requirement")
-public class Requirement {
-	
-	
-	@Id
-	@Column(name="requirement_id")
-	@GeneratedValue(strategy =	 GenerationType.IDENTITY)
-	private Integer id;
-	
-	
-	@Column(name = "book_master_id")
-	private int bookMasterId;
-	
-	@Column(name="quantity")
-	private int quantity;
-	
-	@Column(name="price")
-	private float price;
-	
-	@Column(name="expected_fulfilment_date")
-	private Date expectedFulfilmentDate;
-	
-	@Enumerated(EnumType.STRING)
-	@Column(name="requirement_status",nullable = false)
-	private RequirementStatus requirementStatus;
-	
-	private char requirementReason;
+public class Requirement extends AuditColumn {
 
-	public int getRequirementId() {
+	@Id
+	@Column(name = "requirement_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "requirement")
+	private List<BookMaster> bookMaster;
+
+	@Column(name = "quantity")
+	private Integer quantity;
+
+	@Column(name = "price")
+	private float price;
+
+	@Column(name = "expected_fulfilment_date")
+	private Date expectedFulfilmentDate;
+
+	@Enumerated(EnumType.STRING)
+	@Column(name = "requirement_status", nullable = false)
+	private RequirementStatus requirementStatus;
+
+	@Column(name = "requirement_reason")
+	private String requirementReason;
+
+	public Integer getId() {
 		return id;
 	}
 
-	public int getBookMasterId() {
-		return bookMasterId;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
-	public int getQuantity() {
+	public List<BookMaster> getBookMaster() {
+		return bookMaster;
+	}
+
+	public void setBookMaster(List<BookMaster> bookMaster) {
+		this.bookMaster = bookMaster;
+	}
+
+	public Integer getQuantity() {
 		return quantity;
+	}
+
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
 	}
 
 	public float getPrice() {
 		return price;
 	}
 
-	public Date getExpectedFulfilmentDate() {
-		return expectedFulfilmentDate;
-	}
-
-	public RequirementStatus getRequirementStatus() {
-		return requirementStatus;
-	}
-
-	public char getRequirementReason() {
-		return requirementReason;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public void setBookMasterId(int bookMasterId) {
-		this.bookMasterId = bookMasterId;
-	}
-
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
-	}
-
 	public void setPrice(float price) {
 		this.price = price;
+	}
+
+	public Date getExpectedFulfilmentDate() {
+		return expectedFulfilmentDate;
 	}
 
 	public void setExpectedFulfilmentDate(Date expectedFulfilmentDate) {
 		this.expectedFulfilmentDate = expectedFulfilmentDate;
 	}
 
+	public RequirementStatus getRequirementStatus() {
+		return requirementStatus;
+	}
+
 	public void setRequirementStatus(RequirementStatus requirementStatus) {
 		this.requirementStatus = requirementStatus;
 	}
 
-	public void setRequirementReason(char requirementReason) {
+	public String getRequirementReason() {
+		return requirementReason;
+	}
+
+	public void setRequirementReason(String requirementReason) {
 		this.requirementReason = requirementReason;
 	}
 

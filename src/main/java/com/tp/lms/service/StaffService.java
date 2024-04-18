@@ -7,8 +7,7 @@ import java.util.Optional;
 import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -75,9 +74,9 @@ public class StaffService {
 		if (staff.getContactNumber() ==0) {
 			error.add("Staff Contact Number can not be empty");
 		}
-		if (staff.getAadhaarNumber() == 0) {
-			error.add("Staff AadharNumber Number can not be empty");
-		}
+//		if (staff.getAadhaarNumber() ==null) {
+//			error.add("Staff AadharNumber Number can not be empty");
+//		}
 
 		if (staff.getGender() == null) {
 			error.add("Staff Gender can not be empty");
@@ -106,14 +105,14 @@ public class StaffService {
 
 	}
 
-	public Staff UpdateStaff( Staff staff, int id) {
-		staff.setStaffId(id);
+	public Staff UpdateStaff( Staff staff, Integer id) {
+		staff.setId(id);
 
 		return staffRepository.save(staff);}
 
 	public Staff updateStaff(Integer id, @RequestBody Staff staff) {
 		Staff existingStaff = staffRepository.findById(id).orElse(null);
-		existingStaff.setStaffId(staff.getId());
+		existingStaff.setId(staff.getId());
 		existingStaff.setFirstName(staff.getFirstName());
 		existingStaff.setMiddleName(staff.getMiddleName());
 		existingStaff.setLastName(staff.getLastName());
@@ -130,6 +129,7 @@ public class StaffService {
 	
 
 	}
+	
 
 	public boolean deleteStaff(Integer id) {
 
@@ -145,7 +145,7 @@ public class StaffService {
 	}
 
 
-public Staff login(LoginRequestDTO loginRequestDto) {
+public Staff login (LoginRequestDTO loginRequestDto) {
     Optional<Staff> Librarian = staffRepository.findByUserName(loginRequestDto.getUserName());
     Staff  Stafflibrarian = null;
     
@@ -157,7 +157,7 @@ public Staff login(LoginRequestDTO loginRequestDto) {
     	
     	System.out.print("passwrod user: " + loginRequestDto.getPassword() + " from db:" + librariandb.getPassword());
     	if(passwordEncoder.matches(loginRequestDto.getPassword() ,librariandb.getPassword())) {
-    		Stafflibrarian = librariandb;
+    	return	Stafflibrarian = librariandb;
     	
     	}	
     }
@@ -200,5 +200,4 @@ public Staff login(LoginRequestDTO loginRequestDto) {
  
  
 }
-
 

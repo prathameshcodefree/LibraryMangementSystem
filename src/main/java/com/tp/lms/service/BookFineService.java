@@ -58,12 +58,10 @@ public class BookFineService {
 
 	public BookFine updateBookFine(Integer id, @RequestBody BookFine bookfine) {
 		BookFine existingBookFine = bookFineRepository.findById(id).orElse(null);
-		existingBookFine.setId(bookfine.getId());
-		existingBookFine.setBookFineId(bookfine.getId());
-		existingBookFine.setBook(bookfine.getBook());
+		
 		existingBookFine.setDelayByDays(bookfine.getDelayByDays());
-		existingBookFine.setDelayByDays(bookfine.getPerDayFine());
-		existingBookFine.setStudent(bookfine.getStudent());
+		existingBookFine.setPerDayFine(bookfine.getPerDayFine());
+		existingBookFine.setFineAmount(bookfine.getFineAmount());
 		return bookFineRepository.save(existingBookFine);
 	}
 

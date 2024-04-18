@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package com.tp.lms.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tp.lms.dto.LoginRequestDTO;
 import com.tp.lms.dto.LoginResponseDTO;
+import com.tp.lms.dto.StaffDTO;
 import com.tp.lms.dto.UserDTO;
 import com.tp.lms.model.Staff;
 import com.tp.lms.model.Student;
+import com.tp.lms.model.enums.StaffType;
+
 import com.tp.lms.service.StaffService;
 import com.tp.lms.service.StudentService;
 
@@ -34,6 +38,8 @@ public class AuthController {
 	
 	@Autowired
 	StudentService studentService;
+	@Autowired
+	StaffService staffservice;
 	
 	@Autowired
 	StaffService staffService;
@@ -62,8 +68,6 @@ public class AuthController {
 			userDto.setMiddleName(student.getMiddleName());
 			userDto.setUserName(student.getUserName());
 			
-			
-			
 			loginResponseDto.setStatus(true);
 			loginResponseDto.setMessage("Login Successfully");
 			loginResponseDto.setUser(userDto);
@@ -74,6 +78,39 @@ public class AuthController {
 		return loginResponseDto;
 		
 	}
+
+	@PostMapping("inventory/login")
+	public LoginResponseDTO inventoryLogin(@RequestBody LoginRequestDTO loginRequestDto) {
+		LoginResponseDTO loginResponseDto = new LoginResponseDTO();
+		
+		Staff staff = staffservice.login(loginRequestDto);
+		
+		if(staff != null) {
+			StaffDTO staffDto = new StaffDTO();
+			staffDto.setStaffType(StaffType.INVENTORY);
+			staffDto.setFirstName(staff.getFirstName());
+			staffDto.setMiddleName(staff.getMiddleName());
+			staffDto.setUserName(staff.getUserName());
+			staffDto.setLastName(staff.getLastName());
+			staffDto.setEmail(staff.getEmail());
+			staffDto.setAadhaarNumber(staff.getAadhaarNumber());
+			staffDto.setContactNumber(staff.getContactNumber());
+			staffDto.setGender(staff.getGender());
+			staffDto.setPassword(staff.getPassword());
+			
+			
+			loginResponseDto.setStatus(true);
+			loginResponseDto.setMessage("Login Successfully");
+			loginResponseDto.setStaff(staffDto);
+		}else {
+			loginResponseDto.setStatus(false);
+			loginResponseDto.setMessage("user credentials are not correct");
+		}
+		return loginResponseDto;
+		
+	}
+			
+			
 	
 	
 	@PostMapping("librarian/login")
@@ -87,26 +124,20 @@ public class AuthController {
 			userDto.setFirstName(staff.getFirstName());
 			userDto.setMiddleName(staff.getMiddleName());
 			userDto.setUserName(staff.getUserName());
+
 			
 			
 			loginResponseDto.setStatus(true);
 			loginResponseDto.setMessage("Login Successfully");
 			loginResponseDto.setUser(userDto);
-
-			
-		}
-		else
-		
-		{
-		
+		}else {
 			loginResponseDto.setStatus(false);
 			loginResponseDto.setMessage("user credentials are not correct");
-
 		}
-		
 		return loginResponseDto;
 		
 	}
+
 	
 	@PostMapping("librarian/addstaff")
 	public LoginResponseDTO addStaff (@RequestBody  LoginRequestDTO loginRequestDto )
@@ -121,4 +152,5 @@ public class AuthController {
 		
 	}	
 	
+
 }

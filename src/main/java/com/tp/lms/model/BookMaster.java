@@ -1,65 +1,66 @@
 package com.tp.lms.model;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "book_master")
 public class BookMaster extends AuditColumn {
 	
+	private static final long serialVersionUID = 1L;
+
+
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "book_master_id")
 	private Integer id;
 	
 	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="book_category_id",nullable=false)
-	private BookCategory bookCategory;
-	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="book_subcategory_id",nullable=false)
-	private BookSubCategory bookSubCategory;
-	
-	@Column(name = "title", length = 128)
-	private String title;
-	
-	@Column(name = "author", length = 128)
-	private String author;
-	
-	@Column(name = "price")
-	private float price;
-	
-	@Column(name = "publish_by", length = 128)
-	private String publishBy;
-	
-	@JoinColumn(name = "rack_id")
-	private Integer rackId;
-	
+	@ManyToOne
+    @JoinColumn(name = "book_category_id")
+    private BookCategory bookCategory;
 
+    @ManyToOne
+    @JoinColumn(name = "book_subcategory_id")
+    private BookSubCategory bookSubCategory;
 
+    @Column(name = "title")
+    private String title;
+
+    @Column(name = "author")
+    private String author;
+
+    @Column(name = "price")
+    private Float price;
+
+    @Column(name = "publish_by")
+    private String publishBy;
+
+    @ManyToOne
+    @JoinColumn(name = "rack_id")
+    private Rack rack;
+
+    
+    @JsonIgnore
+    @OneToMany(mappedBy = "bookMaster")
+    private List<Book> book;
+	
 	@ManyToOne
     @JoinColumn(name = "requirement_id")
     private Requirement requirement;
-	public Requirement getRequirement() {
-		return requirement;
-	}
 
-	public void setRequirement(Requirement requirement) {
-		this.requirement = requirement;
-	}
-
-
-	public int getId() {
-
+	public Integer getId() {
 		return id;
 	}
 
@@ -75,6 +76,7 @@ public class BookMaster extends AuditColumn {
 		this.bookCategory = bookCategory;
 	}
 
+	
 	public BookSubCategory getBookSubCategory() {
 		return bookSubCategory;
 	}
@@ -99,11 +101,11 @@ public class BookMaster extends AuditColumn {
 		this.author = author;
 	}
 
-	public float getPrice() {
+	public Float getPrice() {
 		return price;
 	}
 
-	public void setPrice(float price) {
+	public void setPrice(Float price) {
 		this.price = price;
 	}
 
@@ -115,37 +117,31 @@ public class BookMaster extends AuditColumn {
 		this.publishBy = publishBy;
 	}
 
-	public Integer getRackId() {
-		return rackId;
+	public Rack getRack() {
+		return rack;
 	}
 
-	public void setRackId(Integer rackId) {
-		this.rackId = rackId;
+	public void setRack(Rack rack) {
+		this.rack = rack;
 	}
 
-	public BookMaster(Integer id, BookCategory bookCategory, BookSubCategory bookSubCategory, String title,
-			String author, float price, String publishBy, Integer rackId, Requirement requirement) {
-		super();
-		this.id = id;
-		this.bookCategory = bookCategory;
-		this.bookSubCategory = bookSubCategory;
-		this.title = title;
-		this.author = author;
-		this.price = price;
-		this.publishBy = publishBy;
-		this.rackId = rackId;
+	
+
+	public List<Book> getBook() {
+		return book;
+	}
+
+	public void setBook(List<Book> book) {
+		this.book = book;
+	}
+
+	public Requirement getRequirement() {
+		return requirement;
+	}
+
+	public void setRequirement(Requirement requirement) {
 		this.requirement = requirement;
 	}
-
-	public BookMaster() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	
-
-	
-
 	
 	
 }

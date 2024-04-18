@@ -25,7 +25,7 @@ public class BookFineController {
 	@Autowired
 	BookFineService bookFineService;
 
-	@GetMapping("")
+	@GetMapping
 	public ResponseEntity<?> getBookFine() {
 		List<BookFine> bookFine = bookFineService.getBookFine();
 		if (bookFine.isEmpty()) {

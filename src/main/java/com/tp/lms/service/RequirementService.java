@@ -7,7 +7,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
 import com.tp.lms.model.Requirement;
 
 import com.tp.lms.repository.RequirementRepository;
@@ -16,22 +15,29 @@ import com.tp.lms.repository.RequirementRepository;
 public class RequirementService {
 	@Autowired
 	private RequirementRepository requirementRepository;
-	
+
 	public List<String> validate(Requirement requirement) {
 		List<String> error = new ArrayList<>();
 
 		if (requirement.getPrice() == 0) {
-			error.add("Required price is compulsary ");
+			error.add("Price is required");
 		}
 
 		if (requirement.getQuantity() == 0) {
-			error.add("Required quantity is compulsary");
+			error.add("Quantity is required");
 		}
 
-		if (requirement.getBookMasterId() < 0) {
-			error.add("required book master id");
+		if (requirement.getExpectedFulfilmentDate() == null) {
+			error.add("Expectedfulfilmentdate is required");
 		}
 
+		if (requirement.getRequirementReason() == null) {
+			error.add("Requirement reason is required");
+		}
+
+		if (requirement.getRequirementStatus() == null) {
+			error.add("Requirement status is required");
+		}
 
 		return error;
 	}
@@ -42,8 +48,8 @@ public class RequirementService {
 
 	}
 
-	public Optional<Requirement> getRequirementById(Integer requirementid) {
-		return requirementRepository.findById(requirementid);
+	public Optional<Requirement> getRequirementById(Integer id) {
+		return requirementRepository.findById(id);
 
 	}
 
@@ -53,18 +59,22 @@ public class RequirementService {
 
 	}
 
-	public Requirement updaterequirement(int requirementid, Requirement requirement) {
+	public Requirement updateRequirement(Integer id, Requirement requirement) {
+		Requirement requirementToUpdate = requirementRepository.findById(id).orElse(null);
 
-		requirement.setId(requirementid);
-		return requirementRepository.save(requirement);
+		requirementToUpdate.setQuantity(requirement.getQuantity());
+		requirementToUpdate.setPrice(requirement.getPrice());
+		requirementToUpdate.setExpectedFulfilmentDate(requirement.getExpectedFulfilmentDate());
+		requirementToUpdate.setRequirementStatus(requirement.getRequirementStatus());
+		requirementToUpdate.setRequirementReason(requirement.getRequirementReason());
 
+		return requirementRepository.save(requirementToUpdate);
 	}
-	
-	public Void deleteStudentById(int requirementid) {
 
-		requirementRepository.deleteById(requirementid);
-		return null;
-	
+	public void deleteRequirement(Integer id) {
+
+		requirementRepository.deleteById(id);
+
 	}
 
 }

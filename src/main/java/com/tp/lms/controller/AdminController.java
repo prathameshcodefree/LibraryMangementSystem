@@ -18,12 +18,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tp.lms.model.Admin;
 import com.tp.lms.model.Requirement;
 import com.tp.lms.model.Student;
 import com.tp.lms.service.AdminService;
+import com.tp.lms.service.TokenLogService;
 
 /**
  *
@@ -35,6 +37,9 @@ public class AdminController {
 
 	@Autowired
 	AdminService adminService;
+	
+	@Autowired
+	TokenLogService logService;
 
 	@GetMapping("")
 	public ResponseEntity<?> getAdmin() {
@@ -60,17 +65,26 @@ public class AdminController {
 	}
 
 	@PostMapping()
-	public ResponseEntity<?> createAdmin(@RequestBody Admin admin) {
+	public ResponseEntity<?> createAdmin(@RequestBody Admin admin,@RequestParam(required=false) String token) {
+		
+         boolean tp=logService.validateToken(token);
+		
+		if(!tp){
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorised Access");
+		}
+		
 
 		List<String> error = adminService.validate(admin);
 		if (!error.isEmpty()) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
 
 		}
-		adminService.AddAdmin(admin);
+		adminService.AddAdmin(admin, token);
 		return ResponseEntity.ok().body("Admin added successfully.");
 
 	}
+	
+	
 	@PutMapping("/{id}")
 	public ResponseEntity<?> putMethodName(@PathVariable Integer id, @RequestBody Admin admin) {
 		// TODO: process PUT request

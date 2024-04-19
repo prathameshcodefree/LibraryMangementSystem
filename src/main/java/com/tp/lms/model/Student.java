@@ -1,3 +1,4 @@
+
 package com.tp.lms.model;
 
 import java.util.Date;
@@ -25,10 +26,9 @@ public class Student extends AuditColumn {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "student_id")
 	private Integer id;
-	
+
 	@Column(name = "username", unique = true)
 	private String userName;
-	
 
 	@Column(name = "first_name")
 	private String firstName;
@@ -67,13 +67,9 @@ public class Student extends AuditColumn {
 
 	@JsonIgnore
 	@OneToMany
-	@JoinColumn(name="book_issue_id")
+	@JoinColumn(name = "book_issue_id")
 	private List<BookIssue> bookissue;
-	
-	
-	
-	
-	
+
 	public String getUserName() {
 		return userName;
 	}
@@ -177,8 +173,6 @@ public class Student extends AuditColumn {
 	public void setStudentstatus(StudentStatus studentstatus) {
 		this.studentstatus = studentstatus;
 	}
-	
-	
 
 	@JsonIgnore
 	public List<BookIssue> getBookissue() {
@@ -211,9 +205,5 @@ public class Student extends AuditColumn {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	
-
-	
 
 }

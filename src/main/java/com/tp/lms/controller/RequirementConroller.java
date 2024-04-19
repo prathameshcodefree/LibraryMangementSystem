@@ -1,6 +1,5 @@
 package com.tp.lms.controller;
 
-
 import java.util.List;
 import java.util.Optional;
 
@@ -40,9 +39,9 @@ public class RequirementConroller {
 
 	}
 
-	@GetMapping("/{requirementId}")
-	public ResponseEntity<?> getRequiremntById(@PathVariable int requirementId) {
-		Optional<Requirement> req = requirementservice.getRequirementById(requirementId);
+	@GetMapping("/{id}")
+	public ResponseEntity<?> getRequiremntById(@PathVariable Integer id) {
+		Optional<Requirement> req = requirementservice.getRequirementById(id);
 		if (req.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
@@ -59,28 +58,28 @@ public class RequirementConroller {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
 		}
 		requirementservice.addRequirement(requirement);
-		return ResponseEntity.ok().body("Added Succesfully");
+		return ResponseEntity.ok().body(" Requirement added Succesfully");
 
-		}
+	}
 
-	@PutMapping("/{requirementid}")
-	public ResponseEntity<?> putMethodName(@PathVariable int requirementid, @RequestBody Requirement requirement) {
+	@PutMapping("/{id}")
+	public ResponseEntity<?> putMethodName(@PathVariable Integer id, @RequestBody Requirement requirement) {
 		// TODO: process PUT request
 
 		List<String> error = requirementservice.validate(requirement);
 		if (error.size() != 0) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
 		}
-		requirementservice.updaterequirement(requirementid, requirement);
-		return ResponseEntity.ok().body("Updated Succesfully");
+		requirementservice.updateRequirement(id, requirement);
+		return ResponseEntity.ok().body(" Requirement Updated Succesfully");
 
 	}
 
-	@DeleteMapping("/{requirementid}")
-	public ResponseEntity<?> deleteMethod(@PathVariable int requirementid) {
+	@DeleteMapping("/{id}")
+	public ResponseEntity<?> deleteMethod(@PathVariable Integer id) {
 		try {
-			requirementservice.deleteStudentById(requirementid);
-			return ResponseEntity.ok().body("Succesfully deleted");
+			requirementservice.deleteRequirement(id);
+			return ResponseEntity.ok().body("deleted successfully");
 
 		}
 

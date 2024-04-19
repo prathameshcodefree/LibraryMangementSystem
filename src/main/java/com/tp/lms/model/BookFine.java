@@ -14,23 +14,25 @@ import jakarta.persistence.Table;
 
 public class BookFine extends AuditColumn {
 
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "book_fine_id")
 	private Integer id;
 
 	@ManyToOne
-    @JoinColumn(name = "book_issue_id")
-    private BookIssue bookIssue;
+	@JoinColumn(name = "book_issue_id")
+	private BookIssue bookIssue;
 
-    @ManyToOne
-    @JoinColumn(name = "student_id")
-    private Student student;
+	@ManyToOne
+	@JoinColumn(name = "student_id")
+	private Student student;
 
-    @ManyToOne
-    @JoinColumn(name = "book_id")
-    private Book book;
-    
+	@ManyToOne
+	@JoinColumn(name = "book_id")
+	private Book book;
+
 	@Column(name = "delay_by_days")
 	private Integer delayByDays;
 
@@ -45,10 +47,6 @@ public class BookFine extends AuditColumn {
 	}
 
 	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public void setBookFineId(Integer id) {
 		this.id = id;
 	}
 
@@ -100,5 +98,4 @@ public class BookFine extends AuditColumn {
 		this.fineAmount = fineAmount;
 	}
 
-	
 }

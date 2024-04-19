@@ -17,9 +17,11 @@ import org.springframework.stereotype.Service;
 
 import com.tp.lms.dto.LoginRequestDTO;
 import com.tp.lms.model.Admin;
+
 import com.tp.lms.model.Student;
+import com.tp.lms.model.Token;
+import com.tp.lms.model.TokenLog;
 import com.tp.lms.repository.AdminRepository;
-import com.tp.lms.repository.LoginRepository;
 
 /**
  *
@@ -30,9 +32,6 @@ public class AdminService {
 
 	@Autowired
 	AdminRepository adminRepository;
-	
-	@Autowired
-	LoginRepository loginRepository;
 
 	public List<String> validate(Admin admin) {
 		List<String> error = new ArrayList<>();
@@ -51,23 +50,24 @@ public class AdminService {
 			error.add("required last name");
 		}
 
-		Pattern passwordPattern = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$");
+		Pattern passwordPattern = Pattern
+				.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$");
 		Matcher passwordMatcher = passwordPattern.matcher(admin.getPassword());
 		if (!passwordMatcher.matches()) {
-		    error.add("Password is not correct");
+			error.add("Password is not correct");
 		}
-
 
 		return error;
 	}
 
 	// Create Admin
-	public Admin AddAdmin(Admin admin) {
+	public Admin AddAdmin(Admin admin, String token) {
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-		
-        String cipherText = passwordEncoder.encode(admin.getPassword());
-        admin.setPassword(cipherText);
+
+		String cipherText = passwordEncoder.encode(admin.getPassword());
+		admin.setPassword(cipherText);
 		admin = adminRepository.save(admin);
+
 		return admin;
 	}
 
@@ -102,50 +102,28 @@ public class AdminService {
 		return adminRepository.save(admin);
 
 	}
-	
-	
-	 public void addLogin(com.tp.lms.response.Login login) {
-	        loginRepository.save(login);
-	    }
 
-	    public boolean checkUserExists(String username, String password) {
-	        List<com.tp.lms.response.Login> logins = (List<com.tp.lms.response.Login>) loginRepository.findAll();
-	        
-	        for (com.tp.lms.response.Login login : logins) {
-	            if (login.getUsername().equals(username) && login.getPassword().equals(password)) {
-	                return true;
-	            }
-	        }
-	        
-	        return false;
-	    }
+	public Admin login(LoginRequestDTO loginRequestDto) {
+		Optional<Admin> adminO = adminRepository.findByUserName(loginRequestDto.getUserName());
+		System.out.println(adminO);
+		Admin admin = null;
 
-	    
+		if (adminO.isPresent()) {
 
-public Admin login(LoginRequestDTO loginRequestDto) {
-    Optional<Admin> adminO = adminRepository.findByUserName(loginRequestDto.getUserName());
-    System.out.println(adminO);
-    Admin admin = null;
-    
-    
-    if(adminO.isPresent()) {
-    	
-    	Admin admindb = adminO.get();
-    	BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-    	
-    	System.out.println("Admin Name"+admindb);
-    	
-    	System.out.print("passwrod user: " + loginRequestDto.getPassword() + " from db:" + admindb.getPassword());
-    	if(passwordEncoder.matches(loginRequestDto.getPassword() ,admindb.getPassword())) {
-    		admin = admindb;
-    	}
-    	
-    }
-    
-    return admin;
+			Admin admindb = adminO.get();
+			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+			System.out.println("Admin Name" + admindb);
+
+			System.out.print("passwrod user: " + loginRequestDto.getPassword() + " from db:" + admindb.getPassword());
+			if (passwordEncoder.matches(loginRequestDto.getPassword(), admindb.getPassword())) {
+				admin = admindb;
+			}
+
+		}
+
+		return admin;
+
+	}
+
 }
-}
-
-
-
-

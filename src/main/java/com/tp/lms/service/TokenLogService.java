@@ -23,39 +23,50 @@ public class TokenLogService {
 	@Autowired
 	TokenLogRepository tokenLogRepository;
 
-	private final Map<Integer, String> tokenDB = new HashMap<>();
+	public boolean verifyToken(String token) {
 
-	// private Map<String, Boolean> tokenMap = new HashMap<>();
+		Optional<TokenLog> tokenLog = tokenLogRepository.findByToken(token);
 
-	public String storeToken(Integer studentId, String token) {
-		return tokenDB.put(studentId, token);
-	}
-
-	// Verify token
-	public boolean verifyToken(Integer studentId, String token) {
-
-		if (!tokenDB.containsKey(studentId) || !tokenDB.get(studentId).equals(token)) {
-			return false;
+		if (tokenLog.isPresent()) {
+			TokenLog log = tokenLog.get();
+			return log.isValid();
 		}
 
-		return true;
+		return false;
 	}
 
-	// public boolean validateToken(String token) {
+	/*
+	 * public boolean verify(String token) {
+	 * 
+	 * Optional<TokenLog> tokenLog = tokenLogRepository.findByToken(token); if
+	 * (tokenLog.isPresent()) { TokenLog log = tokenLog.get(); log.setValid(false);
+	 * return true; } return false;
+	 * 
+	 * }
+	 */
 
-	// return tokenMap.containsKey(token) && tokenMap.get(token);
-	// }
+	public void inValidateToken(String token) {
+		Optional<TokenLog> tO = tokenLogRepository.findByToken(token);
+		if (tO.isPresent()) {
+			TokenLog log = tO.get();
+			log.setValid(false);
+			tokenLogRepository.save(log);
 
-	// public String generateToken() {
-	// String token = UUID.randomUUID().toString();
+		}
+	
+	}
 
-	// tokenMap.put(token, true);
+	public void invalidateToken(String token) {
+		Optional<TokenLog> tokenLogOptional = tokenLogRepository.findByToken(token);
+		if (tokenLogOptional.isPresent()) {
+			TokenLog tokenLog = tokenLogOptional.get();
+			tokenLog.setValid(false); // Mark the token as invalid
+			tokenLogRepository.save(tokenLog); // Save the changes to the database
+		}
+		// You may consider throwing an exception or logging a message if the token is
+		// not found
+	}
 
-	// return token;
-	// }
-	// public void removeToken(String token) {
-	// tokenMap.remove(token);
-	// }
 
 	public String generateToken() {
 		String token = UUID.randomUUID().toString();

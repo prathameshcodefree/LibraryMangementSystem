@@ -114,7 +114,7 @@ public class StudentService {
 			error.add("College name can not be empty");
 		}
 
-		if (student.getDate() == null) {
+		if (student.getDob() == null) {
 			error.add("Date can not be empty");
 		}
 
@@ -167,7 +167,7 @@ public class StudentService {
 		existingStudent.setEmail(student.getEmail());
 		existingStudent.setContactNumber(student.getContactNumber());
 		existingStudent.setGender(student.getGender());
-		existingStudent.setDate(student.getDate());
+		existingStudent.setDob(student.getDob());;
 		existingStudent.setCollegeName(student.getCollegeName());
 		existingStudent.setRollNo(student.getRollNo());
 		existingStudent.setPassword(student.getPassword());

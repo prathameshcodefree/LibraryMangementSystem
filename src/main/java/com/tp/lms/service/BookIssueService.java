@@ -10,12 +10,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.tp.lms.model.BookIssue;
 import com.tp.lms.repository.BookIssueRepository;
+import com.tp.lms.repository.TokenLogRepository;
 
 @Service
 public class BookIssueService {
 
 	@Autowired
 	BookIssueRepository bookIssueRepository;
+	
 
 	public List<BookIssue> getBookIssue() {
 

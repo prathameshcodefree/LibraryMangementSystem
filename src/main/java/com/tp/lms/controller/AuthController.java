@@ -231,51 +231,25 @@ public class AuthController {
 //        }
 //    }
 
-	@PostMapping("/login")
-	public LoginResponseDTO studentLogin(@RequestBody LoginRequestDTO loginRequestDto) {
-		LoginResponseDTO loginResponseDto = new LoginResponseDTO();
+	/*
+	 * @PostMapping("/logout") public ResponseEntity<?> logout(@RequestParam String
+	 * token) {
+	 * 
+	 * Boolean t = tokenLogService.verify(token);
+	 * 
+	 * if (t) {
+	 * 
+	 * return ResponseEntity.status(HttpStatus.OK).body("Done"); }
+	 * 
+	 * return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("UnSuccessful");
+	 * 
+	 * }
+	 */
 
-		Student student = studentService.login(loginRequestDto);
-
-		if (student != null) {
-			String token = tokenLogService.generateToken();
-			UserDTO userDto = new UserDTO();
-			userDto.setFirstName(student.getFirstName());
-			userDto.setLastName(student.getLastName());
-			userDto.setUserName(student.getUserName());
-
-			loginResponseDto.setStatus(true);
-			loginResponseDto.setMessage("Login Successfully");
-			loginResponseDto.setUser(userDto);
-			loginResponseDto.setToken(token);
-		} else {
-
-			loginResponseDto.setStatus(false);
-			loginResponseDto.setMessage("user credentials are not correct");
-		}
-		return loginResponseDto;
-
-	}
-
-	@GetMapping("/secured/resource")
-	public ResponseEntity<String> getSecuredResource(@RequestHeader("Authorization") String token,
-			@RequestBody LoginRequestDTO loginRequestDto) {
-
-		LoginResponseDTO loginResponseDto = new LoginResponseDTO();
-		Integer studentId = loginRequestDto.getId();
-		String t = loginResponseDto.getToken();
-		
-		
-		tokenLogService.storeToken(studentId, t);
-		
-		
-		if (t != null && t.equals(token)) {
-           
-            return ResponseEntity.ok("You accessed secured resource!");
-        }
-
-       
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid token");
+	@PostMapping("/student/logout")
+	public ResponseEntity<?> logout(@RequestParam String token) {
+		tokenLogService.invalidateToken(token);
+		return ResponseEntity.status(HttpStatus.OK).body("Done");
 	}
 
 }

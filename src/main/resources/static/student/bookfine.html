@@ -153,22 +153,22 @@ button:hover {
 	            dataType: 'json', 
 	            success: function(response) {
 	                console.log(response);
-	                // Assuming you have a table body element with the ID 'bookDataBody', you can append rows to it
+	                
 	                var tableBody = $('#bookDataBody');
 	
-	                // Iterate through each object in the response array
+	                
 	                response.forEach(function(bookFine,bookIssue) {
-	                    // Create a new table row
+	                    
 	                    var newRow = $('<tr>');
 	
-	                    // Add the book ID as a cell in the row
+	                    
 	                    newRow.append($('<td>').text(bookFine.id));
 	
-	                    // Add the book title as a cell in the row
-	                    newRow.append($('<td>').text(bookFine.bookIssue.bookTitle));
+	                    
+	                    newRow.append($('<td>').text(bookFine.bookIssue.title));
 	
 	
-	                    // Add the formatted issue date as a cell in the row
+	                   
 	                    newRow.append($('<td>').text(bookFine.fineAmount));
 	
 	                    // Append the row to the table body

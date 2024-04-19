@@ -180,4 +180,15 @@ public class StudentService {
 		}
 
 	}
+
+	public Student findByUserNameAndPassword(String userName, String password) {
+        return studentRepository.findByUserNameAndPassword(userName, password);
+    }
+	
+	public Student findByUserName(String userName) {
+        Optional<Student> optionalStudent = studentRepository.findByUserName(userName);
+        return optionalStudent.orElse(null); // Return null if optional is empty
+    }
+	
+
 }

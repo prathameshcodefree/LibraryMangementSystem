@@ -13,4 +13,6 @@ public interface StudentRepository extends JpaRepository<Student,Integer> {
 	
 
 	Optional<Student> findByUserName(String userName);
+
+	Student findByUserNameAndPassword(String userName, String password);
 }

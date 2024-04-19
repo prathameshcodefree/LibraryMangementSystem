@@ -6,11 +6,15 @@
 
 package com.tp.lms.controller;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,9 +26,11 @@ import com.tp.lms.dto.UserDTO;
 import com.tp.lms.model.Staff;
 import com.tp.lms.model.Student;
 import com.tp.lms.model.enums.StaffType;
-
+import com.tp.lms.repository.StudentRepository;
 import com.tp.lms.service.StaffService;
 import com.tp.lms.service.StudentService;
+import com.tp.lms.service.TokenLogService;
+
 
 /**
  *
@@ -35,6 +41,9 @@ import com.tp.lms.service.StudentService;
 public class AuthController {
     
 	
+	
+	@ Autowired
+	StudentRepository studentRepository;
 	@Autowired
 	StudentService studentService;
 	@Autowired
@@ -42,6 +51,10 @@ public class AuthController {
 	
 	@Autowired
 	StaffService staffService;
+	
+	
+	@Autowired
+	TokenLogService tokenLogService;
 	
 	
 	@GetMapping("converttohash")
@@ -186,4 +199,76 @@ public class AuthController {
 	//	return loginResponseDto;
 		
 	//}
-}
+	
+	
+	
+	
+	
+	
+	
+//	@PostMapping("/login")
+//    public ResponseEntity<?> login(@RequestBody LoginRequestDTO loginRequestDTO) {
+//        // Validate login credentials
+//		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+//        Student student = studentService.findByUserName(loginRequestDTO.getUserName());
+//        if (student != null && passwordEncoder.matches(loginRequestDTO.getPassword(), student.getPassword())) {
+//            // Generate and store token
+//            String token = tokenService.generateAndStoreToken(student);
+//            // Return token in response
+//            return ResponseEntity.ok(new LoginResponseDTO(true, "Login successfully", token));
+//        } else {
+//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
+//        }
+//    }
+	
+	@PostMapping("/login")
+	public LoginResponseDTO studentLogin(@RequestBody LoginRequestDTO loginRequestDto) {
+		LoginResponseDTO loginResponseDto=new LoginResponseDTO();
+		
+		
+		Student student=studentService.login(loginRequestDto);
+	
+		
+		
+		if(student != null) {
+			String token=tokenLogService.generateToken();
+			UserDTO userDto=new UserDTO();
+			userDto.setFirstName(student.getFirstName());
+			userDto.setLastName(student.getLastName());
+			userDto.setUserName(student.getUserName());
+			
+			
+			loginResponseDto.setStatus(true);
+			loginResponseDto.setMessage("Login Successfully");
+			loginResponseDto.setUser(userDto);
+			loginResponseDto.setToken(token);
+		}
+		else {
+			
+			loginResponseDto.setStatus(false);
+			loginResponseDto.setMessage("user credentials are not correct");
+		}
+		return loginResponseDto;
+			
+		}
+	
+	
+	@GetMapping("/secured/resource")
+    public ResponseEntity<String> getSecuredResource(@RequestHeader("Authorization") String token) {
+		
+		Student student=new Student();
+		Integer studentId=student.getId();
+		tokenLogService.storeToken(studentId, token);
+        if (tokenLogService.verifyToken(studentId, token)) {
+        	return ResponseEntity.ok("You accessed secured resource!");
+        }
+ 
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid token");
+    }
+		
+		
+		
+	}
+
+   
+

@@ -81,7 +81,7 @@
 
                 $.ajax({
                     type: 'POST',
-                    url: '/auth/student/login', 
+                    url: '/auth/login', 
                     contentType: 'application/json',
                     data: JSON.stringify(formData),
                     success: function(response) {
@@ -90,6 +90,8 @@
                         if (response.status) {
                            
                            localStorage.setItem("info", JSON.stringify(response.user));
+                           
+                             //localStorage.setItem("token", response.token);
                            
                            
                        

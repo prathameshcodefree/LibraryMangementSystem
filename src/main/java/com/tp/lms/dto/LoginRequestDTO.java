@@ -6,23 +6,38 @@ public class LoginRequestDTO {
 	
 	private String password;
 	
-	
-	public String getUserName() {
-		return this.userName;
-	}
+	private Integer id;
 	
 
-	public String getPassword() {
-		return this.password;
+	public Integer getId() {
+		return id;
 	}
-	
-	
+
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+
+	public String getUserName() {
+		return userName;
+	}
+
+
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-	
+
+
+	public String getPassword() {
+		return password;
+	}
+
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
 
+
+	
 }

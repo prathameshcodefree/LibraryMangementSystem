@@ -1,7 +1,10 @@
 package com.tp.lms.service;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +18,52 @@ public class TokenLogService {
 
 	@Autowired
 	TokenLogRepository tokenLogRepository;
+	
+	private final Map<Integer, String> tokenDB = new HashMap<>();
+	
+	//private Map<String, Boolean> tokenMap = new HashMap<>();
+	
+	
+	public String storeToken(Integer studentId, String token) {
+		 return tokenDB.put(studentId, token);
+    }
+	
+	
+	// Verify token
+    public boolean verifyToken(Integer studentId, String token) {
+        
+        if (!tokenDB.containsKey(studentId) || !tokenDB.get(studentId).equals(token)) {
+            return false; 
+        }
+
+        return true;
+    }
+
+	//public boolean validateToken(String token) {
+		
+	  //  return tokenMap.containsKey(token) && tokenMap.get(token);
+	//}
+
+	//public String generateToken() {
+	   // String token = UUID.randomUUID().toString();
+	    
+	   
+	  //  tokenMap.put(token, true);
+	    
+	  //  return token;
+	//}
+	//public void removeToken(String token) {
+   //     tokenMap.remove(token);
+   // }
+	
+	
+	/*
+	 * public String generateToken() { String token=UUID.randomUUID().toString();
+	 * TokenLog tokenLog=new TokenLog(); tokenLog.setToken(token);
+	 * tokenLog.setValid(true); addTokenLog(tokenLog); return token;
+	 * 
+	 * }
+	 */
 
 	public List<TokenLog> getTokenLog() {
 

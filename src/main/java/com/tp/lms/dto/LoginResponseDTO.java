@@ -6,6 +6,32 @@ public class LoginResponseDTO {
 	
 	private UserDTO user;
 	private StaffDTO staff;
+	
+	
+	private String token;
+	
+
+
+
+	public LoginResponseDTO(boolean status, String message, String token) {
+		super();
+		this.status = status;
+		this.message = message;
+		this.token = token;
+	}
+
+	public LoginResponseDTO() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
 
 	public StaffDTO getStaff() {
 		return staff;

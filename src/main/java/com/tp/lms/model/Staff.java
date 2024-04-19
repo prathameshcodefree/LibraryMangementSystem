@@ -2,7 +2,6 @@ package com.tp.lms.model;
 
 import java.util.List;
 
-
 import com.tp.lms.model.enums.StaffStatus;
 import com.tp.lms.model.enums.StaffType;
 import jakarta.persistence.Column;
@@ -15,7 +14,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
-
 @Entity
 @Table(name = "staff")
 public class Staff extends AuditColumn {
@@ -26,33 +24,26 @@ public class Staff extends AuditColumn {
 	private Integer id;
 
 	@Enumerated(EnumType.STRING)
-	@Column(name = "staff_type",length = 128)
+	@Column(name = "staff_type", length = 128)
 	private StaffType staffType;
-	
 
-
-	@Column(name = "first_name", length = 128,unique=true)
+	@Column(name = "first_name", length = 128, unique = true)
 	private String firstName;
 
-	@Column(name = "middle_name", length = 128,unique=true)
+	@Column(name = "middle_name", length = 128, unique = true)
 	private String middleName;
-	
-	@Column(name = "user_name", unique=true)
+
+	@Column(name = "user_name", unique = true)
 	private String userName;
 
 	@Column(name = "last_name", length = 128)
 	private String lastName;
 
-
-	@Column(name = "email", length = 64, nullable=false,unique=true)
+	@Column(name = "email", length = 64, nullable = false, unique = true)
 	private String email;
 
-	@Column(name = "contact_number", length = 10,unique=true)
+	@Column(name = "contact_number", length = 10, unique = true)
 	private int contactNumber;
-
-	
-
-	
 
 	@Column(name = "gender")
 	private String gender;
@@ -62,18 +53,18 @@ public class Staff extends AuditColumn {
 
 	@Column(name = "password")
 	private String password;
-	
+
 	@Enumerated(EnumType.STRING)
 	@Column(name = "staff_status", length = 128)
 	private StaffStatus staffStatus;
 
-	@Column(name = "aadhar_number",unique=true)
-	private Integer  aadhaarNumber;
+	@Column(name = "aadhar_number", unique = true)
+	private Integer aadhaarNumber;
 
-	@Column(name = "pan_number", length = 10,unique=true)
-	private String  panNumber;
-	
-	@OneToMany(mappedBy="staff")
+	@Column(name = "pan_number", length = 10, unique = true)
+	private String panNumber;
+
+	@OneToMany(mappedBy = "staff")
 	private List<StaffAttendance> staffattendance;
 
 	public Integer getId() {
@@ -217,7 +208,4 @@ public class Staff extends AuditColumn {
 		this.staffattendance = staffattendance;
 	}
 
-
-	
-	
 }

@@ -51,11 +51,6 @@
 			<type>jar</type>
 		</dependency>
 
-		<dependency>
-			<groupId>com.library</groupId>
-			<artifactId>beststore</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
 	</dependencies>
 
 	<build>

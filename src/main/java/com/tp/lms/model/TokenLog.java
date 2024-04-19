@@ -12,13 +12,10 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-
-/**
- * 
- * 
- @author DURGESH */
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name="token_log")
 public class TokenLog {
 	
 	@Id

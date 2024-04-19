@@ -1,6 +1,5 @@
 package com.tp.lms.service;
 
-
 import java.util.ArrayList;
 
 import java.util.List;
@@ -18,48 +17,38 @@ import com.tp.lms.repository.StaffAttendanceRepository;
 
 @Service
 public class StaffAttendanceService {
- 
-    @Autowired
+
+	@Autowired
 	StaffAttendanceRepository staffAttendanceRepository;
-    
-    
-    // get all Attendance 
-    public List<StaffAttendance> allAttendance()
-    {
-		
+
+	// get all Attendance
+	public List<StaffAttendance> allAttendance() {
+
 		return staffAttendanceRepository.findAll();
-    
-    }
-     
-    // get Attendance by Id 
-   
-    
-   public Optional<StaffAttendance> getAttendanceById(Integer id)
-   {
- 
-	   return staffAttendanceRepository.findById(id);
-   
-   }
-   
-    
-    // create Attendance 
-   
-	 public StaffAttendance createAttendance(StaffAttendance attendance )
-	 {
-	 
-		
-		 return staffAttendanceRepository.save(attendance);			
-	
-		 
-	 }
-	
-	 
-	 //update Attendance
-	  public StaffAttendance updateAttendance( Integer  id, StaffAttendance attendance  )
-	  {
-		  
+
+	}
+
+	// get Attendance by Id
+
+	public Optional<StaffAttendance> getAttendanceById(Integer id) {
+
+		return staffAttendanceRepository.findById(id);
+
+	}
+
+	// create Attendance
+
+	public StaffAttendance createAttendance(StaffAttendance attendance) {
+
+		return staffAttendanceRepository.save(attendance);
+
+	}
+
+	// update Attendance
+	public StaffAttendance updateAttendance(Integer id, StaffAttendance attendance) {
+
 		StaffAttendance staffattendance = staffAttendanceRepository.getReferenceById(id);
-		 
+
 		staffattendance.setCheckIn(attendance.getCheckIn());
 		staffattendance.setCheckOut(attendance.getCheckOut());
 		staffattendance.setCreatedAt(attendance.getCreatedAt());
@@ -70,58 +59,52 @@ public class StaffAttendanceService {
 		staffattendance.setUpdatedAt(attendance.getUpdatedAt());
 		staffattendance.setUpdatedBy(attendance.getUpdatedBy());
 		staffattendance.setUpdatedByType(attendance.getUpdatedByType());
-		 
-		
-		
-	//	if (sRef == null) return null ;
-		 
+
+		// if (sRef == null) return null ;
+
 		return staffAttendanceRepository.save(staffattendance);
-		 
-	 }
-	 
-	 // deleting Attendance by Id 
-	 
-	 public void delete(Integer id ) 
-	 
-	 {
-		 
-		 staffAttendanceRepository.deleteById(id);
-	
-	 }
-	 
-	
-	 // validation method  
-	 
-	 public List<String> validate(StaffAttendance staffattendance) {
-	 List<String> error = new ArrayList<>();
-	 
-	 if (staffattendance.getCheckIn()==null) {
-	
-		 error.add("check-in date must be provided ");
-	 }
-	 
-	 if (staffattendance.getCheckOut()==null) {
-	
-		 error.add("check-out date must be provided ");
-	 }
-	 
-	 if (staffattendance.getId()==0) {
-		
-		 error.add("Id must be provided in number");
-	
-	 }
-	 
-	 if(staffattendance.getPresenty()==null) {
-		
-		 error.add("presence status must be provided ");
-	 
-	 }
-	 
-	 
-	 
-	 return error;
-	 
-	 
-	 }
-	 
+
+	}
+
+	// deleting Attendance by Id
+
+	public void delete(Integer id)
+
+	{
+
+		staffAttendanceRepository.deleteById(id);
+
+	}
+
+	// validation method
+
+	public List<String> validate(StaffAttendance staffattendance) {
+		List<String> error = new ArrayList<>();
+
+		if (staffattendance.getCheckIn() == null) {
+
+			error.add("check-in date must be provided ");
+		}
+
+		if (staffattendance.getCheckOut() == null) {
+
+			error.add("check-out date must be provided ");
+		}
+
+		if (staffattendance.getId() == 0) {
+
+			error.add("Id must be provided in number");
+
+		}
+
+		if (staffattendance.getPresenty() == null) {
+
+			error.add("presence status must be provided ");
+
+		}
+
+		return error;
+
+	}
+
 }

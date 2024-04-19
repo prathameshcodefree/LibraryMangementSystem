@@ -3,9 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package com.tp.lms.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,8 +38,10 @@ public class AuthController {
 	
 	@Autowired
 	StudentService studentService;
+	
+
 	@Autowired
-	StaffService staffservice;
+	StaffService staffService;
 	
 	@Autowired
 	TokenLogService tokenlogservice;
@@ -49,9 +53,11 @@ public class AuthController {
 		
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String cipherText = passwordEncoder.encode(clearText);
+        
 		
 		return cipherText;
 	}
+	
 	
 	@PostMapping("student/login")
 	public LoginResponseDTO studentLogstafin(@RequestBody LoginRequestDTO loginRequestDto) {
@@ -111,7 +117,7 @@ public class AuthController {
 		LoginResponseDTO loginResponseDto = new LoginResponseDTO();
 		
 		
-		Staff staff = staffservice.login(loginRequestDto);
+		Staff staff = staffService.login(loginRequestDto);
 		
 		if(staff != null) {
 			StaffDTO staffDto = new StaffDTO();
@@ -128,16 +134,38 @@ public class AuthController {
 			
 			
 			loginResponseDto.setStatus(true);
-			loginResponseDto.setMessage("Login Succesfully");
+			loginResponseDto.setMessage("Login Successfully");
 			loginResponseDto.setStaff(staffDto);
+		}else {
+			loginResponseDto.setStatus(false);
+			loginResponseDto.setMessage("user credentials are not correct");
+		}
+		return loginResponseDto;
+		
+	}
 			
+			
+	
+	
+	@PostMapping("librarian/login")
+	public LoginResponseDTO librarianLogin(@RequestBody LoginRequestDTO loginRequestDto) {
+		LoginResponseDTO loginResponseDto = new LoginResponseDTO();
+		
+		Staff staff = staffService.login(loginRequestDto);
+		
+		if(staff != null) {
+			UserDTO userDto = new UserDTO();
+			userDto.setFirstName(staff.getFirstName());
+			userDto.setMiddleName(staff.getMiddleName());
+			userDto.setUserName(staff.getUserName());
 
 			
-		}
-		else
-		
-		{
-		
+			
+			
+			loginResponseDto.setStatus(true);
+			loginResponseDto.setMessage("Login Successfully");
+			loginResponseDto.setUser(userDto);
+		}else {
 			loginResponseDto.setStatus(false);
 			loginResponseDto.setMessage("user credentials are not correct");
 
@@ -188,5 +216,21 @@ public class AuthController {
 
 	
 			
+
+
+	
+//	@PostMapping("librarian/addstaff")
+//	public LoginResponseDTO addStaff (@RequestBody  LoginRequestDTO loginRequestDto )
+//	{
+//	 LoginResponseDTO loginResponseDto = new LoginResponseDTO(); 
+//	
+//	Staff staff = staffService.addStaffDTO(loginRequestDto);
+//	
+//		
+//	// ResponseEntity.ok().body(staff)
+//		return loginResponseDto; 
+//		
+//	}	
+
 
 }

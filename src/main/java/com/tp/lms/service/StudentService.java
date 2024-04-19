@@ -20,19 +20,21 @@ public class StudentService {
 
 	@Autowired
 	StudentRepository studentRepository;
+
+
+	public List<String> validates(Student student) {
+		List<String> errors = new ArrayList<>();
+		if (student.getUserName() == null || student.getUserName().isEmpty()) {
+			errors.add("Username cannot be null or empty");
+		}
+		if (student.getPassword() == null || student.getPassword().isEmpty()) {
+			errors.add("Password cannot be null or empty");
+		}
+		return errors;
+	}
+
 	
 
-
-    public List<String> validates(Student student) {
-        List<String> errors = new ArrayList<>();
-        if (student.getUserName() == null || student.getUserName().isEmpty()) {
-            errors.add("Username cannot be null or empty");
-        }
-        if (student.getPassword() == null || student.getPassword().isEmpty()) {
-            errors.add("Password cannot be null or empty");
-        }
-        return errors;
-    }
 
    
     
@@ -49,13 +51,14 @@ public class StudentService {
         
         return false;
     }
-    
-    
+
+
+
 
     public Student login(LoginRequestDTO loginRequestDto) {
         Optional<Student> studentO = studentRepository.findByUserName(loginRequestDto.getUserName());
         Student student = null;
-        	
+                
         
         if(studentO.isPresent()) {
         	
@@ -71,10 +74,9 @@ public class StudentService {
         
         return student;
     }
+    
 
 
-	
-	
 
 	public List<Student> getStudent() {
 
@@ -124,17 +126,16 @@ public class StudentService {
 				.matcher(student.getEmail()).matches();
 
 		boolean isPassword = Pattern.compile("^(?=.[a-z])(?=.[A-Z])(?=.\\d)(?=.[@$!%?&])[A-Za-z\\d@$!%?&]{8,}$")
-                .matcher(student.getPassword()).matches();
-		
+				.matcher(student.getPassword()).matches();
 
 		if (!isEmail) {
-			
+
 			error.add("email is not correct");
 		}
 
-//	if (!isPassword) {
-//			error.add("password is not correct");
-//	}
+		/*
+		 * if (!isPassword) { error.add("password is not correct"); }
+		 */
 
 		return error;
 	}
@@ -145,11 +146,13 @@ public class StudentService {
 	}
 
 	public Student addStudent(Student student) {
+
 		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 		
 		String hashcode = bCryptPasswordEncoder.encode( student.getPassword());
     	student.setPassword(hashcode);
     	Student st=studentRepository.save(student);
+
 
 		return st;
 

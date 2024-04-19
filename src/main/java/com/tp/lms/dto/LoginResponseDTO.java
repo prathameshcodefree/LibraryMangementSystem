@@ -1,6 +1,9 @@
 package com.tp.lms.dto;
 
-public class LoginResponseDTO {
+public class LoginResponseDTO 
+
+{
+	
 	private boolean status;
 	private String message;
 	

@@ -3,6 +3,7 @@ package com.tp.lms.dto;
 public class LoginResponseDTO {
 	private boolean status;
 	private String message;
+	private String token;
 	
 	private UserDTO user;
 
@@ -28,6 +29,14 @@ public class LoginResponseDTO {
 
 	public void setUser(UserDTO user) {
 		this.user = user;
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
 	}
 	
 	

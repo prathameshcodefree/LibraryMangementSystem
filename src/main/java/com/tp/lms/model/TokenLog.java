@@ -1,5 +1,6 @@
 package com.tp.lms.model;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import com.tp.lms.model.enums.LinkType;
@@ -53,8 +54,20 @@ public class TokenLog {
 	@Column(name="is_valid")
 	private boolean isValid;
 	
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	@Column(name="created_at")
-	private Date createdAt;
+	private LocalDateTime createdAt;
 
 	public int getId() {
 		return id;
@@ -92,9 +105,7 @@ public class TokenLog {
 		return isValid;
 	}
 
-	public Date getCreatedAt() {
-		return createdAt;
-	}
+	
 
 	public void setId(int id) {
 		this.id = id;
@@ -132,8 +143,6 @@ public class TokenLog {
 		this.isValid = isValid;
 	}
 
-	public void setCreatedAt(Date createdAt) {
-		this.createdAt = createdAt;
-	}
+	
 	
 }

@@ -63,7 +63,10 @@ public class AdminService {
 
 	// Create Admin
 	public Admin AddAdmin(Admin admin) {
-
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		
+        String cipherText = passwordEncoder.encode(admin.getPassword());
+        admin.setPassword(cipherText);
 		admin = adminRepository.save(admin);
 		return admin;
 	}

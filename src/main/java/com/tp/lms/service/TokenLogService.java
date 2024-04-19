@@ -1,7 +1,11 @@
 package com.tp.lms.service;
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +20,15 @@ public class TokenLogService {
 	@Autowired
 	TokenLogRepository tokenLogRepository;
 
+	
+	public String generateToken() {
+		String token= UUID.randomUUID().toString();
+		TokenLog tokenLog= new TokenLog();
+		tokenLog.setToken(token);
+		tokenLog.setValid(true);
+		addTokenLog(tokenLog);
+		return token;
+	}
 	public List<TokenLog> getTokenLog() {
 
 		return (List<TokenLog>) tokenLogRepository.findAll();

@@ -10,9 +10,13 @@ import com.tp.lms.model.Student;
 
 @Repository
 public interface StaffRepository extends JpaRepository<Staff, Integer> {
-	
+
 	Optional<Staff>  findByUserName(String userName);
 	
+
+	
+
+
 
 }
 

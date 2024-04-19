@@ -21,6 +21,7 @@ public class StudentService {
 	@Autowired
 	StudentRepository studentRepository;
 
+
 	public List<String> validates(Student student) {
 		List<String> errors = new ArrayList<>();
 		if (student.getUserName() == null || student.getUserName().isEmpty()) {
@@ -32,44 +33,50 @@ public class StudentService {
 		return errors;
 	}
 
-	public void addLogin(Student student) {
+	
 
-		studentRepository.save(student);
-	}
 
-	public boolean checkUserExists(String username, String password) {
-		List<Student> logins = studentRepository.findAll();
+   
+    
+    public boolean checkUserExists(String username, String password) {
+        List<Student> logins = studentRepository.findAll();
+        
+        for (Student login : logins) {
+            String loginUsername = login.getUserName();
+            String loginPassword = login.getPassword();
+            if (loginUsername != null && loginPassword != null && loginUsername.equals(username) && loginPassword.equals(password)) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
 
-		for (Student login : logins) {
-			String loginUsername = login.getUserName();
-			String loginPassword = login.getPassword();
-			if (loginUsername != null && loginPassword != null && loginUsername.equals(username)
-					&& loginPassword.equals(password)) {
-				return true;
-			}
-		}
 
-		return false;
-	}
 
-	public Student login(LoginRequestDTO loginRequestDto) {
-		Optional<Student> studentO = studentRepository.findByUserName(loginRequestDto.getUserName());
-		Student student = null;
 
-		if (studentO.isPresent()) {
+    public Student login(LoginRequestDTO loginRequestDto) {
+        Optional<Student> studentO = studentRepository.findByUserName(loginRequestDto.getUserName());
+        Student student = null;
+                
+        
+        if(studentO.isPresent()) {
+        	
+        	Student studentdb = studentO.get();
+        	BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        	
+//        	System.out.print("passwrod user: " + loginRequestDto.getPassword() + " from db:" + studentdb.getPassword());
+        	if(passwordEncoder.matches(loginRequestDto.getPassword() ,studentdb.getPassword())) {
+        		student = studentdb;
+        	}
+        	
+        }
+        
+        return student;
+    }
+    
 
-			Student studentdb = studentO.get();
-			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-			System.out.print("passwrod user: " + loginRequestDto.getPassword() + " from db:" + studentdb.getPassword());
-			if (passwordEncoder.matches(loginRequestDto.getPassword(), studentdb.getPassword())) {
-				student = studentdb;
-			}
-
-		}
-
-		return student;
-	}
 
 	public List<Student> getStudent() {
 
@@ -107,7 +114,7 @@ public class StudentService {
 			error.add("College name can not be empty");
 		}
 
-		if (student.getDob() == null) {
+		if (student.getDate() == null) {
 			error.add("Date can not be empty");
 		}
 
@@ -132,7 +139,6 @@ public class StudentService {
 
 		return error;
 	}
-
 	public Optional<Student> getStudentById(Integer id) {
 
 		return studentRepository.findById(id);
@@ -142,10 +148,13 @@ public class StudentService {
 	public Student addStudent(Student student) {
 
 		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-		String hashcode = bCryptPasswordEncoder.encode(student.getPassword());
-		student.setPassword(hashcode);
+		
+		String hashcode = bCryptPasswordEncoder.encode( student.getPassword());
+    	student.setPassword(hashcode);
+    	Student st=studentRepository.save(student);
 
-		return studentRepository.save(student);
+
+		return st;
 
 	}
 
@@ -158,7 +167,7 @@ public class StudentService {
 		existingStudent.setEmail(student.getEmail());
 		existingStudent.setContactNumber(student.getContactNumber());
 		existingStudent.setGender(student.getGender());
-		existingStudent.setDob(student.getDob());
+		existingStudent.setDate(student.getDate());
 		existingStudent.setCollegeName(student.getCollegeName());
 		existingStudent.setRollNo(student.getRollNo());
 		existingStudent.setPassword(student.getPassword());
@@ -181,14 +190,6 @@ public class StudentService {
 
 	}
 
-	public Student findByUserNameAndPassword(String userName, String password) {
-        return studentRepository.findByUserNameAndPassword(userName, password);
-    }
-	
-	public Student findByUserName(String userName) {
-        Optional<Student> optionalStudent = studentRepository.findByUserName(userName);
-        return optionalStudent.orElse(null); // Return null if optional is empty
-    }
 	
 
 }

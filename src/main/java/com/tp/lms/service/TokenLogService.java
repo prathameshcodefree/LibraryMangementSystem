@@ -1,4 +1,5 @@
 package com.tp.lms.service;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,7 +11,10 @@ import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
+
 import com.tp.lms.model.TokenLog;
+import com.tp.lms.model.enums.LinkType;
+import com.tp.lms.model.enums.Purpose;
 import com.tp.lms.repository.TokenLogRepository;
 
 @Service
@@ -18,52 +22,50 @@ public class TokenLogService {
 
 	@Autowired
 	TokenLogRepository tokenLogRepository;
-	
+
 	private final Map<Integer, String> tokenDB = new HashMap<>();
-	
-	//private Map<String, Boolean> tokenMap = new HashMap<>();
-	
-	
+
+	// private Map<String, Boolean> tokenMap = new HashMap<>();
+
 	public String storeToken(Integer studentId, String token) {
-		 return tokenDB.put(studentId, token);
-    }
-	
-	
+		return tokenDB.put(studentId, token);
+	}
+
 	// Verify token
-    public boolean verifyToken(Integer studentId, String token) {
-        
-        if (!tokenDB.containsKey(studentId) || !tokenDB.get(studentId).equals(token)) {
-            return false; 
-        }
+	public boolean verifyToken(Integer studentId, String token) {
 
-        return true;
-    }
+		if (!tokenDB.containsKey(studentId) || !tokenDB.get(studentId).equals(token)) {
+			return false;
+		}
 
-	//public boolean validateToken(String token) {
-		
-	  //  return tokenMap.containsKey(token) && tokenMap.get(token);
-	//}
+		return true;
+	}
 
-	//public String generateToken() {
-	   // String token = UUID.randomUUID().toString();
-	    
-	   
-	  //  tokenMap.put(token, true);
-	    
-	  //  return token;
-	//}
-	//public void removeToken(String token) {
-   //     tokenMap.remove(token);
-   // }
-	
-	
-	/*
-	 * public String generateToken() { String token=UUID.randomUUID().toString();
-	 * TokenLog tokenLog=new TokenLog(); tokenLog.setToken(token);
-	 * tokenLog.setValid(true); addTokenLog(tokenLog); return token;
-	 * 
-	 * }
-	 */
+	// public boolean validateToken(String token) {
+
+	// return tokenMap.containsKey(token) && tokenMap.get(token);
+	// }
+
+	// public String generateToken() {
+	// String token = UUID.randomUUID().toString();
+
+	// tokenMap.put(token, true);
+
+	// return token;
+	// }
+	// public void removeToken(String token) {
+	// tokenMap.remove(token);
+	// }
+
+	public String generateToken() {
+		String token = UUID.randomUUID().toString();
+		TokenLog tokenLog = new TokenLog();
+		tokenLog.setToken(token);
+		tokenLog.setValid(true);
+		addLogForStudentLogin(token, 0, token);
+		return token;
+
+	}
 
 	public List<TokenLog> getTokenLog() {
 
@@ -79,7 +81,6 @@ public class TokenLogService {
 	public List<String> validate(TokenLog tokenLog) {
 
 		List<String> error = new ArrayList<>();
-		
 
 		if (tokenLog.getUserName() == null) {
 			error.add("TokenLog Username can not be empty");
@@ -92,33 +93,40 @@ public class TokenLogService {
 		if (tokenLog.getPurpose() == null) {
 			error.add("Purpose can not be empty");
 		}
-		
+
 		if (tokenLog.getLinkType() == null) {
 			error.add("LinkType can not be empty");
 		}
 		if (tokenLog.getIp() == null) {
 			error.add("IP can not be empty");
 		}
-		
+
 		if (tokenLog.getLinkId() == 0) {
 			error.add("LinkId can not be empty");
 		}
-		
+
 		if (tokenLog.getAttempt() == 0) {
 			error.add("Attempt can not be empty");
 		}
-	
-		
+
 		return error;
 	}
 
-	public TokenLog addTokenLog(TokenLog tokenLog) {
+	public TokenLog addLogForStudentLogin(String token, int studentId, String email) {
 
-		return tokenLogRepository.save(tokenLog);
+		TokenLog tl = new TokenLog();
+		tl.setLinkId(studentId);
+		tl.setLinkType(LinkType.STUDENT);
+		tl.setToken(token);
+		tl.setValid(true);
+		tl.setPurpose(Purpose.LOGIN);
+		tl.setUserName(email);
+
+		return tokenLogRepository.save(tl);
 
 	}
 
-	public TokenLog updateTokenLog(Integer id, @RequestBody TokenLog tokenLog) {
+	public TokenLog updateTokenLog(Integer id, TokenLog tokenLog) {
 		TokenLog existingStaff = tokenLogRepository.findById(id).orElse(null);
 		existingStaff.setUserName(tokenLog.getUserName());
 		existingStaff.setToken(tokenLog.getToken());
@@ -140,6 +148,12 @@ public class TokenLogService {
 
 			return false;
 		}
+
+	}
+
+	public String genrateToken() {
+		String token = UUID.randomUUID().toString();
+		return token;
 
 	}
 }

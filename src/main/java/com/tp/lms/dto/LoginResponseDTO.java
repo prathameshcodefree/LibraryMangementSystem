@@ -1,13 +1,16 @@
 package com.tp.lms.dto;
 
-public class LoginResponseDTO {
+public class LoginResponseDTO 
+
+{
+	
 	private boolean status;
 	private String message;
 	
 	private UserDTO user;
 	private StaffDTO staff;
 	
-	
+
 	private String token;
 	
 
@@ -25,13 +28,8 @@ public class LoginResponseDTO {
 		// TODO Auto-generated constructor stub
 	}
 
-	public String getToken() {
-		return token;
-	}
 
-	public void setToken(String token) {
-		this.token = token;
-	}
+
 
 	public StaffDTO getStaff() {
 		return staff;
@@ -63,6 +61,14 @@ public class LoginResponseDTO {
 
 	public void setUser(UserDTO user) {
 		this.user = user;
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
 	}
 	
 	

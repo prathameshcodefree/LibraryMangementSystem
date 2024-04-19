@@ -42,6 +42,9 @@ public class AuthController {
 		return cipherText;
 	}
 	
+	
+	
+	
 	@PostMapping("student/login")
 	public LoginResponseDTO studentLogin(@RequestBody LoginRequestDTO loginRequestDto) {
 		LoginResponseDTO loginResponseDto = new LoginResponseDTO();
@@ -52,6 +55,7 @@ public class AuthController {
 			UserDTO userDto = new UserDTO();
 			userDto.setFirstName(student.getFirstName());
 			userDto.setMiddleName(student.getMiddleName());
+			
 			
 			
 			

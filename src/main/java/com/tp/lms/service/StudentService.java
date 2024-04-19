@@ -56,7 +56,7 @@ public class StudentService {
     public Student login(LoginRequestDTO loginRequestDto) {
         Optional<Student> studentO = studentRepository.findByUserName(loginRequestDto.getUserName());
         Student student = null;
-        
+                
         
         if(studentO.isPresent()) {
         	
@@ -72,6 +72,16 @@ public class StudentService {
         
         return student;
     }
+    
+    public Student addStudent1(Student student) {
+		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+		
+		String hashcode = bCryptPasswordEncoder.encode( student.getPassword());
+    	student.setPassword(hashcode);
+
+		return studentRepository.save(student);
+
+	}
 
 
 	

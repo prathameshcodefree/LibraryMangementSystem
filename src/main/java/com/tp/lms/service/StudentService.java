@@ -21,8 +21,6 @@ public class StudentService {
 	@Autowired
 	StudentRepository studentRepository;
 	
-//	@Autowired
-//    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
     public List<String> validates(Student student) {
@@ -36,11 +34,7 @@ public class StudentService {
         return errors;
     }
 
-    public void addLogin(Student student) {
-    	
-        studentRepository.save(student);
-    }
-
+   
     
     public boolean checkUserExists(String username, String password) {
         List<Student> logins = studentRepository.findAll();
@@ -68,7 +62,7 @@ public class StudentService {
         	Student studentdb = studentO.get();
         	BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         	
-        	System.out.print("passwrod user: " + loginRequestDto.getPassword() + " from db:" + studentdb.getPassword());
+//        	System.out.print("passwrod user: " + loginRequestDto.getPassword() + " from db:" + studentdb.getPassword());
         	if(passwordEncoder.matches(loginRequestDto.getPassword() ,studentdb.getPassword())) {
         		student = studentdb;
         	}
@@ -144,7 +138,6 @@ public class StudentService {
 
 		return error;
 	}
-
 	public Optional<Student> getStudentById(Integer id) {
 
 		return studentRepository.findById(id);
@@ -152,10 +145,13 @@ public class StudentService {
 	}
 
 	public Student addStudent(Student student) {
-//		String hashcode = bCryptPasswordEncoder.encode( student.getPassword());
-//    	student.setPassword(hashcode);
+		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+		
+		String hashcode = bCryptPasswordEncoder.encode( student.getPassword());
+    	student.setPassword(hashcode);
+    	Student st=studentRepository.save(student);
 
-		return studentRepository.save(student);
+		return st;
 
 	}
 

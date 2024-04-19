@@ -6,6 +6,8 @@ public class LoginResponseDTO {
 	
 	private UserDTO user;
 	private StaffDTO staff;
+	
+	private String token;
 
 	public StaffDTO getStaff() {
 		return staff;
@@ -37,6 +39,14 @@ public class LoginResponseDTO {
 
 	public void setUser(UserDTO user) {
 		this.user = user;
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
 	}
 	
 	

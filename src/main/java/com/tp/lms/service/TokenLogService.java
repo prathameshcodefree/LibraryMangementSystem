@@ -2,12 +2,15 @@ package com.tp.lms.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.regex.Pattern;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
+
 import com.tp.lms.model.TokenLog;
+import com.tp.lms.model.enums.LinkType;
+import com.tp.lms.model.enums.Purpose;
 import com.tp.lms.repository.TokenLogRepository;
 
 @Service
@@ -63,13 +66,21 @@ public class TokenLogService {
 		return error;
 	}
 
-	public TokenLog addTokenLog(TokenLog tokenLog) {
+	public TokenLog addLogForStudentLogin(String token, int studentId, String email) {
 
-		return tokenLogRepository.save(tokenLog);
+		TokenLog tl = new TokenLog();
+		tl.setLinkId(studentId);
+		tl.setLinkType(LinkType.STUDENT);
+		tl.setToken(token);
+		tl.setValid(true);
+		tl.setPurpose(Purpose.LOGIN);
+		tl.setUserName(email);
+		
+		return tokenLogRepository.save(tl);
 
 	}
 
-	public TokenLog updateTokenLog(Integer id, @RequestBody TokenLog tokenLog) {
+	public TokenLog updateTokenLog(Integer id, TokenLog tokenLog) {
 		TokenLog existingStaff = tokenLogRepository.findById(id).orElse(null);
 		existingStaff.setUserName(tokenLog.getUserName());
 		existingStaff.setToken(tokenLog.getToken());
@@ -92,5 +103,11 @@ public class TokenLogService {
 			return false;
 		}
 
+	}
+	
+	public String genrateToken() {
+		 String token = UUID.randomUUID().toString();
+		 return token;
+		 
 	}
 }

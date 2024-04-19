@@ -20,12 +20,10 @@ import com.tp.lms.dto.StaffDTO;
 import com.tp.lms.dto.UserDTO;
 import com.tp.lms.model.Staff;
 import com.tp.lms.model.Student;
-<<<<<<< HEAD
 import com.tp.lms.model.enums.StaffType;
-=======
->>>>>>> 0287ee07b3d2e04728f64594e12a64c76d3848e6
 import com.tp.lms.service.StaffService;
 import com.tp.lms.service.StudentService;
+import com.tp.lms.service.TokenLogService;
 
 /**
  *
@@ -42,7 +40,8 @@ public class AuthController {
 	StaffService staffservice;
 	
 	@Autowired
-	StaffService staffService;
+	TokenLogService tokenlogservice;
+
 	
 	
 	@GetMapping("converttohash")
@@ -58,30 +57,59 @@ public class AuthController {
 	public LoginResponseDTO studentLogstafin(@RequestBody LoginRequestDTO loginRequestDto) {
 		LoginResponseDTO loginResponseDto = new LoginResponseDTO();
 		
+		// validate user input
+		// static validation : email not null and password not null, partten checking for email and password
+		
+		
+		
+		// Logic flow start
 		Student student = studentService.login(loginRequestDto);
 		
-		if(student != null) {
-			UserDTO userDto = new UserDTO();
-			userDto.setFirstName(student.getFirstName());
-			userDto.setMiddleName(student.getMiddleName());
-			userDto.setUserName(student.getUserName());
-			
-			
-			
-			loginResponseDto.setStatus(true);
-			loginResponseDto.setMessage("Login Successfully");
-			loginResponseDto.setUser(userDto);
-		}else {
+		// if not found send error
+		if(student == null) {
 			loginResponseDto.setStatus(false);
 			loginResponseDto.setMessage("user credentials are not correct");
+			return loginResponseDto;
 		}
+		
+		
+		// generate token and save record in db
+		// generate token
+		// save token
+		// send in response 
+		
+		
+		
+		String token = tokenlogservice.genrateToken();
+		tokenlogservice.addLogForStudentLogin(token, student.getId(), student.getEmail());
+		// logic flow end
+		
+		
+		
+		// response preparation
+		UserDTO userDto = new UserDTO();
+		userDto.setFirstName(student.getFirstName());
+		userDto.setMiddleName(student.getMiddleName());
+		userDto.setUserName(student.getUserName());
+		
+		
+		loginResponseDto.setStatus(true);
+		loginResponseDto.setMessage("Login Successfully");
+		loginResponseDto.setUser(userDto);
+		loginResponseDto.setToken(token);		
+		// response preparation end
+
+		
+		
+		// response send
 		return loginResponseDto;
 		
 	}
-<<<<<<< HEAD
+
 	@PostMapping("inventory/login")
 	public LoginResponseDTO inventoryLogin(@RequestBody LoginRequestDTO loginRequestDto) {
 		LoginResponseDTO loginResponseDto = new LoginResponseDTO();
+		
 		
 		Staff staff = staffservice.login(loginRequestDto);
 		
@@ -99,37 +127,30 @@ public class AuthController {
 			staffDto.setPassword(staff.getPassword());
 			
 			
-			
-			
-=======
-	
-	
-	
-	@PostMapping("librarian/login")
-	public LoginResponseDTO librarianLogin(@RequestBody LoginRequestDTO loginRequestDto) {
-		LoginResponseDTO loginResponseDto = new LoginResponseDTO();
-		
-		Staff staff = staffService.login(loginRequestDto);
-		
-		if(staff != null) {
-			UserDTO userDto = new UserDTO();
-			userDto.setFirstName(staff.getFirstName());
-			userDto.setMiddleName(staff.getMiddleName());
-			userDto.setUserName(staff.getUserName());
->>>>>>> 0287ee07b3d2e04728f64594e12a64c76d3848e6
-			
-			
 			loginResponseDto.setStatus(true);
-			loginResponseDto.setMessage("Login Successfully");
-<<<<<<< HEAD
+			loginResponseDto.setMessage("Login Succesfully");
 			loginResponseDto.setStaff(staffDto);
-		}else {
+			
+
+			
+		}
+		else
+		
+		{
+		
 			loginResponseDto.setStatus(false);
 			loginResponseDto.setMessage("user credentials are not correct");
+
 		}
+		
 		return loginResponseDto;
 		
 	}
+			
+			
+			
+				
+//
 //	@PostMapping("librarian/login")
 //	public LoginResponseDTO librarianLogin(@RequestBody LoginRequestDTO loginRequestDto) {
 //		LoginResponseDTO loginResponseDto = new LoginResponseDTO();
@@ -164,22 +185,8 @@ public class AuthController {
 //		return loginResponseDto;
 //		
 //	}
-=======
-			loginResponseDto.setUser(userDto);
 
+	
 			
-		}
-		else
-		
-		{
-		
-			loginResponseDto.setStatus(false);
-			loginResponseDto.setMessage("user credentials are not correct");
 
-		}
-		
-		return loginResponseDto;
-		
-	}
->>>>>>> 0287ee07b3d2e04728f64594e12a64c76d3848e6
 }

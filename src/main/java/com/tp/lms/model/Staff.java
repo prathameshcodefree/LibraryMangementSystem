@@ -29,8 +29,7 @@ public class Staff extends AuditColumn {
 	@Column(name = "staff_type",length = 128)
 	private StaffType staffType;
 	
-	@Column(name = "user_name", length = 128)
-	private String userName;
+
 
 	@Column(name = "first_name", length = 128,unique=true)
 	private String firstName;
@@ -77,181 +76,148 @@ public class Staff extends AuditColumn {
 	@OneToMany(mappedBy="staff")
 	private List<StaffAttendance> staffattendance;
 
-
 	public Integer getId() {
 		return id;
 	}
 
-
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
 
 	public StaffType getStaffType() {
 		return staffType;
 	}
 
-
 	public void setStaffType(StaffType staffType) {
 		this.staffType = staffType;
 	}
-
 
 	public String getFirstName() {
 		return firstName;
 	}
 
-
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
-
 
 	public String getMiddleName() {
 		return middleName;
 	}
 
-
 	public void setMiddleName(String middleName) {
 		this.middleName = middleName;
 	}
-
 
 	public String getUserName() {
 		return userName;
 	}
 
-
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-
 
 	public String getLastName() {
 		return lastName;
 	}
 
-
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
 
-
 	public String getEmail() {
 		return email;
 	}
-	
-	
-
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-
-	public List<StaffAttendance> getStaffattendance() {
-		return staffattendance;
-	}
-
-	public void setStaffattendance(List<StaffAttendance> staffattendance) {
-		this.staffattendance = staffattendance;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
 
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
-
-
 	public int getContactNumber() {
 		return contactNumber;
 	}
 
-
 	public void setContactNumber(int contactNumber) {
-
 		this.contactNumber = contactNumber;
 	}
-
 
 	public String getGender() {
 		return gender;
 	}
 
-
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-
 
 	public String getDob() {
 		return dob;
 	}
 
-
 	public void setDob(String dob) {
 		this.dob = dob;
 	}
-
 
 	public String getPassword() {
 		return password;
 	}
 
-
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
 
 	public StaffStatus getStaffStatus() {
 		return staffStatus;
 	}
 
-
 	public void setStaffStatus(StaffStatus staffStatus) {
 		this.staffStatus = staffStatus;
 	}
-
 
 	public Integer getAadhaarNumber() {
 		return aadhaarNumber;
 	}
 
-
 	public void setAadhaarNumber(Integer aadhaarNumber) {
 		this.aadhaarNumber = aadhaarNumber;
 	}
-
 
 	public String getPanNumber() {
 		return panNumber;
 	}
 
-
 	public void setPanNumber(String panNumber) {
 		this.panNumber = panNumber;
 	}
-
 
 	public List<StaffAttendance> getStaffattendance() {
 		return staffattendance;
 	}
 
-
 	public void setStaffattendance(List<StaffAttendance> staffattendance) {
 		this.staffattendance = staffattendance;
 	}
-	
-	
+
+	public Staff(Integer id, StaffType staffType, String firstName, String middleName, String userName, String lastName,
+			String email, int contactNumber, String gender, String dob, String password, StaffStatus staffStatus,
+			Integer aadhaarNumber, String panNumber, List<StaffAttendance> staffattendance) {
+		super();
+		this.id = id;
+		this.staffType = staffType;
+		this.firstName = firstName;
+		this.middleName = middleName;
+		this.userName = userName;
+		this.lastName = lastName;
+		this.email = email;
+		this.contactNumber = contactNumber;
+		this.gender = gender;
+		this.dob = dob;
+		this.password = password;
+		this.staffStatus = staffStatus;
+		this.aadhaarNumber = aadhaarNumber;
+		this.panNumber = panNumber;
+		this.staffattendance = staffattendance;
+	}
+
+
 	
 	
 }

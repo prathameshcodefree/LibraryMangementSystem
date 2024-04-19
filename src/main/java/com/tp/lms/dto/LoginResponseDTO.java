@@ -1,10 +1,22 @@
 package com.tp.lms.dto;
 
-public class LoginResponseDTO {
+public class LoginResponseDTO 
+
+{
+	
 	private boolean status;
 	private String message;
 	
 	private UserDTO user;
+	private StaffDTO staff;
+
+	public StaffDTO getStaff() {
+		return staff;
+	}
+
+	public void setStaff(StaffDTO staff) {
+		this.staff = staff;
+	}
 
 	public boolean isStatus() {
 		return status;

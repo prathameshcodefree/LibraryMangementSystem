@@ -27,14 +27,10 @@ public class BookIssueService {
 
 		List<String> error = new ArrayList<>();
 
-//		if (bookIssue.getStudent() == null) {
-//			error.add("StudentId can not be empty");
-//		}
-		
 		if (bookIssue.getIssueDate() == null) {
 			error.add("IssueDate can not be empty");
 		}
-		
+
 		if (bookIssue.getReturnDate() == null) {
 			error.add("Return date can not be empty");
 		}
@@ -65,8 +61,6 @@ public class BookIssueService {
 
 		BookIssue existingBookIssue = bookIssueRepository.findById(id).get();
 
-		existingBookIssue.setStudent(bookissue.getStudent());
-		existingBookIssue.setBook(bookissue.getBook());
 		existingBookIssue.setIssueDate(bookissue.getIssueDate());
 		existingBookIssue.setReturnDate(bookissue.getReturnDate());
 		existingBookIssue.setExpectedReturnDate(bookissue.getExpectedReturnDate());

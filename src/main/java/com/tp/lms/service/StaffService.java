@@ -1,14 +1,18 @@
 package com.tp.lms.service;
 
 import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.tp.lms.dto.LoginRequestDTO;
 import com.tp.lms.model.Staff;
 import com.tp.lms.repository.StaffRepository;
 
@@ -70,9 +74,9 @@ public class StaffService {
 		if (staff.getContactNumber() ==0) {
 			error.add("Staff Contact Number can not be empty");
 		}
-		if (staff.getAadhaarNumber() == 0) {
-			error.add("Staff AadharNumber Number can not be empty");
-		}
+//		if (staff.getAadhaarNumber() ==null) {
+//			error.add("Staff AadharNumber Number can not be empty");
+//		}
 
 		if (staff.getGender() == null) {
 			error.add("Staff Gender can not be empty");
@@ -89,19 +93,26 @@ public class StaffService {
 	}
 
 	public Staff addStaff(Staff staff) {
+		
+		
+		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();	
+		 
+		String hascode = bCryptPasswordEncoder.encode(staff.getPassword());
+		
+		staff.setPassword(hascode);
 
 		return staffRepository.save(staff);
 
 	}
 
-	public Staff UpdateStaff( Staff staff, int id) {
-		staff.setStaffId(id);
+	public Staff UpdateStaff( Staff staff, Integer id) {
+		staff.setId(id);
 
 		return staffRepository.save(staff);}
 
 	public Staff updateStaff(Integer id, @RequestBody Staff staff) {
 		Staff existingStaff = staffRepository.findById(id).orElse(null);
-		existingStaff.setStaffId(staff.getId());
+		existingStaff.setId(staff.getId());
 		existingStaff.setFirstName(staff.getFirstName());
 		existingStaff.setMiddleName(staff.getMiddleName());
 		existingStaff.setLastName(staff.getLastName());
@@ -118,6 +129,7 @@ public class StaffService {
 	
 
 	}
+	
 
 	public boolean deleteStaff(Integer id) {
 
@@ -130,5 +142,62 @@ public class StaffService {
 			return false;
 		}
 
-	}}
+	}
+
+
+public Staff login (LoginRequestDTO loginRequestDto) {
+    Optional<Staff> Librarian = staffRepository.findByUserName(loginRequestDto.getUserName());
+    Staff  Stafflibrarian = null;
+    
+    
+    if(Librarian.isPresent()) {
+    	
+    	Staff librariandb = Librarian.get();
+    	BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    	
+    	System.out.print("passwrod user: " + loginRequestDto.getPassword() + " from db:" + librariandb.getPassword());
+    	if(passwordEncoder.matches(loginRequestDto.getPassword() ,librariandb.getPassword())) {
+    	return	Stafflibrarian = librariandb;
+    	
+    	}	
+    }
+    
+    return Stafflibrarian;
+}
+
+
+
+
+
+// Auth controller request 
+ 
+  public Staff addStaffDTO( LoginRequestDTO loginRequestDto) {
+  BCryptPasswordEncoder PasswordEncoder = new BCryptPasswordEncoder();
+  
+  String hascode = PasswordEncoder.encode(loginRequestDto.getPassword());
+  
+  Staff responseStaff = null;
+  Optional<Staff> staff =  staffRepository.findByUserName(loginRequestDto.getUserName());
+  
+  if (staff.isPresent()) {
+	  
+	 Staff userInfoDb = staff.get();
+	 
+	 userInfoDb.setPassword(hascode);
+	 
+
+	 //ResponseEntity.ok(staffRepository.save(userInfoDb))
+	 
+	 return  userInfoDb;
+  }
+  
+  
+  //new ResponseEntity<> ("invalid credentials", HttpStatus.NOT_FOUND)
+    return responseStaff ; 
+    
+  
+  }
+ 
+ 
+}
 

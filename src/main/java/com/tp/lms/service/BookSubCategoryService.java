@@ -48,9 +48,11 @@ public class BookSubCategoryService {
         return bookSubCategoryRepository.save(bookSubCategory);
     }
     
-    public BookSubCategory updateBookSubCategory(int id, BookSubCategory bookSubCategory) {
-    	bookSubCategory.getId();
-    	return bookSubCategoryRepository.save(bookSubCategory);
+    public BookSubCategory updateBookSubCategory(Integer id, BookSubCategory bookSubCategory) {
+    	BookSubCategory existingBookSubCategory = bookSubCategoryRepository.findById(id).orElse(null);
+    	existingBookSubCategory.setBookSubCategoryName(bookSubCategory.getBookSubCategoryName());
+		return bookSubCategoryRepository.save(existingBookSubCategory);
+    	
     }
 
     public void deleteBookSubCategory(Integer id) {

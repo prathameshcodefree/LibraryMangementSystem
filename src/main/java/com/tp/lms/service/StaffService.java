@@ -192,15 +192,18 @@ public class StaffService {
 
 
 // Author Rahul login  
-  public Staff login ( LoginRequestDTO loginRequestDto) {
+  
+ public Staff login ( LoginRequestDTO loginRequestDto) {
   Staff staff = null;
   
   Optional<Staff> staffO =  staffRepository.findByUserName(loginRequestDto.getUserName());
   
   
-  if (staffO.isPresent()) {
+  if (staffO.isPresent()) 
+  {
 	 Staff staffdb = staffO.get();
 	 
+	System.out.println(staffdb.getUserName());
   BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 	
   

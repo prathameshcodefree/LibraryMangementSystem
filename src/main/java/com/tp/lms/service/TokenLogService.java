@@ -83,7 +83,7 @@ public class TokenLogService {
 		tokenLog.setExpiryTime(expiryTime);
 
 		// Call method to add token log to database
-		addLogForStudentLogin(token, studentId, email,expiryTime);
+		addLogForStudentLogin(token, studentId, email ,expiryTime);
 
 		return token;
 	}
@@ -145,6 +145,7 @@ public class TokenLogService {
 
         return tokenLogRepository.save(tl);
     }
+	
 
 	public TokenLog updateTokenLog(Integer id, TokenLog tokenLog) {
 		TokenLog existingStaff = tokenLogRepository.findById(id).orElse(null);

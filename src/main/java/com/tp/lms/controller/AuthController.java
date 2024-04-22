@@ -14,7 +14,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -65,7 +64,7 @@ public class AuthController {
 		String cipherText = passwordEncoder.encode(clearText);
 
 		return cipherText;
-	
+
 	}
 
 	/*
@@ -104,49 +103,38 @@ public class AuthController {
 	 * 
 	 * }
 	 */
-	
-	
-	
+
 	@PostMapping("/student/login")
 	public LoginResponseDTO studentLogstafin(@RequestBody LoginRequestDTO loginRequestDto) {
-	    LoginResponseDTO loginResponseDto = new LoginResponseDTO(); // Logic flow start
-	    Student student = studentService.login(loginRequestDto);
+		LoginResponseDTO loginResponseDto = new LoginResponseDTO(); // Logic flow start
+		Student student = studentService.login(loginRequestDto);
 
-	    // if not found send error
-	    if (student == null) {
-	        loginResponseDto.setStatus(false);
-	        loginResponseDto.setMessage("User credentials are not correct");
-	        return loginResponseDto;
-	    }
+		// if not found send error
+		if (student == null) {
+			loginResponseDto.setStatus(false);
+			loginResponseDto.setMessage("User credentials are not correct");
+			return loginResponseDto;
+		}
 
-	    //generate token
-	    String token = tokenLogService.generateToken(student.getId(), student.getEmail());
+		// generate token
+		String token = tokenLogService.generateToken(student.getId(), student.getEmail());
 
-	    // Response preparation
-	    UserDTO userDto = new UserDTO();
-	    userDto.setFirstName(student.getFirstName());
-	    userDto.setMiddleName(student.getMiddleName());
-	    userDto.setUserName(student.getUserName());
+		// Response preparation
+		UserDTO userDto = new UserDTO();
+		userDto.setFirstName(student.getFirstName());
+		userDto.setMiddleName(student.getMiddleName());
+		userDto.setUserName(student.getUserName());
 
-	    loginResponseDto.setStatus(true);
-	    loginResponseDto.setMessage("Login Successfully");
-	    loginResponseDto.setUser(userDto);
-	    loginResponseDto.setToken(token);
-	    // Response preparation end
+		loginResponseDto.setStatus(true);
+		loginResponseDto.setMessage("Login Successfully");
+		loginResponseDto.setUser(userDto);
+		loginResponseDto.setToken(token);
+		// Response preparation end
 
-	    // Response send
-	    return loginResponseDto;
+		// Response send
+		return loginResponseDto;
 
-	
 	}
-
-	
-	
-	
-	
-	
-	
-	
 
 	@PostMapping("inventory/login")
 	public LoginResponseDTO inventoryLogin(@RequestBody LoginRequestDTO loginRequestDto) {
@@ -178,8 +166,6 @@ public class AuthController {
 
 	}
 
-	
-	
 	@PostMapping("librarian/login")
 	public LoginResponseDTO librarianLogin(@RequestBody LoginRequestDTO loginRequestDto) {
 		LoginResponseDTO loginResponseDto = new LoginResponseDTO();
@@ -187,6 +173,9 @@ public class AuthController {
 		Staff staff = staffService.login(loginRequestDto);
 
 		if (staff != null) {
+
+			String token = tokenLogService.generateToken(staff.getId(), staff.getEmail());
+
 			UserDTO userDto = new UserDTO();
 			userDto.setFirstName(staff.getFirstName());
 			userDto.setMiddleName(staff.getMiddleName());
@@ -195,8 +184,9 @@ public class AuthController {
 			loginResponseDto.setStatus(true);
 			loginResponseDto.setMessage("Login Successfully");
 			loginResponseDto.setUser(userDto);
-		} 
-		else 
+
+		} else
+
 		{
 			loginResponseDto.setStatus(false);
 			loginResponseDto.setMessage("user credentials are not correct");
@@ -206,9 +196,6 @@ public class AuthController {
 		return loginResponseDto;
 
 	}
-	
-
-	
 
 	@PostMapping("/student/logout")
 	public ResponseEntity<?> logout(@RequestParam String token) {
@@ -217,5 +204,3 @@ public class AuthController {
 	}
 
 }
-
-

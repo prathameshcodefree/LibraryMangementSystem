@@ -74,16 +74,19 @@ public class TokenLogService {
 
 	}
 
-	public void invalidateToken(String token) {
-		Optional<TokenLog> tokenLogOptional = tokenLogRepository.findByToken(token);
-		if (tokenLogOptional.isPresent()) {
-			TokenLog tokenLog = tokenLogOptional.get();
-			tokenLog.setValid(false); // Mark the token as invalid
-			tokenLogRepository.save(tokenLog); // Save the changes to the database
-		}
-		// You may consider throwing an exception or logging a message if the token is
-		// not found
-	}
+	public boolean isTokenExpired(String token) {
+        // Retrieve the token from the database using the token value
+        TokenLog tokenLog = tokenLogRepository.findByToken(token).orElse(null);
+
+        // Check if the token exists and if its expiry time is before the current time
+        if (tokenLog != null && tokenLog.getExpiryTime() != null) {
+            LocalDateTime currentTime = LocalDateTime.now();
+            return tokenLog.getExpiryTime().isBefore(currentTime);
+        }
+
+        // If the token doesn't exist or doesn't have an expiry time, consider it expired
+        return true;
+    }
 
 	/*
 	 * public String generateToken() { String token = UUID.randomUUID().toString();

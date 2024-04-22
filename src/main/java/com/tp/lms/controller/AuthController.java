@@ -199,7 +199,7 @@ public class AuthController {
 
 	@PostMapping("/student/logout")
 	public ResponseEntity<?> logout(@RequestParam String token) {
-		tokenLogService.invalidateToken(token);
+		tokenLogService.inValidateToken(token);
 		return ResponseEntity.status(HttpStatus.OK).body("Done");
 	}
 

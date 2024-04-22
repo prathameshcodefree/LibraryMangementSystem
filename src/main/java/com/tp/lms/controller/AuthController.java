@@ -67,49 +67,85 @@ public class AuthController {
 		return cipherText;
 	}
 
-	@PostMapping("student/login")
+	/*
+	 * @PostMapping("student/login") public LoginResponseDTO
+	 * studentLogstafin(@RequestBody LoginRequestDTO loginRequestDto) {
+	 * LoginResponseDTO loginResponseDto = new LoginResponseDTO();
+	 * 
+	 * // validate user input // static validation : email not null and password not
+	 * null, partten checking // for email and password
+	 * 
+	 * // Logic flow start Student student = studentService.login(loginRequestDto);
+	 * 
+	 * // if not found send error if (student == null) {
+	 * loginResponseDto.setStatus(false);
+	 * loginResponseDto.setMessage("user credentials are not correct"); return
+	 * loginResponseDto; }
+	 * 
+	 * // generate token and save record in db // generate token // save token //
+	 * send in response
+	 * 
+	 * String token = tokenlogservice.genrateToken();
+	 * tokenlogservice.addLogForStudentLogin(token, student.getId(),
+	 * student.getEmail()); // logic flow end
+	 * 
+	 * // response preparation UserDTO userDto = new UserDTO();
+	 * userDto.setFirstName(student.getFirstName());
+	 * userDto.setMiddleName(student.getMiddleName());
+	 * userDto.setUserName(student.getUserName());
+	 * 
+	 * loginResponseDto.setStatus(true);
+	 * loginResponseDto.setMessage("Login Successfully");
+	 * loginResponseDto.setUser(userDto); loginResponseDto.setToken(token); //
+	 * response preparation end
+	 * 
+	 * // response send return loginResponseDto;
+	 * 
+	 * }
+	 */
+	
+	
+	
+	@PostMapping("/student/login")
 	public LoginResponseDTO studentLogstafin(@RequestBody LoginRequestDTO loginRequestDto) {
-		LoginResponseDTO loginResponseDto = new LoginResponseDTO();
+	    LoginResponseDTO loginResponseDto = new LoginResponseDTO();
 
-		// validate user input
-		// static validation : email not null and password not null, partten checking
-		// for email and password
+	    // Logic flow start
+	    Student student = studentService.login(loginRequestDto);
 
-		// Logic flow start
-		Student student = studentService.login(loginRequestDto);
+	    // if not found send error
+	    if (student == null) {
+	        loginResponseDto.setStatus(false);
+	        loginResponseDto.setMessage("User credentials are not correct");
+	        return loginResponseDto;
+	    }
 
-		// if not found send error
-		if (student == null) {
-			loginResponseDto.setStatus(false);
-			loginResponseDto.setMessage("user credentials are not correct");
-			return loginResponseDto;
-		}
+	    //generate token
+	    String token = tokenLogService.generateToken(student.getId(), student.getEmail());
 
-		// generate token and save record in db
-		// generate token
-		// save token
-		// send in response
+	    // Response preparation
+	    UserDTO userDto = new UserDTO();
+	    userDto.setFirstName(student.getFirstName());
+	    userDto.setMiddleName(student.getMiddleName());
+	    userDto.setUserName(student.getUserName());
 
-		String token = tokenlogservice.genrateToken();
-		tokenlogservice.addLogForStudentLogin(token, student.getId(), student.getEmail());
-		// logic flow end
+	    loginResponseDto.setStatus(true);
+	    loginResponseDto.setMessage("Login Successfully");
+	    loginResponseDto.setUser(userDto);
+	    loginResponseDto.setToken(token);
+	    // Response preparation end
 
-		// response preparation
-		UserDTO userDto = new UserDTO();
-		userDto.setFirstName(student.getFirstName());
-		userDto.setMiddleName(student.getMiddleName());
-		userDto.setUserName(student.getUserName());
-
-		loginResponseDto.setStatus(true);
-		loginResponseDto.setMessage("Login Successfully");
-		loginResponseDto.setUser(userDto);
-		loginResponseDto.setToken(token);
-		// response preparation end
-
-		// response send
-		return loginResponseDto;
-
+	    // Response send
+	    return loginResponseDto;
 	}
+
+	
+	
+	
+	
+	
+	
+	
 
 	@PostMapping("inventory/login")
 	public LoginResponseDTO inventoryLogin(@RequestBody LoginRequestDTO loginRequestDto) {

@@ -123,7 +123,6 @@ public class UserDTO {
 	
 	{
 		this.rollNo = rollNo;
-	
 	}
 	
 	public StudentStatus getStudentstatus() 

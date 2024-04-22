@@ -65,6 +65,7 @@ public class AuthController {
 		String cipherText = passwordEncoder.encode(clearText);
 
 		return cipherText;
+	
 	}
 
 	@PostMapping("student/login")
@@ -72,7 +73,7 @@ public class AuthController {
 		LoginResponseDTO loginResponseDto = new LoginResponseDTO();
 
 		// validate user input
-		// static validation : email not null and password not null, partten checking
+		// static validation : email not null and password not null, pattern checking
 		// for email and password
 
 		// Logic flow start
@@ -90,8 +91,9 @@ public class AuthController {
 		// save token
 		// send in response
 
-		String token = tokenlogservice.genrateToken();
-		tokenlogservice.addLogForStudentLogin(token, student.getId(), student.getEmail());
+		String token = tokenlogservice.generateToken();
+		
+		//tokenlogservice.addLogForStudentLogin(token, student.getId(), student.getEmail());
 		// logic flow end
 
 		// response preparation
@@ -141,6 +143,8 @@ public class AuthController {
 
 	}
 
+	
+	
 	@PostMapping("librarian/login")
 	public LoginResponseDTO librarianLogin(@RequestBody LoginRequestDTO loginRequestDto) {
 		LoginResponseDTO loginResponseDto = new LoginResponseDTO();
@@ -156,7 +160,9 @@ public class AuthController {
 			loginResponseDto.setStatus(true);
 			loginResponseDto.setMessage("Login Successfully");
 			loginResponseDto.setUser(userDto);
-		} else {
+		} 
+		else 
+		{
 			loginResponseDto.setStatus(false);
 			loginResponseDto.setMessage("user credentials are not correct");
 
@@ -165,56 +171,10 @@ public class AuthController {
 		return loginResponseDto;
 
 	}
+	
 
-//
-//	@PostMapping("librarian/login")
-//	public LoginResponseDTO librarianLogin(@RequestBody LoginRequestDTO loginRequestDto) {
-//		LoginResponseDTO loginResponseDto = new LoginResponseDTO();
-//		
-//		Staff staff = staffservice.login(loginRequestDto);
-//		
-//		if(staff != null) {
-//			StaffDTO staffDto = new StaffDTO();
-//			staffDto.setStaffType(StaffType.LIBRARIAN);
-//			staffDto.setFirstName(staff.getFirstName());
-//			staffDto.setMiddleName(staff.getMiddleName());
-//			staffDto.setUserName(staff.getUserName());
-//			staffDto.setLastName(staff.getLastName());
-//			staffDto.setEmail(staff.getEmail());
-//			staffDto.setAadhaarNumber(staff.getAadhaarNumber());
-//			staffDto.setContactNumber(staff.getContactNumber());
-//			staffDto.setGender(staff.getGender());
-//			staffDto.setPassword(staff.getPassword());
-//			
-//			
-//			
-//			
-//			
-//			
-//			loginResponseDto.setStatus(true);
-//			loginResponseDto.setMessage("Login Successfully");
-//			loginResponseDto.setStaff(staffDto);
-//		}else {
-//			loginResponseDto.setStatus(false);
-//			loginResponseDto.setMessage("user credentials are not correct");
-//		}
-//		return loginResponseDto;
-//		
-//	}
-
-	// }
-	// else
-
-	// {
-
-	// loginResponseDto.setStatus(false);
-	// loginResponseDto.setMessage("user credentials are not correct");
-//
-	// }
-
-	// return loginResponseDto;
-
-	// }
+	
+	
 
 //	@PostMapping("/login")
 //    public ResponseEntity<?> login(@RequestBody LoginRequestDTO loginRequestDTO) {
@@ -245,6 +205,8 @@ public class AuthController {
 	 * 
 	 * }
 	 */
+	
+	
 
 	@PostMapping("/student/logout")
 	public ResponseEntity<?> logout(@RequestParam String token) {
@@ -253,6 +215,9 @@ public class AuthController {
 	}
 
 }
+
+
+
 
 //	@PostMapping("librarian/addstaff")
 //	public LoginResponseDTO addStaff (@RequestBody  LoginRequestDTO loginRequestDto )

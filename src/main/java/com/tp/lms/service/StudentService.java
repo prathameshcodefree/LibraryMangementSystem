@@ -33,10 +33,6 @@ public class StudentService {
 		return errors;
 	}
 
-	
-
-
-   
     
     public boolean checkUserExists(String username, String password) {
         List<Student> logins = studentRepository.findAll();
@@ -51,10 +47,8 @@ public class StudentService {
         
         return false;
     }
-
-
-
-
+    
+    
     public Student login(LoginRequestDTO loginRequestDto) {
         Optional<Student> studentO = studentRepository.findByUserName(loginRequestDto.getUserName());
         Student student = null;
@@ -74,8 +68,6 @@ public class StudentService {
         
         return student;
     }
-    
-
 
 
 	public List<Student> getStudent() {
@@ -84,6 +76,7 @@ public class StudentService {
 
 	}
 
+	
 	public List<String> validate(Student student) {
 
 		List<String> error = new ArrayList<>();
@@ -139,11 +132,14 @@ public class StudentService {
 
 		return error;
 	}
+	
+	
 	public Optional<Student> getStudentById(Integer id) {
 
 		return studentRepository.findById(id);
 
 	}
+	
 
 	public Student addStudent(Student student) {
 

@@ -1,5 +1,6 @@
 package com.tp.lms.model;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import com.tp.lms.model.enums.LinkType;
@@ -56,6 +57,9 @@ public class TokenLog {
 	
 	@Column(name="created_at")
 	private Date createdAt;
+	
+	@Column(name="expiry_time")
+	private LocalDateTime expiryTime;
 	
 	
 	

@@ -128,26 +128,29 @@ public class StaffService {
 	}
 
 
-	public Staff login(LoginRequestDTO loginRequestDto) {
-		Optional<Staff> staffO = staffRepository.findByUserName(loginRequestDto.getUserName());
-		Staff staff = null;
-
-		if (staffO.isPresent()) {
-
-			Staff staffdb = staffO.get();
-			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-
-			System.out.print("passwrod user: " + loginRequestDto.getPassword() + " from db:" + staffdb.getPassword());
-			if (passwordEncoder.matches(loginRequestDto.getPassword(), staffdb.getPassword())) {
-				staff = staffdb;
-			}
-
-		}
-
-		return staff;
-	}
-
-
+	/*
+	 * public Staff login(LoginRequestDTO loginRequestDto) { Optional<Staff> staffO
+	 * = staffRepository.findByUserName(loginRequestDto.getUserName()); Staff staff
+	 * = null;
+	 * 
+	 * if (staffO.isPresent()) {
+	 * 
+	 * Staff staffdb = staffO.get(); BCryptPasswordEncoder passwordEncoder = new
+	 * BCryptPasswordEncoder();
+	 * 
+	 * System.out.print("passwrod user: " + loginRequestDto.getPassword() +
+	 * " from db:" + staffdb.getPassword()); if
+	 * (passwordEncoder.matches(loginRequestDto.getPassword(),
+	 * staffdb.getPassword())) { staff = staffdb; }
+	 * 
+	 * }
+	 * 
+	 * return staff; }
+	 * 
+	 */
+	
+	
+	
 	public boolean deleteStaff(Integer id) {
 
 		boolean exists = staffRepository.existsById(id);
@@ -188,34 +191,32 @@ public class StaffService {
 
 
 
-// Auth controller request 
- 
-  public Staff addStaffDTO( LoginRequestDTO loginRequestDto) {
-  BCryptPasswordEncoder PasswordEncoder = new BCryptPasswordEncoder();
+// Author Rahul login  
+  public Staff login ( LoginRequestDTO loginRequestDto) {
+  Staff staff = null;
   
-  String hascode = PasswordEncoder.encode(loginRequestDto.getPassword());
+  Optional<Staff> staffO =  staffRepository.findByUserName(loginRequestDto.getUserName());
   
-  Staff responseStaff = null;
-  Optional<Staff> staff =  staffRepository.findByUserName(loginRequestDto.getUserName());
   
-  if (staff.isPresent()) {
-	  
-	 Staff userInfoDb = staff.get();
+  if (staffO.isPresent()) {
+	 Staff staffdb = staffO.get();
 	 
-	 userInfoDb.setPassword(hascode);
+  BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+	
+  
+	if(passwordEncoder.matches(loginRequestDto.getPassword() ,staffdb.getPassword())) {
+		staff = staffdb;
+	}
 	 
-
-	 //ResponseEntity.ok(staffRepository.save(userInfoDb))
-	 
-	 return  userInfoDb;
   }
   
   
-  //new ResponseEntity<> ("invalid credentials", HttpStatus.NOT_FOUND)
-    return responseStaff ; 
+    return staff ; 
     
   
   }
+  
+  
  
  
 }

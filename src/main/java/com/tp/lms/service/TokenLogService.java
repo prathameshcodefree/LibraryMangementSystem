@@ -35,26 +35,8 @@ public class TokenLogService {
 		return false;
 	}
 
-	/*
-	 * public boolean verify(String token) {
-	 * 
-	 * Optional<TokenLog> tokenLog = tokenLogRepository.findByToken(token); if
-	 * (tokenLog.isPresent()) { TokenLog log = tokenLog.get(); log.setValid(false);
-	 * return true; } return false;
-	 * 
-	 * }
-	 */
 
-	public void inValidateToken(String token) {
-		Optional<TokenLog> tO = tokenLogRepository.findByToken(token);
-		if (tO.isPresent()) {
-			TokenLog log = tO.get();
-			log.setValid(false);
-			tokenLogRepository.save(log);
 
-		}
-	
-	}
 
 	public void invalidateToken(String token) {
 		Optional<TokenLog> tokenLogOptional = tokenLogRepository.findByToken(token);
@@ -69,13 +51,14 @@ public class TokenLogService {
 
 
 	public String generateToken() {
+		
 		String token = UUID.randomUUID().toString();
 		TokenLog tokenLog = new TokenLog();
 		tokenLog.setToken(token);
 		tokenLog.setValid(true);
 		addLogForStudentLogin(token, 0, token);
 		return token;
-
+		
 	}
 
 	public List<TokenLog> getTokenLog() {
@@ -149,8 +132,10 @@ public class TokenLogService {
 		return tokenLogRepository.save(existingStaff);
 	}
 
+	
 	public boolean deleteTokenLog(Integer id) {
 
+	
 		boolean exists = tokenLogRepository.existsById(id);
 		if (exists) {
 			tokenLogRepository.deleteById(id);
@@ -161,10 +146,5 @@ public class TokenLogService {
 		}
 
 	}
-
-	public String genrateToken() {
-		String token = UUID.randomUUID().toString();
-		return token;
-
-	}
+	
 }

@@ -52,7 +52,7 @@ public class StaffController {
 	}
 
 
-	@PostMapping("")
+	@PostMapping
 	public ResponseEntity<?> addStaff(@RequestBody Staff staff) {
 		List<String> error = staffService.validate(staff);
 		if (error.size() != 0) {

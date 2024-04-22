@@ -52,7 +52,7 @@ public class TokenLogController {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
 		}
 
-		tokenLogService.addLogForStudentLogin(null, 0, null);
+		tokenLogService.addLogForStudentLogin(null,0,null,null);
 		return ResponseEntity.ok().body("TokenLog added successfully.");
 
 	}

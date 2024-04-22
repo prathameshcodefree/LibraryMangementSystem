@@ -68,50 +68,85 @@ public class AuthController {
 	
 	}
 
-	@PostMapping("student/login")
+	/*
+	 * @PostMapping("student/login") public LoginResponseDTO
+	 * studentLogstafin(@RequestBody LoginRequestDTO loginRequestDto) {
+	 * LoginResponseDTO loginResponseDto = new LoginResponseDTO();
+	 * 
+	 * // validate user input // static validation : email not null and password not
+	 * null, partten checking // for email and password
+	 * 
+	 * // Logic flow start Student student = studentService.login(loginRequestDto);
+	 * 
+	 * // if not found send error if (student == null) {
+	 * loginResponseDto.setStatus(false);
+	 * loginResponseDto.setMessage("user credentials are not correct"); return
+	 * loginResponseDto; }
+	 * 
+	 * // generate token and save record in db // generate token // save token //
+	 * send in response
+	 * 
+	 * String token = tokenlogservice.genrateToken();
+	 * tokenlogservice.addLogForStudentLogin(token, student.getId(),
+	 * student.getEmail()); // logic flow end
+	 * 
+	 * // response preparation UserDTO userDto = new UserDTO();
+	 * userDto.setFirstName(student.getFirstName());
+	 * userDto.setMiddleName(student.getMiddleName());
+	 * userDto.setUserName(student.getUserName());
+	 * 
+	 * loginResponseDto.setStatus(true);
+	 * loginResponseDto.setMessage("Login Successfully");
+	 * loginResponseDto.setUser(userDto); loginResponseDto.setToken(token); //
+	 * response preparation end
+	 * 
+	 * // response send return loginResponseDto;
+	 * 
+	 * }
+	 */
+	
+	
+	
+	@PostMapping("/student/login")
 	public LoginResponseDTO studentLogstafin(@RequestBody LoginRequestDTO loginRequestDto) {
-		LoginResponseDTO loginResponseDto = new LoginResponseDTO();
+	    LoginResponseDTO loginResponseDto = new LoginResponseDTO(); // Logic flow start
+	    Student student = studentService.login(loginRequestDto);
 
-		// validate user input
-		// static validation : email not null and password not null, pattern checking
-		// for email and password
+	    // if not found send error
+	    if (student == null) {
+	        loginResponseDto.setStatus(false);
+	        loginResponseDto.setMessage("User credentials are not correct");
+	        return loginResponseDto;
+	    }
 
-		// Logic flow start
-		Student student = studentService.login(loginRequestDto);
+	    //generate token
+	    String token = tokenLogService.generateToken(student.getId(), student.getEmail());
 
-		// if not found send error
-		if (student == null) {
-			loginResponseDto.setStatus(false);
-			loginResponseDto.setMessage("user credentials are not correct");
-			return loginResponseDto;
-		}
+	    // Response preparation
+	    UserDTO userDto = new UserDTO();
+	    userDto.setFirstName(student.getFirstName());
+	    userDto.setMiddleName(student.getMiddleName());
+	    userDto.setUserName(student.getUserName());
 
-		// generate token and save record in db
-		// generate token
-		// save token
-		// send in response
+	    loginResponseDto.setStatus(true);
+	    loginResponseDto.setMessage("Login Successfully");
+	    loginResponseDto.setUser(userDto);
+	    loginResponseDto.setToken(token);
+	    // Response preparation end
 
-		String token = tokenlogservice.generateToken();
-		
-		//tokenlogservice.addLogForStudentLogin(token, student.getId(), student.getEmail());
-		// logic flow end
+	    // Response send
+	    return loginResponseDto;
 
-		// response preparation
-		UserDTO userDto = new UserDTO();
-		userDto.setFirstName(student.getFirstName());
-		userDto.setMiddleName(student.getMiddleName());
-		userDto.setUserName(student.getUserName());
-
-		loginResponseDto.setStatus(true);
-		loginResponseDto.setMessage("Login Successfully");
-		loginResponseDto.setUser(userDto);
-		loginResponseDto.setToken(token);
-		// response preparation end
-
-		// response send
-		return loginResponseDto;
-
+	
 	}
+
+	
+	
+	
+	
+	
+	
+	
 
 	@PostMapping("inventory/login")
 	public LoginResponseDTO inventoryLogin(@RequestBody LoginRequestDTO loginRequestDto) {
@@ -174,39 +209,6 @@ public class AuthController {
 	
 
 	
-	
-
-//	@PostMapping("/login")
-//    public ResponseEntity<?> login(@RequestBody LoginRequestDTO loginRequestDTO) {
-//        // Validate login credentials
-//		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-//        Student student = studentService.findByUserName(loginRequestDTO.getUserName());
-//        if (student != null && passwordEncoder.matches(loginRequestDTO.getPassword(), student.getPassword())) {
-//            // Generate and store token
-//            String token = tokenService.generateAndStoreToken(student);
-//            // Return token in response
-//            return ResponseEntity.ok(new LoginResponseDTO(true, "Login successfully", token));
-//        } else {
-//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
-//        }
-//    }
-
-	/*
-	 * @PostMapping("/logout") public ResponseEntity<?> logout(@RequestParam String
-	 * token) {
-	 * 
-	 * Boolean t = tokenLogService.verify(token);
-	 * 
-	 * if (t) {
-	 * 
-	 * return ResponseEntity.status(HttpStatus.OK).body("Done"); }
-	 * 
-	 * return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("UnSuccessful");
-	 * 
-	 * }
-	 */
-	
-	
 
 	@PostMapping("/student/logout")
 	public ResponseEntity<?> logout(@RequestParam String token) {
@@ -217,17 +219,3 @@ public class AuthController {
 }
 
 
-
-
-//	@PostMapping("librarian/addstaff")
-//	public LoginResponseDTO addStaff (@RequestBody  LoginRequestDTO loginRequestDto )
-//	{
-//	 LoginResponseDTO loginResponseDto = new LoginResponseDTO(); 
-//	
-//	Staff staff = staffService.addStaffDTO(loginRequestDto);
-//	
-//		
-//	// ResponseEntity.ok().body(staff)
-//		return loginResponseDto; 
-//		
-//	}	

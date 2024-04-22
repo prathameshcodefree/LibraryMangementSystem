@@ -1,17 +1,12 @@
 package com.tp.lms.service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.regex.Pattern;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
-
 import com.tp.lms.model.TokenLog;
 import com.tp.lms.model.enums.LinkType;
 import com.tp.lms.model.enums.Purpose;
@@ -20,20 +15,38 @@ import com.tp.lms.repository.TokenLogRepository;
 @Service
 public class TokenLogService {
 
+	public static final long EXPIRY_DURATION_SECONDS = 60;
+
 	@Autowired
 	TokenLogRepository tokenLogRepository;
 
+	/*
+	 * public boolean verifyToken(String token) {
+	 * 
+	 * Optional<TokenLog> tokenLog = tokenLogRepository.findFirstByToken(token);
+	 * 
+	 * if (tokenLog.isPresent()) { TokenLog log = tokenLog.get(); return
+	 * log.isValid(); }
+	 * 
+	 * return false; }
+	 */
+
 	public boolean verifyToken(String token) {
+		// Retrieve the token log
+		Optional<TokenLog> tokenLogOptional = tokenLogRepository.findFirstByToken(token);
 
-		Optional<TokenLog> tokenLog = tokenLogRepository.findByToken(token);
-
-		if (tokenLog.isPresent()) {
-			TokenLog log = tokenLog.get();
-			return log.isValid();
+		if (tokenLogOptional.isPresent()) {
+			TokenLog log = tokenLogOptional.get();
+			if (log.isValid()) {
+				// Check if token has expired
+				LocalDateTime expiryTime = log.getExpiryTime();
+				return expiryTime != null && !expiryTime.isBefore(LocalDateTime.now());
+			}
 		}
 
-		return false;
+		return false; // Token not found, expired, or invalid
 	}
+
 
 
 
@@ -49,16 +62,30 @@ public class TokenLogService {
 		// not found
 	}
 
-
-	public String generateToken() {
-		
+	/*
+	 * public String generateToken() { String token = UUID.randomUUID().toString();
+	 * TokenLog tokenLog = new TokenLog(); tokenLog.setToken(token);
+	 * tokenLog.setValid(true); addLogForStudentLogin(token, 0, token); return
+	 * token;
+	 * 
+	 * }
+	 */
+	public String generateToken(int studentId, String email) {
 		String token = UUID.randomUUID().toString();
+
+		// Set expiry time directly within TokenLog entity
+		LocalDateTime expiryTime = LocalDateTime.now().plusMinutes(1);
+
+		// Create TokenLog instance and set properties
 		TokenLog tokenLog = new TokenLog();
 		tokenLog.setToken(token);
 		tokenLog.setValid(true);
-		addLogForStudentLogin(token, 0, token);
+		tokenLog.setExpiryTime(expiryTime);
+
+		// Call method to add token log to database
+		addLogForStudentLogin(token, studentId, email,expiryTime);
+
 		return token;
-		
 	}
 
 	public List<TokenLog> getTokenLog() {
@@ -106,19 +133,18 @@ public class TokenLogService {
 		return error;
 	}
 
-	public TokenLog addLogForStudentLogin(String token, int studentId, String email) {
+	public TokenLog addLogForStudentLogin(String token, int studentId, String email, LocalDateTime expiryTime) {
+        TokenLog tl = new TokenLog();
+        tl.setLinkId(studentId);
+        tl.setLinkType(LinkType.STUDENT);
+        tl.setToken(token);
+        tl.setValid(true);
+        tl.setPurpose(Purpose.LOGIN);
+        tl.setUserName(email);
+        tl.setExpiryTime(expiryTime); // Set expiry time
 
-		TokenLog tl = new TokenLog();
-		tl.setLinkId(studentId);
-		tl.setLinkType(LinkType.STUDENT);
-		tl.setToken(token);
-		tl.setValid(true);
-		tl.setPurpose(Purpose.LOGIN);
-		tl.setUserName(email);
-
-		return tokenLogRepository.save(tl);
-
-	}
+        return tokenLogRepository.save(tl);
+    }
 
 	public TokenLog updateTokenLog(Integer id, TokenLog tokenLog) {
 		TokenLog existingStaff = tokenLogRepository.findById(id).orElse(null);

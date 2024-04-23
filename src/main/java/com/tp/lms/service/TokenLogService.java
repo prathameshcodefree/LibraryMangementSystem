@@ -73,7 +73,7 @@ public class TokenLogService {
 	 * 
 	 * }
 	 */
-	public String generateToken(int studentId, String email) {
+	public String generateToken(int staffid, String email) {
 		String token = UUID.randomUUID().toString();
 
 		// Set expiry time directly within TokenLog entity
@@ -86,7 +86,7 @@ public class TokenLogService {
 		tokenLog.setExpiryTime(expiryTime);
 
 		// Call method to add token log to database
-		addLogForStudentLogin(token, studentId, email ,expiryTime);
+		addlogForLibrarianLogin(token, staffid, email ,expiryTime);
 
 		return token;
 	}
@@ -136,7 +136,7 @@ public class TokenLogService {
 		return error;
 	}
 
-	public TokenLog addLogForStudentLogin(String token, int studentId, String email, LocalDateTime expiryTime) {
+	public TokenLog addLogForStudentLogin(String token, int studentId, String email, LocalDateTime expiryTime ) {
         TokenLog tl = new TokenLog();
         tl.setLinkId(studentId);
         tl.setLinkType(LinkType.STUDENT);
@@ -150,6 +150,21 @@ public class TokenLogService {
     }
 	
 
+	
+	public TokenLog addlogForLibrarianLogin(String token, int staffid, String email, LocalDateTime expiryTime ) {
+        TokenLog tl = new TokenLog();
+        tl.setLinkId(staffid);
+        tl.setLinkType(LinkType.STAFF);
+        tl.setToken(token);
+        tl.setValid(true);
+        tl.setPurpose(Purpose.LOGIN);
+        tl.setUserName(email);
+        tl.setExpiryTime(expiryTime); // Set expiry time
+
+        return tokenLogRepository.save(tl);
+    }
+
+	
 	public TokenLog updateTokenLog(Integer id, TokenLog tokenLog) {
 		TokenLog existingStaff = tokenLogRepository.findById(id).orElse(null);
 		existingStaff.setUserName(tokenLog.getUserName());

@@ -24,12 +24,16 @@ import com.tp.lms.dto.StaffDTO;
 import com.tp.lms.dto.UserDTO;
 import com.tp.lms.model.Staff;
 import com.tp.lms.model.Student;
+import com.tp.lms.model.TokenLog;
+import com.tp.lms.model.enums.LinkType;
 import com.tp.lms.model.enums.StaffType;
 
 import com.tp.lms.repository.StudentRepository;
 import com.tp.lms.service.StaffService;
 import com.tp.lms.service.StudentService;
 import com.tp.lms.service.TokenLogService;
+
+import ch.qos.logback.core.subst.Token;
 
 import com.tp.lms.service.StaffService;
 import com.tp.lms.service.StudentService;
@@ -56,6 +60,9 @@ public class AuthController {
 
 	@Autowired
 	TokenLogService tokenLogService;
+	
+	@Autowired
+	TokenLog tokenlog;
 
 	@GetMapping("converttohash")
 	public String convertToHash(@RequestParam String clearText) {

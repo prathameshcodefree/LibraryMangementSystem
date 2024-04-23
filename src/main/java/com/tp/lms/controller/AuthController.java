@@ -103,49 +103,39 @@ public class AuthController {
 	 * 
 	 * }
 	 */
-	
-	
-	
+
 	@PostMapping("/student/login")
 	public LoginResponseDTO studentLogstafin(@RequestBody LoginRequestDTO loginRequestDto) {
-	    LoginResponseDTO loginResponseDto = new LoginResponseDTO();
+		LoginResponseDTO loginResponseDto = new LoginResponseDTO();
 
-	    // Logic flow start
-	    Student student = studentService.login(loginRequestDto);
+		// Logic flow start
+		Student student = studentService.login(loginRequestDto);
 
-	    // if not found send error
-	    if (student == null) {
-	        loginResponseDto.setStatus(false);
-	        loginResponseDto.setMessage("User credentials are not correct");
-	        return loginResponseDto;
-	    }
+		// if not found send error
+		if (student == null) {
+			loginResponseDto.setStatus(false);
+			loginResponseDto.setMessage("User credentials are not correct");
+			return loginResponseDto;
+		}
 
-	    //generate token
-	    String token = tokenLogService.generateToken(student.getId(), student.getEmail());
+		// generate token
+		String token = tokenLogService.generateToken(student.getId(), student.getEmail());
 
-	    // Response preparation
-	    UserDTO userDto = new UserDTO();
-	    userDto.setFirstName(student.getFirstName());
-	    userDto.setMiddleName(student.getMiddleName());
-	    userDto.setUserName(student.getUserName());
+		// Response preparation
+		UserDTO userDto = new UserDTO();
+		userDto.setFirstName(student.getFirstName());
+		userDto.setMiddleName(student.getMiddleName());
+		userDto.setUserName(student.getUserName());
 
-	    loginResponseDto.setStatus(true);
-	    loginResponseDto.setMessage("Login Successfully");
-	    loginResponseDto.setUser(userDto);
-	    loginResponseDto.setToken(token);
-	    // Response preparation end
+		loginResponseDto.setStatus(true);
+		loginResponseDto.setMessage("Login Successfully");
+		loginResponseDto.setUser(userDto);
+		loginResponseDto.setToken(token);
+		// Response preparation end
 
-	    // Response send
-	    return loginResponseDto;
+		// Response send
+		return loginResponseDto;
 	}
-
-	
-	
-	
-	
-	
-	
-	
 
 	@PostMapping("inventory/login")
 	public LoginResponseDTO inventoryLogin(@RequestBody LoginRequestDTO loginRequestDto) {

@@ -44,13 +44,13 @@ public class TokenLogService {
 		if (tokenLogOptional.isPresent()) {
 			TokenLog log = tokenLogOptional.get();
 			if (log.isValid()) {
-				// Check if token has expired
+
 				LocalDateTime expiryTime = log.getExpiryTime();
 				return expiryTime != null && !expiryTime.isBefore(LocalDateTime.now());
 			}
 		}
 
-		return false; // Token not found, expired, or invalid
+		return false;
 	}
 
 	/*
@@ -75,18 +75,18 @@ public class TokenLogService {
 	}
 
 	public boolean isTokenExpired(String token) {
-        // Retrieve the token from the database using the token value
-        TokenLog tokenLog = tokenLogRepository.findByToken(token).orElse(null);
+		
+		TokenLog tokenLog = tokenLogRepository.findByToken(token).orElse(null);
 
-        // Check if the token exists and if its expiry time is before the current time
-        if (tokenLog != null && tokenLog.getExpiryTime() != null) {
-            LocalDateTime currentTime = LocalDateTime.now();
-            return tokenLog.getExpiryTime().isBefore(currentTime);
-        }
+	
+		if (tokenLog != null && tokenLog.getExpiryTime() != null) {
+			LocalDateTime currentTime = LocalDateTime.now();
+			return tokenLog.getExpiryTime().isBefore(currentTime);
+		}
 
-        // If the token doesn't exist or doesn't have an expiry time, consider it expired
-        return true;
-    }
+	
+		return true;
+	}
 
 	/*
 	 * public String generateToken() { String token = UUID.randomUUID().toString();
@@ -100,17 +100,17 @@ public class TokenLogService {
 	public String generateToken(int studentId, String email) {
 		String token = UUID.randomUUID().toString();
 
-		// Set expiry time directly within TokenLog entity
+		
 		LocalDateTime expiryTime = LocalDateTime.now().plusMinutes(1);
 
-		// Create TokenLog instance and set properties
+	
 		TokenLog tokenLog = new TokenLog();
 		tokenLog.setToken(token);
 		tokenLog.setValid(true);
 		tokenLog.setExpiryTime(expiryTime);
 
-		// Call method to add token log to database
-		addLogForStudentLogin(token, studentId, email,expiryTime);
+		
+		addLogForStudentLogin(token, studentId, email, expiryTime);
 
 		return token;
 	}
@@ -161,17 +161,17 @@ public class TokenLogService {
 	}
 
 	public TokenLog addLogForStudentLogin(String token, int studentId, String email, LocalDateTime expiryTime) {
-        TokenLog tl = new TokenLog();
-        tl.setLinkId(studentId);
-        tl.setLinkType(LinkType.STUDENT);
-        tl.setToken(token);
-        tl.setValid(true);
-        tl.setPurpose(Purpose.LOGIN);
-        tl.setUserName(email);
-        tl.setExpiryTime(expiryTime); // Set expiry time
+		TokenLog tl = new TokenLog();
+		tl.setLinkId(studentId);
+		tl.setLinkType(LinkType.STUDENT);
+		tl.setToken(token);
+		tl.setValid(true);
+		tl.setPurpose(Purpose.LOGIN);
+		tl.setUserName(email);
+		tl.setExpiryTime(expiryTime); // Set expiry time
 
-        return tokenLogRepository.save(tl);
-    }
+		return tokenLogRepository.save(tl);
+	}
 
 	public TokenLog updateTokenLog(Integer id, TokenLog tokenLog) {
 		TokenLog existingStaff = tokenLogRepository.findById(id).orElse(null);

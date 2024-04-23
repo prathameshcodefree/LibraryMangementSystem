@@ -27,7 +27,17 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(tokenInterceptor)
-                .addPathPatterns("/student/**") // Add paths for all student APIs
-                .excludePathPatterns("/auth/**"); // Exclude paths that don't need token validation
+                .addPathPatterns("/student/**") 
+                .addPathPatterns("/book/**")
+                .addPathPatterns("/bookMaster/**")
+                .addPathPatterns("/bookcategory/**")
+                .addPathPatterns("/booksubcategory/**")
+                .addPathPatterns("/bookissue/**")
+                .addPathPatterns("/bookfine/**")
+                .addPathPatterns("/racksk/**")
+                .addPathPatterns("/requirement/**")
+                .addPathPatterns("/staff/**")
+                .addPathPatterns("/attendance/**")
+                .excludePathPatterns("/auth/**"); 
     }
 }

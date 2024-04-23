@@ -2,17 +2,11 @@ package com.tp.lms.service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.regex.Pattern;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
-
 import com.tp.lms.model.TokenLog;
 import com.tp.lms.model.enums.LinkType;
 import com.tp.lms.model.enums.Purpose;
@@ -21,7 +15,6 @@ import com.tp.lms.repository.TokenLogRepository;
 @Service
 public class TokenLogService {
 
-	public static final long EXPIRY_DURATION_SECONDS = 60;
 
 	@Autowired
 	TokenLogRepository tokenLogRepository;
@@ -53,26 +46,9 @@ public class TokenLogService {
 		return false;
 	}
 
-	/*
-	 * public boolean verify(String token) {
-	 * 
-	 * Optional<TokenLog> tokenLog = tokenLogRepository.findByToken(token); if
-	 * (tokenLog.isPresent()) { TokenLog log = tokenLog.get(); log.setValid(false);
-	 * return true; } return false;
-	 * 
-	 * }
-	 */
 
-	public void inValidateToken(String token) {
-		Optional<TokenLog> tO = tokenLogRepository.findByToken(token);
-		if (tO.isPresent()) {
-			TokenLog log = tO.get();
-			log.setValid(false);
-			tokenLogRepository.save(log);
 
-		}
 
-	}
 
 	public boolean isTokenExpired(String token) {
 		
@@ -96,7 +72,6 @@ public class TokenLogService {
 	 * 
 	 * }
 	 */
-
 	public String generateToken(int studentId, String email) {
 		String token = UUID.randomUUID().toString();
 
@@ -108,6 +83,7 @@ public class TokenLogService {
 		tokenLog.setToken(token);
 		tokenLog.setValid(true);
 		tokenLog.setExpiryTime(expiryTime);
+
 
 		
 		addLogForStudentLogin(token, studentId, email, expiryTime);
@@ -169,9 +145,10 @@ public class TokenLogService {
 		tl.setPurpose(Purpose.LOGIN);
 		tl.setUserName(email);
 		tl.setExpiryTime(expiryTime); // Set expiry time
+        return tokenLogRepository.save(tl);
+    }
+	
 
-		return tokenLogRepository.save(tl);
-	}
 
 	public TokenLog updateTokenLog(Integer id, TokenLog tokenLog) {
 		TokenLog existingStaff = tokenLogRepository.findById(id).orElse(null);
@@ -185,8 +162,10 @@ public class TokenLogService {
 		return tokenLogRepository.save(existingStaff);
 	}
 
+	
 	public boolean deleteTokenLog(Integer id) {
 
+	
 		boolean exists = tokenLogRepository.existsById(id);
 		if (exists) {
 			tokenLogRepository.deleteById(id);
@@ -198,9 +177,21 @@ public class TokenLogService {
 
 	}
 
-	public String genrateToken() {
-		String token = UUID.randomUUID().toString();
-		return token;
 
+
+
+
+	public boolean inValidateToken(String token) {
+	
+				Optional<TokenLog> tokenLogOptional = tokenLogRepository.findFirstByToken(token);
+
+				if (tokenLogOptional.isPresent()) {
+					TokenLog log = tokenLogOptional.get();
+					 log.setValid(false);
+					return true;
+				}
+		return false;
+		
 	}
+	
 }

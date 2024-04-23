@@ -50,14 +50,12 @@ public class TokenInterceptor implements HandlerInterceptor {
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
-		// This method is called after the controller method is invoked.
-		// You can implement post-processing logic here if needed.
+		
 	}
 
 	@Override
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
 			throws Exception {
-		// This method is called after the request has been completed.
-		// You can implement cleanup or logging logic here if needed.
+		
 	}
 }

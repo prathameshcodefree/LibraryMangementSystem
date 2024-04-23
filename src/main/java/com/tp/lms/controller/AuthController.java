@@ -14,7 +14,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -65,6 +64,7 @@ public class AuthController {
 		String cipherText = passwordEncoder.encode(clearText);
 
 		return cipherText;
+
 	}
 
 	/*
@@ -106,10 +106,13 @@ public class AuthController {
 
 	@PostMapping("/student/login")
 	public LoginResponseDTO studentLogstafin(@RequestBody LoginRequestDTO loginRequestDto) {
+
 		LoginResponseDTO loginResponseDto = new LoginResponseDTO();
 
 		// Logic flow start
 		Student student = studentService.login(loginRequestDto);
+
+	
 
 		// if not found send error
 		if (student == null) {
@@ -135,6 +138,7 @@ public class AuthController {
 
 		// Response send
 		return loginResponseDto;
+
 	}
 
 	@PostMapping("inventory/login")
@@ -174,6 +178,9 @@ public class AuthController {
 		Staff staff = staffService.login(loginRequestDto);
 
 		if (staff != null) {
+
+			String token = tokenLogService.generateToken(staff.getId(), staff.getEmail());
+
 			UserDTO userDto = new UserDTO();
 			userDto.setFirstName(staff.getFirstName());
 			userDto.setMiddleName(staff.getMiddleName());
@@ -182,7 +189,10 @@ public class AuthController {
 			loginResponseDto.setStatus(true);
 			loginResponseDto.setMessage("Login Successfully");
 			loginResponseDto.setUser(userDto);
-		} else {
+
+		} else
+
+		{
 			loginResponseDto.setStatus(false);
 			loginResponseDto.setMessage("user credentials are not correct");
 
@@ -192,86 +202,6 @@ public class AuthController {
 
 	}
 
-//
-//	@PostMapping("librarian/login")
-//	public LoginResponseDTO librarianLogin(@RequestBody LoginRequestDTO loginRequestDto) {
-//		LoginResponseDTO loginResponseDto = new LoginResponseDTO();
-//		
-//		Staff staff = staffservice.login(loginRequestDto);
-//		
-//		if(staff != null) {
-//			StaffDTO staffDto = new StaffDTO();
-//			staffDto.setStaffType(StaffType.LIBRARIAN);
-//			staffDto.setFirstName(staff.getFirstName());
-//			staffDto.setMiddleName(staff.getMiddleName());
-//			staffDto.setUserName(staff.getUserName());
-//			staffDto.setLastName(staff.getLastName());
-//			staffDto.setEmail(staff.getEmail());
-//			staffDto.setAadhaarNumber(staff.getAadhaarNumber());
-//			staffDto.setContactNumber(staff.getContactNumber());
-//			staffDto.setGender(staff.getGender());
-//			staffDto.setPassword(staff.getPassword());
-//			
-//			
-//			
-//			
-//			
-//			
-//			loginResponseDto.setStatus(true);
-//			loginResponseDto.setMessage("Login Successfully");
-//			loginResponseDto.setStaff(staffDto);
-//		}else {
-//			loginResponseDto.setStatus(false);
-//			loginResponseDto.setMessage("user credentials are not correct");
-//		}
-//		return loginResponseDto;
-//		
-//	}
-
-	// }
-	// else
-
-	// {
-
-	// loginResponseDto.setStatus(false);
-	// loginResponseDto.setMessage("user credentials are not correct");
-//
-	// }
-
-	// return loginResponseDto;
-
-	// }
-
-//	@PostMapping("/login")
-//    public ResponseEntity<?> login(@RequestBody LoginRequestDTO loginRequestDTO) {
-//        // Validate login credentials
-//		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-//        Student student = studentService.findByUserName(loginRequestDTO.getUserName());
-//        if (student != null && passwordEncoder.matches(loginRequestDTO.getPassword(), student.getPassword())) {
-//            // Generate and store token
-//            String token = tokenService.generateAndStoreToken(student);
-//            // Return token in response
-//            return ResponseEntity.ok(new LoginResponseDTO(true, "Login successfully", token));
-//        } else {
-//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
-//        }
-//    }
-
-	/*
-	 * @PostMapping("/logout") public ResponseEntity<?> logout(@RequestParam String
-	 * token) {
-	 * 
-	 * Boolean t = tokenLogService.verify(token);
-	 * 
-	 * if (t) {
-	 * 
-	 * return ResponseEntity.status(HttpStatus.OK).body("Done"); }
-	 * 
-	 * return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("UnSuccessful");
-	 * 
-	 * }
-	 */
-
 	@PostMapping("/student/logout")
 	public ResponseEntity<?> logout(@RequestParam String token) {
 		tokenLogService.inValidateToken(token);
@@ -279,16 +209,3 @@ public class AuthController {
 	}
 
 }
-
-//	@PostMapping("librarian/addstaff")
-//	public LoginResponseDTO addStaff (@RequestBody  LoginRequestDTO loginRequestDto )
-//	{
-//	 LoginResponseDTO loginResponseDto = new LoginResponseDTO(); 
-//	
-//	Staff staff = staffService.addStaffDTO(loginRequestDto);
-//	
-//		
-//	// ResponseEntity.ok().body(staff)
-//		return loginResponseDto; 
-//		
-//	}	

@@ -59,8 +59,9 @@ public class StudentController {
 
 		studentService.addStudent(student);
 		return ResponseEntity.ok().body("Student added successfully.");
-
 	}
+	
+	
 
 	@PutMapping("/{id}")
 	public ResponseEntity<?> updateStudent(@PathVariable Integer id, @RequestBody Student student) {
@@ -80,6 +81,7 @@ public class StudentController {
 		studentService.updateStudent(id, student);
 		return ResponseEntity.ok().body("Student with ID " + id + " updated successfully.");
 	}
+	
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deleteStudent(@PathVariable Integer id) {

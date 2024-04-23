@@ -64,7 +64,6 @@ public class TokenLog {
 	
 	
 	
-	
 
 	public LocalDateTime getExpiryTime() {
 		return expiryTime;

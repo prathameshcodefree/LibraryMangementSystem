@@ -2,6 +2,7 @@ package com.tp.lms.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tp.lms.model.enums.StaffStatus;
 import com.tp.lms.model.enums.StaffType;
 import jakarta.persistence.Column;
@@ -24,7 +25,7 @@ public class Staff extends AuditColumn {
 	private Integer id;
 
 	@Enumerated(EnumType.STRING)
-	@Column(name = "staff_type", length = 128)
+	@Column(name = "staff_type")
 	private StaffType staffType;
 
 	@Column(name = "first_name", length = 128, unique = true)
@@ -42,8 +43,8 @@ public class Staff extends AuditColumn {
 	@Column(name = "email", length = 64, nullable = false, unique = true)
 	private String email;
 
-	@Column(name = "contact_number", length = 10, unique = true)
-	private int contactNumber;
+	@Column(name = "contact_number", unique = true)
+	private Integer contactNumber;
 
 	@Column(name = "gender")
 	private String gender;
@@ -55,7 +56,7 @@ public class Staff extends AuditColumn {
 	private String password;
 
 	@Enumerated(EnumType.STRING)
-	@Column(name = "staff_status", length = 128)
+	@Column(name = "staff_status")
 	private StaffStatus staffStatus;
 
 	@Column(name = "aadhar_number", unique = true)
@@ -64,6 +65,8 @@ public class Staff extends AuditColumn {
 	@Column(name = "pan_number", length = 10, unique = true)
 	private String panNumber;
 
+	
+	@JsonIgnore
 	@OneToMany(mappedBy = "staff")
 	private List<StaffAttendance> staffattendance;
 
@@ -123,11 +126,11 @@ public class Staff extends AuditColumn {
 		this.email = email;
 	}
 
-	public int getContactNumber() {
+	public Integer getContactNumber() {
 		return contactNumber;
 	}
 
-	public void setContactNumber(int contactNumber) {
+	public void setContactNumber(Integer contactNumber) {
 		this.contactNumber = contactNumber;
 	}
 
@@ -187,25 +190,17 @@ public class Staff extends AuditColumn {
 		this.staffattendance = staffattendance;
 	}
 
-	public Staff(Integer id, StaffType staffType, String firstName, String middleName, String userName, String lastName,
-			String email, int contactNumber, String gender, String dob, String password, StaffStatus staffStatus,
-			Integer aadhaarNumber, String panNumber, List<StaffAttendance> staffattendance) {
-		super();
-		this.id = id;
-		this.staffType = staffType;
-		this.firstName = firstName;
-		this.middleName = middleName;
-		this.userName = userName;
-		this.lastName = lastName;
-		this.email = email;
-		this.contactNumber = contactNumber;
-		this.gender = gender;
-		this.dob = dob;
-		this.password = password;
-		this.staffStatus = staffStatus;
-		this.aadhaarNumber = aadhaarNumber;
-		this.panNumber = panNumber;
-		this.staffattendance = staffattendance;
-	}
+	/*
+	 * public Staff(Integer id, StaffType staffType, String firstName, String
+	 * middleName, String userName, String lastName, String email, int
+	 * contactNumber, String gender, String dob, String password, StaffStatus
+	 * staffStatus, Integer aadhaarNumber, String panNumber, List<StaffAttendance>
+	 * staffattendance) { super(); this.id = id; this.staffType = staffType;
+	 * this.firstName = firstName; this.middleName = middleName; this.userName =
+	 * userName; this.lastName = lastName; this.email = email; this.contactNumber =
+	 * contactNumber; this.gender = gender; this.dob = dob; this.password =
+	 * password; this.staffStatus = staffStatus; this.aadhaarNumber = aadhaarNumber;
+	 * this.panNumber = panNumber; this.staffattendance = staffattendance; }
+	 */
 
 }

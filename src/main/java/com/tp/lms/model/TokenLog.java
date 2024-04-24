@@ -13,6 +13,8 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -23,6 +25,8 @@ public class TokenLog {
 	@Column(name="token_log_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
+
 	
 	@Column(name="link_id")
 	private int linkId;
@@ -51,6 +55,22 @@ public class TokenLog {
 	@Column(name="is_valid")
 	private boolean isValid;
 	
+	@Column(name="expiry_time")
+	private LocalDateTime expiryTime;
+
+	
+	
+	
+	
+	
+	public LocalDateTime getExpiryTime() {
+		return expiryTime;
+	}
+
+	public void setExpiryTime(LocalDateTime expiryTime) {
+		this.expiryTime = expiryTime;
+	}
+
 	public LocalDateTime getCreatedAt() {
 		return createdAt;
 	}

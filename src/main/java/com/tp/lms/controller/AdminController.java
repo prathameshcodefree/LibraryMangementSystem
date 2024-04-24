@@ -32,7 +32,7 @@ import com.tp.lms.service.TokenLogService;
  * @author Suhail Tamboli
  */
 @RestController
-@RequestMapping("admin")
+@RequestMapping("/admin")
 public class AdminController {
 
 	@Autowired
@@ -65,12 +65,12 @@ public class AdminController {
 	}
 
 	@PostMapping()
-	public ResponseEntity<?> createAdmin(@RequestBody Admin admin,@RequestParam(required=false) String token) {
+	public ResponseEntity<?> createAdmin(@RequestBody Admin admin,@RequestParam String token) {
 		
-         boolean tp=logService.validateToken(token);
+         boolean tp=logService.verifyToken1(token);
 		
 		if(!tp){
-			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorised Access");
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token Expired");
 		}
 		
 

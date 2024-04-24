@@ -162,9 +162,20 @@
     <script>
 		
 		
+                         // var user = JSON.parse(localStorage.getItem("info"));
+                          //userTag = document.getElementById("userName");
+                          //userTag.innerText = "Welcome " + user.firstName + "("+ user.userName +")"
+                          
+                          
                           var user = JSON.parse(localStorage.getItem("info"));
-                          userTag = document.getElementById("userName");
-                          userTag.innerText = "Welcome " + user.firstName + "("+ user.userName +")"
+						
+						if (user && user.firstName && user.userName) {
+						    var userTag = document.getElementById("userName");
+						    userTag.innerText = "Welcome " + user.firstName + " (" + user.userName + ")";
+						} else {
+						    // Handle the case where "info" key is not found in localStorage or user properties are missing
+						    console.error("User info not found or incomplete in localStorage");
+						}
                           
 		
 		

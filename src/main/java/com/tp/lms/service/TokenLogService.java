@@ -1,11 +1,18 @@
 package com.tp.lms.service;
+
 import java.time.LocalDateTime;
+
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.regex.Pattern;
 
 import java.util.regex.Pattern;
 
@@ -25,13 +32,90 @@ public class TokenLogService {
 	@Autowired
 	TokenLogRepository tokenLogRepository;
 
+
 	
 	public String generateToken() {
 		String token= UUID.randomUUID().toString();
+		
+		
+		LocalDateTime expiryTime=LocalDateTime.now().plusMinutes(1);
+		
+		TokenLog tokenLog=new TokenLog();
+		tokenLog.setToken(token);
+		tokenLog.setValid(true);
+		tokenLog.setExpiryTime(expiryTime);
+		
+		tokenLogRepository.save(tokenLog);
 		return token;
 	}
 	
 	
+	  public boolean verifyToken(String token) {
+	  
+	  Optional<TokenLog> tokenLog = tokenLogRepository.findByToken(token);
+	  
+	  if (tokenLog.isPresent()) { TokenLog log = tokenLog.get(); return
+	  log.isValid(); }
+	  
+	  return false; }
+	 
+	
+	
+	
+
+
+	public boolean verifyToken1(String token) {
+
+		Optional<TokenLog> tokenLog = tokenLogRepository.findByToken(token);
+
+		if (tokenLog.isPresent()) {
+			TokenLog log = tokenLog.get();
+			if(log.isValid()) {
+				
+				LocalDateTime expiryTime=log.getExpiryTime();
+				return expiryTime !=null && !expiryTime.isBefore(LocalDateTime.now());
+			}
+		}
+
+		return false;
+	}
+
+	/*
+	 * public boolean verify(String token) {
+	 * 
+	 * Optional<TokenLog> tokenLog = tokenLogRepository.findByToken(token); if
+	 * (tokenLog.isPresent()) { TokenLog log = tokenLog.get(); log.setValid(false);
+	 * return true; } return false;
+	 * 
+	 * }
+	 */
+
+	public void inValidateToken(String token) {
+		Optional<TokenLog> tO = tokenLogRepository.findByToken(token);
+		if (tO.isPresent()) {
+			TokenLog log = tO.get();
+			log.setValid(false);
+			tokenLogRepository.save(log);
+
+		}
+	
+	}
+
+	public void invalidateToken(String token) {
+		Optional<TokenLog> tokenLogOptional = tokenLogRepository.findByToken(token);
+		if (tokenLogOptional.isPresent()) {
+			TokenLog tokenLog = tokenLogOptional.get();
+			tokenLog.setValid(false); // Mark the token as invalid
+			tokenLogRepository.save(tokenLog); // Save the changes to the database
+		}
+		// You may consider throwing an exception or logging a message if the token is
+		// not found
+	}
+	
+	
+	
+
+
 	public List<TokenLog> getTokenLog() {
 
 		return (List<TokenLog>) tokenLogRepository.findAll();
@@ -46,7 +130,6 @@ public class TokenLogService {
 	public List<String> validate(TokenLog tokenLog) {
 
 		List<String> error = new ArrayList<>();
-		
 
 		if (tokenLog.getUserName() == null) {
 			error.add("TokenLog Username can not be empty");
@@ -59,23 +142,22 @@ public class TokenLogService {
 		if (tokenLog.getPurpose() == null) {
 			error.add("Purpose can not be empty");
 		}
-		
+
 		if (tokenLog.getLinkType() == null) {
 			error.add("LinkType can not be empty");
 		}
 		if (tokenLog.getIp() == null) {
 			error.add("IP can not be empty");
 		}
-		
+
 		if (tokenLog.getLinkId() == 0) {
 			error.add("LinkId can not be empty");
 		}
-		
+
 		if (tokenLog.getAttempt() == 0) {
 			error.add("Attempt can not be empty");
 		}
-	
-		
+
 		return error;
 	}
 
@@ -88,13 +170,13 @@ public class TokenLogService {
 		tl.setValid(true);
 		tl.setPurpose(Purpose.LOGIN);
 		tl.setUserName(email);
-		
+
 		return tokenLogRepository.save(tl);
 
 	}
 	
 	
-	public TokenLog addLogForAdminLogin(String token,String email,int adminid) {
+	public TokenLog addLogForAdminLogin(String token,String email,int adminid,LocalDateTime expiryTime) {
 		
 		
 	  TokenLog ts=new TokenLog();
@@ -104,6 +186,7 @@ public class TokenLogService {
 	  ts.setValid(true);
 	  ts.setUserName(email);
 	  ts.setToken(token);
+	  ts.setExpiryTime(expiryTime);
 	
 	  return tokenLogRepository.save(ts);
 	  
@@ -134,11 +217,11 @@ public class TokenLogService {
 		}
 
 	}
-	
+
 	public String genrateToken() {
-		 String token = UUID.randomUUID().toString();
-		 return token;
-		 
+		String token = UUID.randomUUID().toString();
+		return token;
+
 	}
 	
 	public boolean validateToken(String token) {

@@ -34,6 +34,7 @@ public class AdminService {
 	AdminRepository adminRepository;
 
 	public List<String> validate(Admin admin) {
+		
 		List<String> error = new ArrayList<>();
 		boolean isEmail = Pattern.compile("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$").matcher(admin.getEmail())
 				.matches();

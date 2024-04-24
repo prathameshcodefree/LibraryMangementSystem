@@ -11,6 +11,19 @@ public class LoginResponseDTO
 	private UserDTO user;
 	private StaffDTO staff;
 	
+	public LoginResponseDTO(boolean status, String message, String token) {
+		super();
+		this.status = status;
+		this.message = message;
+		this.token = token;
+	}
+
+	public LoginResponseDTO() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+
 
 
 	public StaffDTO getStaff() {

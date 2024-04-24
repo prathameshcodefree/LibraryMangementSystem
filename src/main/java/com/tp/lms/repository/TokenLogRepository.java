@@ -15,7 +15,8 @@ import com.tp.lms.model.TokenLog;
 @Repository
 public interface TokenLogRepository extends JpaRepository<TokenLog , Integer> {
 
-
 	Optional<TokenLog> findByToken(String token);
+	
+
 
 }

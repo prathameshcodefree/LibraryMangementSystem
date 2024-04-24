@@ -1,4 +1,4 @@
-package com.tp.lms.model.enums;
+ package com.tp.lms.model.enums;
 
 
 public enum UserType {

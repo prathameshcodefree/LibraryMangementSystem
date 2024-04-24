@@ -84,7 +84,30 @@ public class TokenLog {
 	}
 
 	@Column(name="created_at")
+<<<<<<< HEAD
 	private LocalDateTime createdAt;
+=======
+	private Date createdAt;
+	
+	@Column(name="expiry_time") 
+	private LocalDateTime expiryTime;
+	
+	
+	
+	
+
+	public LocalDateTime getExpiryTime() {
+		return expiryTime;
+	}
+
+	public void setExpiryTime(LocalDateTime expiryTime) {
+		this.expiryTime = expiryTime;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+>>>>>>> 89878c2f9958e1e45a0a7eab06ba9d6f35972550
 
 	public int getId() {
 		return id;

@@ -1,7 +1,4 @@
-<<<<<<< HEAD
 
-=======
-<<<<<<< HEAD
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,32 +6,6 @@
 	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
 	crossorigin="anonymous"></script>
 
-
-
-
-
-<script type="text/javascript">
-	
-	
-$(document).ready(function() {
-    $.ajax({
-        url: 'http://localhost:8080/demo/fales',
-        method: 'GET',
-        contentType: 'application/json',
-        success: function(response) {
-            // Handle success response
-            console.log(response);
-            var name = document.getElementById("name");
-            var email = document.getElementById("email");
-            name.innerHTML = response.lastName;
-            email.innerHTML = response.email;
-           
-        },
-        error: function(xhr, status, error) {
-            // Handle error response
-            console.error(xhr.responseText);
-=======
-<<<<<<< HEAD
 <!doctype html>
 <html lang="en">
   <head>
@@ -69,12 +40,11 @@ $(document).ready(function() {
         error: function(xhr, status, error) {
             // Handle errors here
             console.error(error);
->>>>>>> 705579e1f04a40e7418e49b1dccc7a20efccd0e1
+
         }
     });
 });
 
-<<<<<<< HEAD
 	function myAlert() {
 		var text = document.getElementById("message");
 

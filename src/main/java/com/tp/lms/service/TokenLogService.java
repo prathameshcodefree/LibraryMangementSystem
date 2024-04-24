@@ -135,6 +135,9 @@ public class TokenLogService {
 
 		return error;
 	}
+	
+	
+	
 
 	public TokenLog addLogForStudentLogin(String token, int studentId, String email, LocalDateTime expiryTime) {
 		TokenLog tl = new TokenLog();
@@ -194,4 +197,20 @@ public class TokenLogService {
 		
 	}
 	
+<<<<<<< Updated upstream
+=======
+	
+	   public boolean verifyToken(String token) {
+	    	Optional<TokenLog> tokenLogO=tokenLogRepository.findByToken(token);
+	    	if(!tokenLogO.isPresent()) {
+	    		return false;
+	    	}
+	    	
+	    	return tokenLogO.get().isValid();
+	    }
+	
+	
+
+	
+>>>>>>> Stashed changes
 }

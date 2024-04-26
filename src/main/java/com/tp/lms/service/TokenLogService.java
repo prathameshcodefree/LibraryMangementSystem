@@ -86,18 +86,18 @@ public class TokenLogService {
 		return true;
 	}
 
-	public boolean verifyToken(String token) {
-		Optional<TokenLog> tokenLogOptional = tokenLogRepository.findFirstByToken(token);
-
-		if (tokenLogOptional.isPresent()) {
-			TokenLog log = tokenLogOptional.get();
-			if (log.isValid() && !isTokenExpired(token)) {
-				return true;
-			}
-		}
-
-		return false;
-	}
+//	public boolean verifyToken(String token) {
+//		Optional<TokenLog> tokenLogOptional = tokenLogRepository.findFirstByToken(token);
+//
+//		if (tokenLogOptional.isPresent()) {
+//			TokenLog log = tokenLogOptional.get();
+//			if (log.isValid() && !isTokenExpired(token)) {
+//				return true;
+//			}
+//		}
+//
+//		return false;
+//	}
 
 	/*
 	 * public boolean verifyToken(String token) { Optional<TokenLog>
@@ -213,6 +213,9 @@ public class TokenLogService {
 
 		return error;
 	}
+	
+	
+	
 
 	public TokenLog addLogForStudentLogin(String token, int studentId, String email, LocalDateTime expiryTime) {
 		TokenLog tl = new TokenLog();
@@ -264,7 +267,7 @@ public class TokenLogService {
 	 */
 
 	public boolean invalidateToken(String token) {
-		Optional<TokenLog> tokenLogOptional = tokenLogRepository.findFirstByToken(token);
+		Optional<TokenLog> tokenLogOptional = tokenLogRepository.findByToken(token);
 
 		if (tokenLogOptional.isPresent()) {
 			TokenLog log = tokenLogOptional.get();
@@ -276,5 +279,19 @@ public class TokenLogService {
 		}
 		return false;
 	}
+
+	
+	   public boolean verifyToken(String token) {
+	    	Optional<TokenLog> tokenLogO=tokenLogRepository.findByToken(token);
+	    	if(!tokenLogO.isPresent()) {
+	    		return false;
+	    	}
+	    	
+	    	return tokenLogO.get().isValid();
+	    }
+	
+	
+
+	
 
 }

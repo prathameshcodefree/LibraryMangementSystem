@@ -7,9 +7,13 @@
 package com.tp.lms.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+<<<<<<< Updated upstream
 import org.springframework.http.HttpStatus;
 
 import org.springframework.http.ResponseEntity;
+=======
+
+>>>>>>> Stashed changes
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;

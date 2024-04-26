@@ -45,6 +45,7 @@ public class TokenLogController {
 	}
 
 
+
 	@PostMapping(" ")
 	public ResponseEntity<?> addTokenLog(@RequestBody TokenLog tokenLog) {
 		List<String> error = tokenLogService.validate(tokenLog);
@@ -56,6 +57,19 @@ public class TokenLogController {
 		return ResponseEntity.ok().body("TokenLog added successfully.");
 
 	}
+
+//	@PostMapping(" ")
+//	public ResponseEntity<?> addTokenLog(@RequestBody TokenLog tokenLog ) {
+//		List<String> error = tokenLogService.validate(tokenLog);
+//		if (error.size() != 0) {
+//			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+//		}
+//
+//		tokenLogService.addLogForStudentLogin(tokenLog);
+//		return ResponseEntity.ok().body("TokenLog added successfully.");
+//
+//	}
+
 
 	@PutMapping("/{id}")
 	public ResponseEntity<?> updateTokenLog(@PathVariable Integer id, @RequestBody TokenLog tokenLog) {

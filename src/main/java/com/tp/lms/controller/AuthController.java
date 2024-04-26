@@ -14,6 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,6 +25,7 @@ import com.tp.lms.dto.StaffDTO;
 import com.tp.lms.dto.UserDTO;
 import com.tp.lms.model.Staff;
 import com.tp.lms.model.Student;
+
 import com.tp.lms.model.enums.StaffType;
 
 import com.tp.lms.repository.StudentRepository;
@@ -202,10 +204,19 @@ public class AuthController {
 
 	}
 
-	@PostMapping("/student/logout")
-	public ResponseEntity<?> logout(@RequestParam String token) {
-		tokenLogService.inValidateToken(token);
-		return ResponseEntity.status(HttpStatus.OK).body("Done");
+	/*
+	 * @PostMapping("/student/logout") public ResponseEntity<?> logout(@RequestParam
+	 * String token){ tokenLogService.inValidateToken(token); return
+	 * ResponseEntity.status(HttpStatus.OK).body("Done"); }
+	 */
+	
+	@PostMapping("/logout")
+	public ResponseEntity<String> logout(@RequestParam String token) {
+	    if (tokenLogService.invalidateToken(token)) {
+	        return ResponseEntity.ok("Logout successfully");
+	    } else {
+	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Token not found");
+	    }
 	}
 
 }

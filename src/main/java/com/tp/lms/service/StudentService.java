@@ -100,21 +100,10 @@ public class StudentService {
 			error.add("Gender name can not be empty");
 		}
 
-		if (student.getStudentstatus() == null) {
-			error.add("Student status can not be empty");
-		}
-
 		if (student.getCollegeName() == null) {
 			error.add("College name can not be empty");
 		}
 
-		if (student.getDob() == null) {
-			error.add("Date can not be empty");
-		}
-
-		if (student.getRollNo() == null) {
-			error.add("Roll No can not be empty");
-		}
 
 		boolean isEmail = Pattern.compile("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$")
 				.matcher(student.getEmail()).matches();

@@ -17,7 +17,7 @@ public class LearnFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         // Initialization code, if needed
-    	String started = true;
+    	boolean started = true;
     }
 
     @Override
@@ -39,8 +39,7 @@ public class LearnFilter implements Filter {
     	System.out.println("Hi team, i run after controller get executed");
     }
 
-    @Override
-    public void destroy() {
-    	started = false
-    }
+	/*
+	 * @Override public void destroy() { started = false; }
+	 */
 }

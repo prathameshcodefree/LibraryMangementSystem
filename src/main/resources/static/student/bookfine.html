@@ -146,43 +146,78 @@ button:hover {
 </div>
 
 <script>
-	    $(document).ready(function() {
-	        $.ajax({
-	            url: 'http://localhost:8080/bookfine',
-	            type: 'GET',
-	            dataType: 'json', 
-	            success: function(response) {
-	                console.log(response);
-	                
-	                var tableBody = $('#bookDataBody');
-	
-	                
-	                response.forEach(function(bookFine,bookIssue) {
-	                    
-	                    var newRow = $('<tr>');
-	
-	                    
-	                    newRow.append($('<td>').text(bookFine.id));
-	
-	                    
-	                    newRow.append($('<td>').text(bookFine.bookIssue.title));
-	
-	
-	                   
-	                    newRow.append($('<td>').text(bookFine.fineAmount));
-	
-	                    // Append the row to the table body
-	                    tableBody.append(newRow);
-	                });
-	            },
-	            error: function(xhr, status, error) {
-	                console.error("Status: " + status);
-	                console.error("Error: " + error);
-	                console.error("Response Text: " + xhr.responseText);
-	            }
-	        });
-	    });
+$(document).ready(function() {
+    var token = localStorage.getItem('token');
+    var username = localStorage.getItem('username');
+    var password = localStorage.getItem('password');
 
+    if (token && username && password) {
+        authenticateUser(username, password, function(token) {
+            fetchBookFineData(token);
+        });
+    } else {
+        console.error("Token, username, or password not found.");
+    }
+});
+
+
+function authenticateUser(username, password, callback) {
+    var formData = {
+        userName: username,
+        password: password
+    };
+
+    $.ajax({
+        url: 'http://localhost:8080/auth/student/login',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(formData),
+        success: function(response) {
+            var token = response.token;
+            // Store the token in localStorage
+            localStorage.setItem('token', token);
+            callback(token); // Call the callback function with the token
+        },
+        error: function(xhr, status, error) {
+            console.error("Failed to authenticate user.");
+            console.error("Status: " + xhr.status);
+            console.error("Error: " + error);
+            console.error("Response Text: " + xhr.responseText);
+        }
+    });
+}
+
+function fetchBookFineData(token) {
+    $.ajax({
+        url: 'http://localhost:8080/bookfine',
+        type: 'GET',
+        contentType: 'application/json',
+        headers: {
+            'Authorization': token // Use the retrieved token here
+        },
+        success: function(response) {
+            console.log(response);
+
+            var tableBody = $('#bookDataBody');
+
+            response.forEach(function(bookFine) {
+                var newRow = $('<tr>');
+
+                newRow.append($('<td>').text(bookFine.id));
+                newRow.append($('<td>').text(bookFine.bookIssue.title));
+                newRow.append($('<td>').text(bookFine.fineAmount));
+
+                tableBody.append(newRow);
+            });
+        },
+        error: function(xhr, status, error) {
+            console.error("Failed to fetch book fine data.");
+            console.error("Status: " + xhr.status);
+            console.error("Error: " + error);
+            console.error("Response Text: " + xhr.responseText);
+        }
+    });
+}
 </script>
 
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

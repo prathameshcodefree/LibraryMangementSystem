@@ -16,6 +16,7 @@ public class WebMvcConfig {
             "/student/*",
             "/book/*",
             "/bookcategory/*",
+            "/bookissue",
             "/bookfine/*",
             "/bookMaster/*",
             "/racks/*",

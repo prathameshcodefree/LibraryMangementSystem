@@ -7,6 +7,8 @@
 package com.tp.lms.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
+
 import org.springframework.http.HttpStatus;
 
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,8 +27,11 @@ import com.tp.lms.dto.StaffDTO;
 import com.tp.lms.dto.UserDTO;
 import com.tp.lms.model.Staff;
 import com.tp.lms.model.Student;
+
 import com.tp.lms.model.TokenLog;
-import com.tp.lms.model.enums.LinkType;
+
+
+
 import com.tp.lms.model.enums.StaffType;
 
 import com.tp.lms.repository.StudentRepository;
@@ -33,11 +39,7 @@ import com.tp.lms.service.StaffService;
 import com.tp.lms.service.StudentService;
 import com.tp.lms.service.TokenLogService;
 
-import ch.qos.logback.core.subst.Token;
 
-import com.tp.lms.service.StaffService;
-import com.tp.lms.service.StudentService;
-import com.tp.lms.service.TokenLogService;
 
 /**
  *
@@ -55,8 +57,6 @@ public class AuthController {
 	@Autowired
 	StaffService staffService;
 
-	@Autowired
-	TokenLogService tokenlogservice;
 
 	@Autowired
 	TokenLogService tokenLogService;
@@ -113,8 +113,13 @@ public class AuthController {
 
 	@PostMapping("/student/login")
 	public LoginResponseDTO studentLogstafin(@RequestBody LoginRequestDTO loginRequestDto) {
-		LoginResponseDTO loginResponseDto = new LoginResponseDTO(); // Logic flow start
+
+		LoginResponseDTO loginResponseDto = new LoginResponseDTO();
+
+		// Logic flow start
 		Student student = studentService.login(loginRequestDto);
+
+	
 
 		// if not found send error
 		if (student == null) {
@@ -131,6 +136,9 @@ public class AuthController {
 		userDto.setFirstName(student.getFirstName());
 		userDto.setMiddleName(student.getMiddleName());
 		userDto.setUserName(student.getUserName());
+		userDto.setStudentstatus(student.getStudentstatus());
+		userDto.setDate(student.getDob());
+		
 
 		loginResponseDto.setStatus(true);
 		loginResponseDto.setMessage("Login Successfully");
@@ -204,10 +212,19 @@ public class AuthController {
 
 	}
 
-	@PostMapping("/student/logout")
-	public ResponseEntity<?> logout(@RequestParam String token) {
-		tokenLogService.inValidateToken(token);
-		return ResponseEntity.status(HttpStatus.OK).body("Done");
+	/*
+	 * @PostMapping("/student/logout") public ResponseEntity<?> logout(@RequestParam
+	 * String token){ tokenLogService.inValidateToken(token); return
+	 * ResponseEntity.status(HttpStatus.OK).body("Done"); }
+	 */
+	
+	@PostMapping("/logout")
+	public ResponseEntity<String> logout(@RequestParam String token) {
+	    if (tokenLogService.invalidateToken(token)) {
+	        return ResponseEntity.ok("Logout successfully");
+	    } else {
+	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Token not found");
+	    }
 	}
 
 }

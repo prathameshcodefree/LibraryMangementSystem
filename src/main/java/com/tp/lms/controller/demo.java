@@ -1,5 +1,6 @@
 package com.tp.lms.controller;
 
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,6 +15,19 @@ import com.tp.lms.model.Student;
 @RestController
 @RequestMapping("test")
 public class demo {
+	
+	@GetMapping("filter")
+	public String getFilter() {
+		System.out.println("I am controller");
+		return "OK";
+	}
+
+	@GetMapping("nofilter")
+	public String getNoFilter() {
+		System.out.println("I am controller");
+		return "Not OK";
+	}
+		
 	
 	@GetMapping("check")
 	public String getDemo(@RequestParam String username) {

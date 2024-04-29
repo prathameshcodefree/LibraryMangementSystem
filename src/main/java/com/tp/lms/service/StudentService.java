@@ -1,7 +1,6 @@
 package com.tp.lms.service;
 
 import java.util.ArrayList;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.regex.Pattern;
@@ -11,15 +10,17 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.tp.lms.dto.LoginRequestDTO;
-
 import com.tp.lms.model.Student;
+
 import com.tp.lms.repository.StudentRepository;
+
 
 @Service
 public class StudentService {
 
 	@Autowired
 	StudentRepository studentRepository;
+
 
 
 	public List<String> validates(Student student) {
@@ -33,42 +34,42 @@ public class StudentService {
 		return errors;
 	}
 
-    
-    public boolean checkUserExists(String username, String password) {
-        List<Student> logins = studentRepository.findAll();
-        
-        for (Student login : logins) {
-            String loginUsername = login.getUserName();
-            String loginPassword = login.getPassword();
-            if (loginUsername != null && loginPassword != null && loginUsername.equals(username) && loginPassword.equals(password)) {
-                return true;
-            }
-        }
-        
-        return false;
-    }
-    
-    
-    public Student login(LoginRequestDTO loginRequestDto) {
-        Optional<Student> studentO = studentRepository.findByUserName(loginRequestDto.getUserName());
-        Student student = null;
-                
-        
-        if(studentO.isPresent()) {
-        	
-        	Student studentdb = studentO.get();
-        	BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        	
-//        	System.out.print("passwrod user: " + loginRequestDto.getPassword() + " from db:" + studentdb.getPassword());
-        	if(passwordEncoder.matches(loginRequestDto.getPassword() ,studentdb.getPassword())) {
-        		student = studentdb;
-        	}
-        	
-        }
-        
-        return student;
-    }
+	public boolean checkUserExists(String username, String password) {
+		List<Student> logins = studentRepository.findAll();
 
+		for (Student login : logins) {
+			String loginUsername = login.getUserName();
+			String loginPassword = login.getPassword();
+			if (loginUsername != null && loginPassword != null && loginUsername.equals(username)
+					&& loginPassword.equals(password)) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	public Student login(LoginRequestDTO loginRequestDto) {
+		Optional<Student> studentO = studentRepository.findByUserName(loginRequestDto.getUserName());
+
+		System.out.println(studentO);
+		Student student = null;
+
+		if (studentO.isPresent()) {
+
+			Student studentdb = studentO.get();
+			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+//        	System.out.print("passwrod user: " + loginRequestDto.getPassword() + " from db:" + studentdb.getPassword());
+			if (passwordEncoder.matches(loginRequestDto.getPassword(), studentdb.getPassword())) {
+				student = studentdb;
+			}
+
+		}
+
+
+		return student;
+	}
 
 	public List<Student> getStudent() {
 
@@ -99,21 +100,10 @@ public class StudentService {
 			error.add("Gender name can not be empty");
 		}
 
-		if (student.getStudentstatus() == null) {
-			error.add("Student status can not be empty");
-		}
-
 		if (student.getCollegeName() == null) {
 			error.add("College name can not be empty");
 		}
 
-		if (student.getDob() == null) {
-			error.add("Date can not be empty");
-		}
-
-		if (student.getRollNo() == null) {
-			error.add("Roll No can not be empty");
-		}
 
 		boolean isEmail = Pattern.compile("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$")
 				.matcher(student.getEmail()).matches();
@@ -132,8 +122,7 @@ public class StudentService {
 
 		return error;
 	}
-	
-	
+
 	public Optional<Student> getStudentById(Integer id) {
 
 		return studentRepository.findById(id);
@@ -144,11 +133,10 @@ public class StudentService {
 	public Student addStudent(Student student) {
 
 		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-		
-		String hashcode = bCryptPasswordEncoder.encode( student.getPassword());
-    	student.setPassword(hashcode);
-    	Student st=studentRepository.save(student);
 
+		String hashcode = bCryptPasswordEncoder.encode(student.getPassword());
+		student.setPassword(hashcode);
+		Student st = studentRepository.save(student);
 
 		return st;
 

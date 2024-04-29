@@ -62,8 +62,22 @@ public class TokenLog {
 	private LocalDateTime expiryTime;
 	
 	
+	@Column(name="logout_time") 
+	private LocalDateTime logoutTime;
 	
 	
+	
+	
+	
+	
+
+	public LocalDateTime getLogoutTime() {
+		return logoutTime;
+	}
+
+	public void setLogoutTime(LocalDateTime logoutTime) {
+		this.logoutTime = logoutTime;
+	}
 
 	public LocalDateTime getExpiryTime() {
 		return expiryTime;

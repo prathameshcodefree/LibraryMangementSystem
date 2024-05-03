@@ -34,7 +34,7 @@ public class BookIssueController {
 	@GetMapping("")
 	public ResponseEntity<?> getBookIssue(@RequestParam String token) {
 		
-		if(!tokenLogService.verifyToken(token)) {
+		if(!tokenLogService.verifyToken1(token)) {
 			
 			return ResponseEntity.status(HttpStatusCode.valueOf(401)).body("Token Expired.please login again");
 		}

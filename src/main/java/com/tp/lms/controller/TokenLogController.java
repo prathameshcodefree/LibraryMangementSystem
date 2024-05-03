@@ -44,7 +44,6 @@ public class TokenLogController {
 	    }
 	}
 
-<<<<<<< Updated upstream
 
 	@PostMapping(" ")
 	public ResponseEntity<?> addTokenLog(@RequestBody TokenLog tokenLog) {
@@ -57,7 +56,7 @@ public class TokenLogController {
 		return ResponseEntity.ok().body("TokenLog added successfully.");
 
 	}
-=======
+
 //
 //	@PostMapping(" ")
 //	public ResponseEntity<?> addTokenLog(@RequestBody TokenLog tokenLog ) {
@@ -70,7 +69,7 @@ public class TokenLogController {
 //		return ResponseEntity.ok().body("TokenLog added successfully.");
 //
 //	}
->>>>>>> Stashed changes
+
 
 	@PutMapping("/{id}")
 	public ResponseEntity<?> updateTokenLog(@PathVariable Integer id, @RequestBody TokenLog tokenLog) {

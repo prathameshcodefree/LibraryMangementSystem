@@ -32,11 +32,7 @@ public class StudentController {
 	
 	@Autowired
 	TokenLogService tokenlogservice;
-	
-	
-	
 
-	
 
 	@GetMapping("")
 	public ResponseEntity<?> getStudent() {
@@ -51,7 +47,7 @@ public class StudentController {
 	@GetMapping("/{id}")
 	public ResponseEntity<?> getStudentById(@PathVariable Integer id,@RequestParam  String token) {
 		
-		if(!tokenlogservice.verifyToken(token)) {
+		if(!tokenlogservice.verifyToken1(token)) {
 			return ResponseEntity.status(HttpStatusCode.valueOf(401)).body("Unauthorised Access");
 			
 		}
@@ -70,7 +66,7 @@ public class StudentController {
 
 	@PostMapping(" ")
 	public ResponseEntity<?> addStudent(@RequestBody Student student,@RequestParam  String token) {
-		if(!tokenlogservice.verifyToken(token)) {
+		if(!tokenlogservice.verifyToken1(token)) {
 			return ResponseEntity.status(HttpStatusCode.valueOf(401)).body("Unauthorised Access");
 			
 		}
@@ -118,7 +114,6 @@ public class StudentController {
 		else
 
 		{
-
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Student with id " + id + " not found.");
 
 		}

@@ -1,7 +1,6 @@
 package com.tp.lms.model;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 import com.tp.lms.model.enums.LinkType;
 import com.tp.lms.model.enums.Purpose;
@@ -13,56 +12,60 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="token_log")
+@Table(name = "token_log")
 public class TokenLog {
-	
+
 	@Id
-	@Column(name="token_log_id")
+	@Column(name = "token_log_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-
-	
-	@Column(name="link_id")
+	@Column(name = "link_id")
 	private int linkId;
-	
+
 	@Enumerated(EnumType.STRING)
-	@Column(name="link_type")
+	@Column(name = "link_type")
 	private LinkType linkType;
-	
+
 	@Enumerated(EnumType.STRING)
-	@Column(name="purpose")
+	@Column(name = "purpose")
 	private Purpose purpose;
-	
-	@Column(name="user_name", length = 128)
+
+	@Column(name = "user_name", length = 128,unique=true)
 	private String userName;
-	
-	
-	@Column(name="token", length = 128)
+
+	@Column(name = "token", length = 128)
 	private String token;
-	
-	@Column(name="ip" , length = 128)
+
+	@Column(name = "ip", length = 128)
 	private String ip;
-	
-	@Column(name="attempt")
+
+	@Column(name = "attempt")
 	private int attempt;
-	
-	@Column(name="is_valid")
+
+	@Column(name = "is_valid")
 	private boolean isValid;
-	
-	@Column(name="expiry_time")
+
+	@Column(name = "expiry_time")
 	private LocalDateTime expiryTime;
 
+	@Column(name = "created_at")
+	private LocalDateTime createdAt;
 	
-	
-	
-	
-	
+	@Column(name="set_LogoutTime")
+	private LocalDateTime setLogoutTime;
+
+	public LocalDateTime getSetLogoutTime() {
+		return setLogoutTime;
+	}
+
+	public void setSetLogoutTime(LocalDateTime setLogoutTime) {
+		this.setLogoutTime = setLogoutTime;
+	}
+
 	public LocalDateTime getExpiryTime() {
 		return expiryTime;
 	}
@@ -82,32 +85,6 @@ public class TokenLog {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
-	@Column(name="created_at")
-<<<<<<< HEAD
-	private LocalDateTime createdAt;
-=======
-	private Date createdAt;
-	
-	@Column(name="expiry_time") 
-	private LocalDateTime expiryTime;
-	
-	
-	
-	
-
-	public LocalDateTime getExpiryTime() {
-		return expiryTime;
-	}
-
-	public void setExpiryTime(LocalDateTime expiryTime) {
-		this.expiryTime = expiryTime;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
->>>>>>> 89878c2f9958e1e45a0a7eab06ba9d6f35972550
 
 	public int getId() {
 		return id;
@@ -145,8 +122,6 @@ public class TokenLog {
 		return isValid;
 	}
 
-	
-
 	public void setId(int id) {
 		this.id = id;
 	}
@@ -183,6 +158,4 @@ public class TokenLog {
 		this.isValid = isValid;
 	}
 
-	
-	
 }

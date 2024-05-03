@@ -19,21 +19,25 @@ public class TokenInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-
+        System.out.println("Header 1");
 		String token = request.getHeader("Authorization");
 		if (token == null || token.isEmpty()) {
-
+	 
 			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 			response.getWriter().write("Missing token");
 			return false;
 		}
-
+		System.out.println("Header 2");
 	
-		if (tokenLogService.verifyToken(token)) {
-			
+		if (tokenLogService.verifyToken1(token)) {
+		System.out.println("Header 3");
+	
 			return true;
-		} else {
-			
+		} 
+		
+		
+		else {
+			System.out.println("Header 4");
 			if (tokenLogService.isTokenExpired(token)) {
 
 				response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);

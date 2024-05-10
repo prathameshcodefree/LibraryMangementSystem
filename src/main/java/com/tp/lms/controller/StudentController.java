@@ -45,6 +45,7 @@ public class StudentController {
 	}
 
 	@GetMapping("/{id}")
+
 	public ResponseEntity<?> getStudentById(@PathVariable Integer id,@RequestParam  String token) {
 		
 		if(!tokenlogservice.verifyToken1(token)) {
@@ -52,6 +53,13 @@ public class StudentController {
 			
 		}
 		
+		/*
+		 * if(!tokenlogservice.verifyToken(token)) { return
+		 * ResponseEntity.status(HttpStatusCode.valueOf(401)).body("Unauthorised Access"
+		 * );
+		 * 
+		 * }
+		 */
 		
 		Optional<Student> studentById = studentService.getStudentById(id);
 		if (studentById.isEmpty()) {

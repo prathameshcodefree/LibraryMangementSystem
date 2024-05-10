@@ -1,23 +1,19 @@
 package com.tp.lms.service;
 
 import java.time.LocalDateTime;
-
-import java.time.OffsetDateTime;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.regex.Pattern;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.tp.lms.model.TokenLog;
 import com.tp.lms.model.enums.LinkType;
 import com.tp.lms.model.enums.Purpose;
 import com.tp.lms.repository.TokenLogRepository;
+
 
 @Service
 public class TokenLogService {
@@ -38,23 +34,34 @@ public class TokenLogService {
 		return token;
 	}
 
+
+	
+	
 	public boolean verifyToken(String token) {
 
-		Optional<TokenLog> tokenLog = tokenLogRepository.findByToken(token);
 
-		if (tokenLog.isPresent()) {
-			TokenLog log = tokenLog.get();
-			return log.isValid();
+
+//		// Retrieve the token log
+	Optional<TokenLog> tokenLogOptional = tokenLogRepository.findByToken(token);
+
+	if (tokenLogOptional.isPresent()) {
+			TokenLog log = tokenLogOptional.get();
+		if (log.isValid()) {
+
+			LocalDateTime expiryTime = log.getExpiryTime();
+			return expiryTime != null && !expiryTime.isBefore(LocalDateTime.now());
 		}
 
+		}
 		return false;
+
 	}
 	
 
 	public boolean verifyToken1(String token) {
 		// Retrieve the token log
 		System.out.println("Header 5");
-		Optional<TokenLog> tokenLogOptional = tokenLogRepository.findFirstByToken(token);
+		Optional<TokenLog> tokenLogOptional = tokenLogRepository.findByToken(token);
 		if (tokenLogOptional.isPresent()) {
 			TokenLog log = tokenLogOptional.get();
 			if(log.isValid()) {
@@ -80,22 +87,76 @@ public class TokenLogService {
 		}
 
 		return true;
+
 	}
+	
+	
+	
+
+	/*
+	 * public boolean isValidToken(String token) { Optional<TokenLog>
+	 * tokenLogOptional = tokenLogRepository.findByToken(token);
+	 * 
+	 * if (tokenLogOptional.isPresent()) { TokenLog tokenLog =
+	 * tokenLogOptional.get(); if (tokenLog.isValid()) { LocalDateTime expiryTime =
+	 * tokenLog.getExpiryTime(); // Check if the token is not expired return
+	 * !isTokenExpired(expiryTime); } } // Token not found or invalid return false;
+	 * }
+	 */
+	  
+	 
+	/*
+	 * public boolean isTokenExpired(String token) { TokenLog tokenLog =
+	 * tokenLogRepository.findByToken(token).orElse(null);
+	 * 
+	 * if (tokenLog != null && tokenLog.getExpiryTime() != null) { LocalDateTime
+	 * currentTime = LocalDateTime.now(); return
+	 * tokenLog.getExpiryTime().isBefore(currentTime) || tokenLog.getLogoutTime() !=
+	 * null; }
+	 * 
+	 * return true;
+	 * 
+	 * }
+	 */
+	 
+	 
+	
+	
 
 
 
 	
 
-	public void invalidateToken(String token) {
-		Optional<TokenLog> tokenLogOptional = tokenLogRepository.findByToken(token);
-		if (tokenLogOptional.isPresent()) {
-			TokenLog tokenLog = tokenLogOptional.get();
-			tokenLog.setValid(false); // Mark the token as invalid
-			tokenLogRepository.save(tokenLog); // Save the changes to the database
-		}
-		// You may consider throwing an exception or logging a message if the token is
-		// not found
-	}
+	/*
+	 * public void invalidateToken(String token) { Optional<TokenLog>
+	 * tokenLogOptional = tokenLogRepository.findByToken(token); if
+	 * (tokenLogOptional.isPresent()) { TokenLog tokenLog = tokenLogOptional.get();
+	 * tokenLog.setValid(false); // Mark the token as invalid
+	 * tokenLogRepository.save(tokenLog); // Save the changes to the database } //
+	 * You may consider throwing an exception or logging a message if the token is
+	 * // not found
+	 * 
+	 * String token = UUID.randomUUID().toString();
+	 * 
+	 * LocalDateTime expiryTime = LocalDateTime.now().plusMinutes(1);
+	 * 
+	 * TokenLog tokenLog = new TokenLog(); tokenLog.setToken(token);
+	 * tokenLog.setId(staffid); tokenLog.setExpiryTime(expiryTime);
+	 * tokenLog.setValid(true); // Assuming token is initially valid
+	 * 
+	 * 
+	 * // Call method to add token log to database addlogForLibrarianLogin(token,
+	 * staffid, email ,expiryTime);
+	 * 
+	 * tokenLogRepository.save(tokenLog);
+	 * 
+	 * 
+	 * return token;
+	 * 
+	 * 
+	 * }
+	 */
+	
 
 
 
@@ -162,6 +223,7 @@ public class TokenLogService {
 		return error;
 	}
 
+	
 	public TokenLog addLogForStudentLogin(String token, int studentId, String email, LocalDateTime expiryTime) {
 		TokenLog tl = new TokenLog();
 		tl.setLinkId(studentId);
@@ -171,6 +233,7 @@ public class TokenLogService {
 		tl.setPurpose(Purpose.LOGIN);
 		tl.setUserName(email);
 		tl.setExpiryTime(expiryTime); // Set expiry time
+
         return tokenLogRepository.save(tl);
     }
 
@@ -209,6 +272,23 @@ public class TokenLogService {
 		  
 		}
 
+
+	
+	
+		/*
+		 * public TokenLog addlogForLibrarianLogin(String token, int staffid, String
+		 * email, LocalDateTime expiryTime) { TokenLog tl = new TokenLog();
+		 * tl.setLinkId(staffid); tl.setLinkType(LinkType.STAFF); tl.setToken(token);
+		 * tl.setValid(true); tl.setPurpose(Purpose.LOGIN); tl.setUserName(email);
+		 * tl.setExpiryTime(expiryTime); // Set expiry time
+		 * 
+		 * return tokenLogRepository.save(tl); }
+		 */
+	
+	
+	
+
+
 	public TokenLog updateTokenLog(Integer id, TokenLog tokenLog) {
 		TokenLog existingStaff = tokenLogRepository.findById(id).orElse(null);
 		existingStaff.setUserName(tokenLog.getUserName());
@@ -223,7 +303,6 @@ public class TokenLogService {
 
 	public boolean deleteTokenLog(Integer id) {
 
-	
 		boolean exists = tokenLogRepository.existsById(id);
 		if (exists) {
 			tokenLogRepository.deleteById(id);
@@ -235,21 +314,36 @@ public class TokenLogService {
 
 	}
 
-	public boolean inValidateToken(String token) {
-	
-				Optional<TokenLog> tokenLogOptional = tokenLogRepository.findFirstByToken(token);
 
-				if (tokenLogOptional.isPresent()) {
-					TokenLog log = tokenLogOptional.get();
-					 log.setValid(false);
-					 log.setSetLogoutTime(LocalDateTime.now());
-					 log.setExpiryTime(LocalDateTime.now().plusMinutes(1));
-					 tokenLogRepository.save(log);
-					return true;
-				}
+	/*
+	 * public boolean inValidateToken(String token) {
+	 * 
+	 * Optional<TokenLog> tokenLogOptional =
+	 * tokenLogRepository.findFirstByToken(token);
+	 * 
+	 * if (tokenLogOptional.isPresent()) { TokenLog log = tokenLogOptional.get();
+	 * log.setValid(false); log.setSetLogoutTime(LocalDateTime.now());
+	 * log.setExpiryTime(LocalDateTime.now().plusMinutes(1));
+	 * tokenLogRepository.save(log); return true; }
+	 */
+
+
+
+	public boolean invalidateToken1(String token) {
+		Optional<TokenLog> tokenLogOptional = tokenLogRepository.findByToken(token);
+
+		if (tokenLogOptional.isPresent()) {
+			TokenLog log = tokenLogOptional.get();
+			log.setValid(false);
+			log.setExpiryTime(LocalDateTime.now().plusMinutes(1));
+			log.setLogoutTime(LocalDateTime.now());
+			tokenLogRepository.save(log);
+			return true;
+		}
+
 		return false;
-		
 	}
+
 
 	public boolean validateToken(String token) {
 		Optional<TokenLog> token1 =tokenLogRepository.findByToken(token);
@@ -264,6 +358,8 @@ public class TokenLogService {
 		return false;
 				
 	}
+
+
 
 	
 }

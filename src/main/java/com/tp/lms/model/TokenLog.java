@@ -2,6 +2,7 @@ package com.tp.lms.model;
 
 import java.time.LocalDateTime;
 
+
 import com.tp.lms.model.enums.LinkType;
 import com.tp.lms.model.enums.Purpose;
 
@@ -55,15 +56,24 @@ public class TokenLog {
 	@Column(name = "created_at")
 	private LocalDateTime createdAt;
 	
+
 	@Column(name="set_LogoutTime")
 	private LocalDateTime setLogoutTime;
 
 	public LocalDateTime getSetLogoutTime() {
 		return setLogoutTime;
 	}
+	@Column(name="logout_time") 
+	private LocalDateTime logoutTime;
+	
 
-	public void setSetLogoutTime(LocalDateTime setLogoutTime) {
-		this.setLogoutTime = setLogoutTime;
+	public LocalDateTime getLogoutTime() {
+		return logoutTime;
+	}
+
+	public void setLogoutTime(LocalDateTime logoutTime) {
+		this.logoutTime = logoutTime;
+
 	}
 
 	public LocalDateTime getExpiryTime() {

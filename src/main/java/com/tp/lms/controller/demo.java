@@ -16,6 +16,19 @@ import com.tp.lms.model.Student;
 @RequestMapping("test")
 public class demo {
 	
+	@GetMapping("filter")
+	public String getFilter() {
+		System.out.println("I am controller");
+		return "OK";
+	}
+
+	@GetMapping("nofilter")
+	public String getNoFilter() {
+		System.out.println("I am controller");
+		return "Not OK";
+	}
+		
+	
 	@GetMapping("check")
 	public String getDemo(@RequestParam String username) {
 		return username;

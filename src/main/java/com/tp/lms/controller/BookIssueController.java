@@ -27,19 +27,14 @@ public class BookIssueController {
 
 	@Autowired
 	BookIssueService bookIssueService;
-	
+
 	@Autowired
 	TokenLogService tokenLogService;
 
 	@GetMapping("")
-	public ResponseEntity<?> getBookIssue(@RequestParam String token) {
-		
-		if(!tokenLogService.verifyToken1(token)) {
-			
-			return ResponseEntity.status(HttpStatusCode.valueOf(401)).body("Token Expired.please login again");
-		}
-		
-		
+
+	public ResponseEntity<?> getBookIssue() {
+
 		List<BookIssue> bookIssue = bookIssueService.getBookIssue();
 		if (bookIssue.isEmpty()) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Book Issue not found");
@@ -47,10 +42,6 @@ public class BookIssueController {
 		return ResponseEntity.ok(bookIssue);
 	}
 
-	
-	
-	
-	
 	@GetMapping("/{id}")
 	public ResponseEntity<?> getBookIssueById(@PathVariable Integer id) {
 		Optional<BookIssue> bookIssueById = bookIssueService.getBookIssueById(id);
@@ -64,8 +55,7 @@ public class BookIssueController {
 
 	@PostMapping("")
 	public ResponseEntity<?> addBookIssue(@RequestBody BookIssue bookissue) {
-		
-		
+
 		List<String> error = bookIssueService.validate(bookissue);
 		if (error.size() != 0) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
@@ -86,7 +76,7 @@ public class BookIssueController {
 
 		Optional<BookIssue> existingStudent = bookIssueService.getBookIssueById(id);
 		if (!existingStudent.isPresent()) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Book Issue with " + id + " not found." );
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Book Issue with " + id + " not found.");
 		}
 
 		bookIssueService.updateBookIssue(id, bookissue);

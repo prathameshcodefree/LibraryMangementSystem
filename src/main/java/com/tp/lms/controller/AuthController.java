@@ -6,13 +6,9 @@
 
 package com.tp.lms.controller;
 
-import java.time.LocalDateTime;
-
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,12 +24,15 @@ import com.tp.lms.dto.UserDTO;
 import com.tp.lms.model.Admin;
 import com.tp.lms.model.Staff;
 import com.tp.lms.model.Student;
+import com.tp.lms.model.TokenLog;
 import com.tp.lms.model.enums.StaffType;
 import com.tp.lms.repository.StudentRepository;
 import com.tp.lms.service.AdminService;
 import com.tp.lms.service.StaffService;
 import com.tp.lms.service.StudentService;
 import com.tp.lms.service.TokenLogService;
+
+
 
 /**
  *
@@ -54,8 +53,16 @@ public class AuthController {
 	@Autowired
 	StaffService staffService;
 
+
 	@Autowired
 	TokenLogService tokenLogservice;
+
+
+	@Autowired
+	TokenLogService tokenLogService;
+	
+	@Autowired
+	TokenLog tokenlog;
 
 	@GetMapping("converttohash")
 	public String convertToHash(@RequestParam String clearText) {
@@ -98,6 +105,9 @@ public class AuthController {
 		userDto.setFirstName(student.getFirstName());
 		userDto.setMiddleName(student.getMiddleName());
 		userDto.setUserName(student.getUserName());
+		userDto.setStudentstatus(student.getStudentstatus());
+		userDto.setDate(student.getDob());
+		
 
 		loginResponseDto.setStatus(true);
 		loginResponseDto.setMessage("Login Successfully");
@@ -210,14 +220,21 @@ public class AuthController {
 
 	@PostMapping("/student/logout")
 	public ResponseEntity<?> logout(@RequestParam String token) {
-		tokenLogservice.invalidateToken(token);
+		tokenLogservice.invalidateToken1(token);
 		return ResponseEntity.status(HttpStatus.OK).body("Done");
+
+
+	/*
+	 * @PostMapping("/student/logout") public ResponseEntity<?> logout(@RequestParam
+	 * String token){ tokenLogService.inValidateToken(token); return
+	 * ResponseEntity.status(HttpStatus.OK).body("Done"); }
+	 */
 
 	}
 
 	@PostMapping("/admin/logout")
 	public ResponseEntity<?> logout1(@RequestParam String token) {
-		tokenLogservice.inValidateToken(token);
+		tokenLogservice.invalidateToken1(token);
 		return ResponseEntity.status(HttpStatus.OK).body("Token Logout SucessFully");
 
 	}
